@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Confirmation | Loyalty Program</title>
+    <link rel="stylesheet" href="Index.css">
+    <style>
+        body { background: #f8f6f0; font-family: 'Inter', 'Segoe UI', Arial, sans-serif; }
+        .confirm-container {
+            max-width: 480px;
+            margin: 6rem auto 0 auto;
+            background: #fff;
+            border-radius: 1.2rem;
+            box-shadow: 0 4px 32px rgba(201,162,39,0.10);
+            padding: 2.5rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+        .confirm-title {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #1976d2;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.01em;
+            font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+        }
+        .confirm-message {
+            font-size: 1.15rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+        .confirm-success { color: #009688; }
+        .confirm-error { color: #b00; }
+        .confirm-link {
+            display: inline-block;
+            margin-top: 1.5em;
+            padding: 0.8em 2em;
+            background: linear-gradient(90deg, #b0bfc9 0%, #e5e4e2 50%, #1976d2 100%);
+            color: #1976d2;
+            border-radius: 2em;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .confirm-link:hover {
+            background: linear-gradient(90deg,#1976d2 0%,#b0bfc9 100%);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirm-container">
+        <div class="confirm-title">Email Confirmation</div>
+        <div id="confirm-message" class="confirm-message">Confirming your email...</div>
+        <a href="accounts-sign-in.html" class="confirm-link" style="display:none;" id="signin-link">Go to Sign In</a>
+    </div>
+    <script>
+    // Parse query params
+    function getQueryParam(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+    const token = getQueryParam('token');
+    const email = getQueryParam('email');
+    const msgDiv = document.getElementById('confirm-message');
+    const signinLink = document.getElementById('signin-link');
+    if(token && email) {
+        fetch(`/api/user/confirm-email?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`)
+            .then(res => res.json().then(data => ({ ok: res.ok, ...data })))
+            .then(result => {
+                if(result.ok) {
+                    msgDiv.textContent = result.message || 'Email confirmed! You can now sign in.';
+                    msgDiv.className = 'confirm-message confirm-success';
+                    signinLink.style.display = 'inline-block';
+                } else {
+                    msgDiv.textContent = result.message || 'Confirmation failed.';
+                    msgDiv.className = 'confirm-message confirm-error';
+                }
+            })
+            .catch(() => {
+                msgDiv.textContent = 'Network error. Please try again.';
+                msgDiv.className = 'confirm-message confirm-error';
+            });
+    } else {
+        msgDiv.textContent = 'Invalid confirmation link.';
+        msgDiv.className = 'confirm-message confirm-error';
+    }
+    </script>
+</body>
+</html>

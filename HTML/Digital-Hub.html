@@ -1,0 +1,985 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Premium Eco Rentals Digital Hub â€” Fleet availability, trip planning, booking tools, member access and more.">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Oswald:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="Digital-Hub.css">
+  <script src="https://premiumecorentals2.us5.hqrentals.app/public/car-rental/integrations/assets/integrator"></script>
+  <title>Digital Hub | Premium Eco Rentals</title>
+</head>
+<body>
+
+  <!-- â•â• NAVIGATION â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <nav class="dh-nav" id="dh-nav">
+    <a href="Index.html" class="dh-nav__logo" aria-label="Premium Eco Rentals Home">
+      <img src="Images/Logo.jpg" alt="Premium Eco Rentals Logo"/>
+    </a>
+
+    <ul class="dh-nav__links" id="dh-nav-links">
+      <li><a href="Index.html">Home</a></li>
+      <li><a href="Reservations.html">Reservations</a></li>
+      <li><a href="Business Rentals.html">Business</a></li>
+      <li><a href="Offers.html">Offers</a></li>
+      <li><a href="Digital-Hub.html" class="active">Digital Hub</a></li>
+      <li><a href="Help.html">Help</a></li>
+    </ul>
+
+    <button class="dh-nav__mobile-btn" id="dh-mobile-btn" aria-label="Open menu">
+      <i class="ri-menu-3-line"></i>
+    </button>
+  </nav>
+
+  <!-- â•â• HERO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="dh-hero" id="top">
+    <div class="dh-hero__orb dh-hero__orb--1" aria-hidden="true"></div>
+    <div class="dh-hero__orb dh-hero__orb--2" aria-hidden="true"></div>
+    <div class="dh-hero__orb dh-hero__orb--3" aria-hidden="true"></div>
+
+    <div class="dh-hero__content">
+      <div class="dh-hero__eyebrow">
+        <i class="ri-cpu-line"></i>
+        Premium Eco Rentals &nbsp;Â·&nbsp; Next Generation Platform
+      </div>
+
+      <h1 class="dh-hero__title">
+        <span class="dh-hero__title-chrome">Digital</span> <span>Hub</span>
+      </h1>
+
+      <p class="dh-hero__subtitle">
+        Your all-in-one command centre for fleet discovery, trip planning,
+        member rewards and seamless booking. The future of rental is here.
+      </p>
+
+      <div class="dh-hero__actions">
+        <div class="dh-live-btn-wrap">
+          <a href="live-map.html" class="dh-btn dh-btn--live">
+            <i class="ri-radar-line"></i> Live Airport Pickup Tracker
+          </a>
+          <div class="dh-live-tooltip" role="tooltip">
+            <div class="dh-live-tooltip__header">
+              <span class="dh-live-tooltip__dot"></span>
+              Live Airport Pickup Tracker
+            </div>
+            <p class="dh-live-tooltip__body">
+              See exactly where your rental vehicle is the moment you land. Our live map shows your driver&rsquo;s real-time position at Maurice Bishop International Airport, walking directions to the curbside pickup point, and lets you tap one button to notify your driver the instant you&rsquo;re ready.
+            </p>
+            <ul class="dh-live-tooltip__list">
+              <li><i class="ri-map-pin-2-line"></i> Real-time driver location on the map</li>
+              <li><i class="ri-plane-line"></i> &ldquo;I&rsquo;ve Landed&rdquo; one-tap driver alert</li>
+              <li><i class="ri-walk-line"></i> Step-by-step walk to curbside pickup</li>
+              <li><i class="ri-timer-line"></i> Live ETA countdown to your vehicle</li>
+            </ul>
+            <div class="dh-live-tooltip__footer">No app download needed &mdash; works right in your browser.</div>
+          </div>
+        </div>
+        <div class="dh-hero__actions-row">
+          <a href="#itinerary" class="dh-btn dh-btn--primary">
+            <i class="ri-map-2-line"></i> Plan My Trip
+          </a>
+          <a href="#digital-key" class="dh-btn dh-btn--ghost">
+            <i class="ri-key-2-line"></i> Digital Key
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dh-hero__scroll" aria-hidden="true">
+      <div class="dh-hero__scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- Quick-nav strip -->
+  <div class="dh-quicknav" role="navigation" aria-label="Page sections">
+    <div class="dh-quicknav__inner">
+      <a href="#playground" class="dh-quicknav__item">
+        <i class="ri-layout-grid-line"></i> The Nexus: Digital Grid
+      </a>
+      <a href="#digital-key" class="dh-quicknav__item">
+        <i class="ri-key-2-line"></i> Digital Key Preview
+      </a>
+      <a href="#checkin" class="dh-quicknav__item">
+        <i class="ri-smartphone-line"></i> Digital Check-In
+      </a>
+      <a href="#booking" class="dh-quicknav__item">
+        <i class="ri-tracker-line"></i> Track Booking
+      </a>
+      <a href="#membership" class="dh-quicknav__item">
+        <i class="ri-vip-crown-line"></i> Membership
+      </a>
+      <a href="#itinerary" class="dh-quicknav__item">
+        <i class="ri-map-2-line"></i> Trip Planner
+      </a>
+      <a href="#service-map" class="dh-quicknav__item">
+        <i class="ri-flight-takeoff-line"></i> Airport Pickup
+      </a>
+      <a href="#app" class="dh-quicknav__item">
+        <i class="ri-apps-line"></i> Mobile App
+      </a>
+    </div>
+  </div>
+
+
+  <!-- â•â• SECTION 1: THE NEXUS: DIGITAL GRID â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="dh-playground" id="playground">
+    <!-- Large DIGITAL GRID title with background image -->
+    <div class="colored-text">
+      <h1>
+        <span>T</span><span>H</span><span>E</span> &nbsp;
+        <span>N</span><span>E</span><span>X</span><span>U</span><span>S</span>
+      </h1>  
+    </div>
+
+    <!-- Banner strip - 8 cards -->
+    <div class="banner_strip">
+
+      <div class="banner_strip_card">
+        <img src="Images/Tire Coverage Plan.avif" alt="Tire Coverage Plan"/>
+        <div>Tire <br/> Coverage Plan</div>
+      </div>
+
+      <div class="banner_strip_card">
+        <img src="Images/Gift offer.avif" alt="Latest Offers"/>
+        <div>Don't Miss <br/>Latest Offers<br/> Look for pink tag</div>
+      </div>
+
+      <div class="banner_strip_card">
+        <img src="Images/Elevate Executive.jpg" alt="Business Membership"/>
+        <div>Join Business Membership <br/>Access VIP Corporate Concierge</div>
+      </div>
+
+      <div class="banner_strip_card">
+        <img src="Images/Concierge Personal final.avif" alt="Personal Concierge"/>
+        <div>Add Personal Concierge to your car rental today</div>
+      </div>
+
+      <div class="banner_strip_card">
+        <img src="Images/Image of G90.avif" alt="Elite Membership"/>
+        <div>Become an Elite Member, gain road miles, unlock SUVs, unlock rewards</div>
+      </div>
+
+      <div class="banner_strip_card" id="hotelexp">
+        <img src="" alt="Hotel Experience"/>
+        <div>Elevate your hotel experience</div>
+      </div>
+
+      <div class="banner_strip_card">
+        <img src="Images/Island tours.avif" alt="Island Tours"/>
+        <div>Check out Tours and Activities</div>
+      </div>
+
+      <div class="banner_strip_card">
+        <img src="Images/Concierge Personal final.avif" alt="Concierge Service"/>
+        <div>Add Personal Concierge to your car rental today</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="dh-divider"></div>
+
+
+  <!-- â•â• SECTION 2: DIGITAL KEY PREVIEW â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section id="digital-key">
+    <div class="dh-section">
+      <div class="dh-section-header">
+        <div class="dh-label"><i class="ri-key-2-line"></i> &nbsp; Contactless Access</div>
+        <h2 class="dh-section-title">Digital Key Preview</h2>
+        <p class="dh-section-sub">
+          A glimpse into the future of rentals. No queues, no desks â€” your digital key arrives on your device the moment you're confirmed.
+        </p>
+      </div>
+
+      <!-- Main content -->
+      <div class="dh-dk-layout">
+
+        <!-- Animated digital key card -->
+        <div class="dh-dk-stage">
+          <div class="dh-dk-card">
+            <!-- Scan beam animation -->
+            <div class="dh-dk-scan"></div>
+
+            <!-- Card header -->
+            <div class="dh-dk-card__header">
+              <span class="dh-dk-logo"><i class="ri-leaf-line"></i> PER</span>
+              <span class="dh-dk-badge-cs">COMING SOON</span>
+            </div>
+
+            <!-- Key icon -->
+            <div class="dh-dk-key-icon">
+              <i class="ri-key-2-line"></i>
+              <div class="dh-dk-key-ring dh-dk-key-ring--1"></div>
+              <div class="dh-dk-key-ring dh-dk-key-ring--2"></div>
+              <div class="dh-dk-key-ring dh-dk-key-ring--3"></div>
+            </div>
+
+            <div class="dh-dk-card__label">DIGITAL KEY</div>
+            <div class="dh-dk-card__vehicle">Drive Elite SUV &nbsp;&middot;&nbsp; Slot A-04</div>
+
+            <!-- Status row -->
+            <div class="dh-dk-status">
+              <span class="dh-dk-status__dot"></span>
+              <span class="dh-dk-status__text">AUTHORIZED</span>
+            </div>
+
+            <!-- QR code art -->
+            <div class="dh-dk-qr" aria-hidden="true">
+              <div class="dh-dk-qr__grid">
+                <span class="on"></span><span class="on"></span><span class="on"></span><span></span><span class="on"></span><span></span><span class="on"></span>
+                <span class="on"></span><span></span><span class="on"></span><span class="on"></span><span></span><span class="on"></span><span class="on"></span>
+                <span class="on"></span><span class="on"></span><span></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span>
+                <span></span><span class="on"></span><span></span><span></span><span class="on"></span><span></span><span class="on"></span>
+                <span class="on"></span><span></span><span class="on"></span><span class="on"></span><span></span><span class="on"></span><span class="on"></span>
+                <span class="on"></span><span class="on"></span><span></span><span class="on"></span><span></span><span class="on"></span><span></span>
+                <span class="on"></span><span class="on"></span><span class="on"></span><span></span><span class="on"></span><span class="on"></span><span class="on"></span>
+              </div>
+            </div>
+
+            <!-- NFC / BT icons -->
+            <div class="dh-dk-card__footer">
+              <i class="ri-nfc-line"></i>
+              <i class="ri-bluetooth-line"></i>
+              <i class="ri-shield-check-line"></i>
+            </div>
+          </div>
+
+          <!-- Ambient glow behind card -->
+          <div class="dh-dk-glow"></div>
+        </div>
+
+        <!-- How it works -->
+        <div class="dh-dk-steps">
+          <div class="dh-dk-steps__heading">How It Works</div>
+
+          <div class="dh-dk-step">
+            <div class="dh-dk-step__num">01</div>
+            <div class="dh-dk-step__body">
+              <div class="dh-dk-step__title"><i class="ri-map-pin-2-line"></i> &nbsp;Confirm Your Arrival</div>
+              <p class="dh-dk-step__desc">Check in via the Digital Hub 15 minutes before your scheduled pickup. Our system verifies your booking instantly.</p>
+            </div>
+          </div>
+
+          <div class="dh-dk-step">
+            <div class="dh-dk-step__num">02</div>
+            <div class="dh-dk-step__body">
+              <div class="dh-dk-step__title"><i class="ri-smartphone-line"></i> &nbsp;Receive Your Digital Key</div>
+              <p class="dh-dk-step__desc">A secure digital key is sent directly to your device. No desk visit, no paper forms, no waiting in line.</p>
+            </div>
+          </div>
+
+          <div class="dh-dk-step">
+            <div class="dh-dk-step__num">03</div>
+            <div class="dh-dk-step__body">
+              <div class="dh-dk-step__title"><i class="ri-car-line"></i> &nbsp;Unlock &amp; Drive</div>
+              <p class="dh-dk-step__desc">Tap your phone to the NFC reader on the vehicle. The car unlocks and your rental begins â€” contactless, seamless, instant.</p>
+            </div>
+          </div>
+
+          <!-- Feature pills -->
+          <div class="dh-dk-pills">
+            <span class="dh-dk-pill"><i class="ri-timer-flash-line"></i> Zero Queue</span>
+            <span class="dh-dk-pill"><i class="ri-hand-sanitizer-line"></i> Contactless</span>
+            <span class="dh-dk-pill"><i class="ri-nfc-line"></i> NFC Secure</span>
+            <span class="dh-dk-pill"><i class="ri-time-line"></i> 24 / 7 Access</span>
+          </div>
+
+          <div class="dh-dk-elite-note">
+            <i class="ri-vip-crown-2-line"></i>
+            <div>
+              <strong>Elite Members â€” First Access</strong><br>
+              Elite customers will be the first to receive their Digital Key when the feature launches. <a href="Elite-Membership.html" class="dh-dk-elite-link">Join Elite &rarr;</a>
+            </div>
+          </div>
+          <p class="dh-dk-note"><i class="ri-information-line"></i> &nbsp;Digital Key is a planned feature. Current rentals are coordinated via our booking platform and support team.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="dh-divider"></div>
+  <!-- â•â• DRIVE ELITE BANNER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="dh-elite-banner">
+    <div class="dh-elite-banner__scan"></div>
+    <div class="dh-elite-banner__inner">
+      <div class="dh-elite-banner__icon"><i class="ri-vip-crown-2-fill"></i></div>
+      <div class="dh-elite-banner__text">
+        <h2 class="dh-elite-banner__title">Drive Elite for an Unforgettable Experience</h2>
+        <p class="dh-elite-banner__sub">Priority vehicles. Concierge booking. Exclusive perks. Upgrade your rental experience with an Elite membership.</p>
+      </div>
+      <a href="Elite-Membership.html" class="dh-elite-banner__btn">
+        <i class="ri-arrow-right-line"></i> Explore Elite
+      </a>
+    </div>
+  </div>
+
+  <div class="dh-divider"></div>
+
+  <!-- â•â• SECTION 3: DIGITAL CHECK-IN PORTAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="dh-checkin" id="checkin">
+    <div class="dh-section">
+      <div class="dh-section-header dh-checkin-header">
+        <div class="dh-label" style="background:rgba(34,211,238,0.07);border-color:rgba(34,211,238,0.2);color:var(--dh-cyan);">
+          <i class="ri-smartphone-line"></i> &nbsp; Digital Check-In
+        </div>
+        <h2 class="dh-section-title" style="color:#FFFFFF;">Arrive Ready. Skip the Queue.</h2>
+        <p class="dh-section-sub">Complete your pre-arrival steps online so your car is waiting the moment you land.</p>
+      </div>
+
+      <div class="dh-checkin-grid">
+
+        <!-- Steps -->
+        <div class="dh-checkin-steps">
+
+          <div class="dh-step">
+            <div class="dh-step__num">01</div>
+            <div class="dh-step__body">
+              <div class="dh-step__title">Make Your Booking</div>
+              <div class="dh-step__desc">Select your vehicle, dates, and pickup location via our booking platform. You'll receive a confirmation email with your booking reference.</div>
+              <span class="dh-step__tag"><i class="ri-checkbox-circle-line"></i> &nbsp; Live Now</span>
+            </div>
+          </div>
+
+          <div class="dh-step">
+            <div class="dh-step__num">02</div>
+            <div class="dh-step__body">
+              <div class="dh-step__title">Prepare Your Documents</div>
+              <div class="dh-step__desc">Have your valid driver's licence, passport or national ID, and credit/debit card ready for pickup. International visitors: ensure your licence is valid for Grenada.</div>
+              <span class="dh-step__tag"><i class="ri-file-text-line"></i> &nbsp; Pre-Arrival</span>
+            </div>
+          </div>
+
+          <div class="dh-step">
+            <div class="dh-step__num">03</div>
+            <div class="dh-step__body">
+              <div class="dh-step__title">Select Your Add-Ons</div>
+              <div class="dh-step__desc">Consider adding Tire Coverage, Personal Concierge, or upgrading to Premium+Plus or Elite at the time of booking for maximum value.</div>
+              <span class="dh-step__tag"><i class="ri-add-circle-line"></i> &nbsp; Optional Extras</span>
+            </div>
+          </div>
+
+          <div class="dh-step">
+            <div class="dh-step__num">04</div>
+            <div class="dh-step__body">
+              <div class="dh-step__title">Delivery or Self-Pickup</div>
+              <div class="dh-step__desc">Choose curbside delivery to your accommodation or airport â€” we bring the car to you. Alternatively, arrange a pickup point at your convenience.</div>
+              <span class="dh-step__tag"><i class="ri-map-pin-line"></i> &nbsp; Concierge Option</span>
+            </div>
+          </div>
+
+          <div class="dh-step">
+            <div class="dh-step__num">05</div>
+            <div class="dh-step__body">
+              <div class="dh-step__title">Digital Return Declaration</div>
+              <div class="dh-step__desc">At return, confirm fuel level and vehicle condition with your agent. Your receipt and loyalty points are issued the same day.</div>
+              <span class="dh-step__tag"><i class="ri-secure-payment-line"></i> &nbsp; At Return</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Info panel -->
+        <div class="dh-checkin-panel">
+          <div class="dh-checkin-panel__title">What to Expect at Pickup</div>
+          <div class="dh-checkin-panel__sub">A smooth, paperwork-light handover â€” every time.</div>
+
+          <div class="dh-checkin-feature-list">
+            <div class="dh-checkin-feature">
+              <i class="ri-time-line"></i>
+              <span>Average pickup time under 10 minutes</span>
+            </div>
+            <div class="dh-checkin-feature">
+              <i class="ri-car-washing-line"></i>
+              <span>Vehicle pre-cleaned and inspected before handover</span>
+            </div>
+            <div class="dh-checkin-feature">
+              <i class="ri-map-pin-user-line"></i>
+              <span>Airport &amp; hotel delivery available â€” no extra charge with Premium+Plus or Elite</span>
+            </div>
+            <div class="dh-checkin-feature">
+              <i class="ri-customer-service-2-line"></i>
+              <span>24/7 concierge available from the moment you book</span>
+            </div>
+            <div class="dh-checkin-feature">
+              <i class="ri-leaf-line"></i>
+              <span>Eco-certified vehicle ready and fuelled</span>
+            </div>
+            <div class="dh-checkin-feature">
+              <i class="ri-coins-line"></i>
+              <span>Loyalty points issued at booking confirmation</span>
+            </div>
+          </div>
+
+          <a href="https://premiumecorentals2.us5.hqrentals.app/public/car-rental/reservations/step1?new=1&brand=blsea0wm-snln-xg0c-9xxu-esymdste3acy"
+             target="_blank"
+             class="dh-btn dh-btn--primary" style="width:100%;justify-content:center;">
+            <i class="ri-calendar-check-line"></i> &nbsp; Start Your Booking
+          </a>
+
+          <div class="dh-checkin-future-badge">
+            <i class="ri-rocket-line"></i>
+            <span>Full digital check-in portal â€” upload ID, sign agreements &amp; select extras online â€” coming in a future update.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="dh-divider"></div>
+
+
+  <!-- â•â• SECTION 4: BOOKING TRACKER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section id="booking">
+    <div class="dh-section">
+      <div class="dh-section-header">
+        <div class="dh-label"><i class="ri-tracker-line"></i> &nbsp; Booking Status</div>
+        <h2 class="dh-section-title">Track Your Reservation</h2>
+        <p class="dh-section-sub">Follow your booking from confirmation to return. Managed securely through HQ Rentals.</p>
+      </div>
+
+      <!-- Booking status card -->
+      <div class="dh-tracker-card" style="grid-template-columns:1fr;">
+        <div>
+          <div class="dh-tracker-card__icon"><i class="ri-calendar-check-line"></i></div>
+          <div class="dh-tracker-card__title">Track Your Booking</div>
+          <div class="dh-tracker-card__desc">
+            View your reservation details, vehicle assignment, pickup instructions and rental status â€” all in one place.
+          </div>
+          <a class="dh-tracker-card__btn" href="https://premiumecorentals2.us5.hqrentals.app/public/car-rental/reservations/my-reservations" target="_blank" rel="noopener">
+            View My Reservations <i class="ri-arrow-right-line"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- HQ Rentals: My Reservations widget -->
+      <div style="margin-top:1.5rem;">
+        <div class="hq-rental-software-integration"
+             data-integrator_link="https://premiumecorentals2.us5.hqrentals.app/public/car-rental/integrations"
+             data-brand="blsea0wm-snln-xg0c-9xxu-esymdste3acy"
+             data-snippet="my-reservations"
+             data-skip_language=""
+             data-referral=""
+             data-enable_auto_language_update="">
+        </div>
+      </div>
+
+      <!-- Status stage pipeline -->
+      <div class="dh-status-stages" role="presentation">
+        <div class="dh-stage dh-stage--active">
+          <div class="dh-stage__dot"><i class="ri-checkbox-circle-fill"></i></div>
+          <div class="dh-stage__label">Confirmed</div>
+        </div>
+        <div class="dh-stage-line"></div>
+        <div class="dh-stage">
+          <div class="dh-stage__dot"><i class="ri-car-line"></i></div>
+          <div class="dh-stage__label">Vehicle<br/>Assigned</div>
+        </div>
+        <div class="dh-stage-line"></div>
+        <div class="dh-stage">
+          <div class="dh-stage__dot"><i class="ri-key-2-line"></i></div>
+          <div class="dh-stage__label">Ready for<br/>Pickup</div>
+        </div>
+        <div class="dh-stage-line"></div>
+        <div class="dh-stage">
+          <div class="dh-stage__dot"><i class="ri-road-map-line"></i></div>
+          <div class="dh-stage__label">Active<br/>Rental</div>
+        </div>
+        <div class="dh-stage-line"></div>
+        <div class="dh-stage">
+          <div class="dh-stage__dot"><i class="ri-flag-line"></i></div>
+          <div class="dh-stage__label">Return<br/>Due</div>
+        </div>
+        <div class="dh-stage-line"></div>
+        <div class="dh-stage">
+          <div class="dh-stage__dot"><i class="ri-medal-line"></i></div>
+          <div class="dh-stage__label">Completed<br/>&amp; Rewarded</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="dh-divider"></div>
+
+
+  <!-- â•â• SECTION 5: MEMBERSHIP CARDS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section id="membership">
+    <div class="dh-section">
+      <div class="dh-section-header">
+        <div class="dh-label"><i class="ri-vip-crown-line"></i> &nbsp; Member Access</div>
+        <h2 class="dh-section-title">Your Membership Portal</h2>
+        <p class="dh-section-sub">Access your points, rewards, and elite benefits â€” all from the Member Hub.</p>
+      </div>
+
+      <div class="dh-membership-grid">
+
+        <!-- Loyalty Card -->
+        <a href="Index.html#member-hub" class="dh-loyalty-card">
+          <div class="dh-card-shine" aria-hidden="true"></div>
+          <div class="dh-card-chip" aria-hidden="true"></div>
+          <div class="dh-card-tier">Premium Eco Rentals &nbsp;Â·&nbsp; Loyalty Programme</div>
+          <div class="dh-card-name">Loyalty Card</div>
+          <div class="dh-card-sub">Earn points on every rental. Unlock exclusive discounts, free days and member-only benefits as you progress through tiers.</div>
+
+          <div class="dh-card-perks">
+            <div class="dh-card-perk"><i class="ri-coins-line"></i> Earn points on every rental</div>
+            <div class="dh-card-perk"><i class="ri-gift-line"></i> Redeem for free rental days</div>
+            <div class="dh-card-perk"><i class="ri-arrow-up-circle-line"></i> Progress through Bronze â†’ Platinum</div>
+            <div class="dh-card-perk"><i class="ri-percent-line"></i> Member-exclusive discount offers</div>
+          </div>
+
+          <div class="dh-card-action">
+            <i class="ri-user-star-line"></i> Access your account &amp; points &rarr;
+          </div>
+        </a>
+
+        <!-- Elite Card -->
+        <a href="Index.html#member-hub" class="dh-elite-card">
+          <div class="dh-card-shine" aria-hidden="true"></div>
+          <div class="dh-card-chip" aria-hidden="true"></div>
+          <div class="dh-card-tier">Premium Eco Rentals &nbsp;Â·&nbsp; Elite First Class</div>
+          <div class="dh-card-name" style="background:linear-gradient(90deg,#D4A843,#FFE08A,#D4A843);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Elite Card</div>
+          <div class="dh-card-sub">The pinnacle of premium rental. Exclusive rewards, road miles, and fully personalised service â€” reserved for Elite members.</div>
+
+          <div class="dh-card-perks">
+            <div class="dh-card-perk"><i class="ri-vip-crown-line"></i> Complimentary Exclusive Elite Membership</div>
+            <div class="dh-card-perk"><i class="ri-road-map-line"></i> Earn road miles on every journey</div>
+            <div class="dh-card-perk"><i class="ri-arrow-up-circle-line"></i> Auto-upgrade when higher SUV available</div>
+            <div class="dh-card-perk"><i class="ri-customer-service-2-line"></i> Dedicated personal concierge</div>
+            <div class="dh-card-perk"><i class="ri-coupon-3-line"></i> Up to 35% off on future rentals</div>
+          </div>
+
+          <div class="dh-card-action dh-card-action--gold">
+            <i class="ri-vip-diamond-line"></i> Access your Elite rewards &rarr;
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="dh-divider"></div>
+
+
+  <!-- â•â• SECTION 6: TRIP ITINERARY PLANNER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section id="itinerary">
+    <div class="dh-section">
+      <div class="dh-section-header">
+        <div class="dh-label"><i class="ri-map-2-line"></i> &nbsp; Trip Planner</div>
+        <h2 class="dh-section-title">Your Grenada Itinerary</h2>
+        <p class="dh-section-sub">
+          A curated 5-day itinerary across Grenada's finest destinations. Add activities to build your personal trip plan â€” saved to your browser.
+        </p>
+      </div>
+
+      <div class="dh-itinerary-layout">
+
+        <!-- Left: Day tabs + activity cards -->
+        <div>
+          <div class="dh-day-tabs" role="tablist" aria-label="Itinerary days">
+            <button class="dh-day-tab active" role="tab" data-day="1" aria-selected="true">Day 1</button>
+            <button class="dh-day-tab" role="tab" data-day="2" aria-selected="false">Day 2</button>
+            <button class="dh-day-tab" role="tab" data-day="3" aria-selected="false">Day 3</button>
+            <button class="dh-day-tab" role="tab" data-day="4" aria-selected="false">Day 4</button>
+            <button class="dh-day-tab" role="tab" data-day="5" aria-selected="false">Day 5</button>
+          </div>
+
+          <!-- Day 1 -->
+          <div class="dh-day-panel active" data-day="1">
+
+            <div class="dh-activity-card" data-id="d1-grand-anse">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&auto=format&fit=crop&q=60"
+                   alt="Grand Anse Beach"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-sun-line"></i> &nbsp;Morning</div>
+                <div class="dh-activity-name">Grand Anse Beach</div>
+                <div class="dh-activity-desc">One of the Caribbean's finest beaches â€” two miles of white sand. Drive down, park up, and take in the azure waters.</div>
+                <span class="dh-activity-tag"><i class="ri-road-map-line"></i> 10 min from Airport</span>
+              </div>
+              <button class="dh-add-btn" data-id="d1-grand-anse" data-day="Day 1" data-name="Grand Anse Beach" aria-label="Add Grand Anse Beach to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d1-carenage">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1597149305054-2c73e05abf47?w=300&auto=format&fit=crop&q=60"
+                   alt="The Carenage"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-time-line"></i> &nbsp;Afternoon</div>
+                <div class="dh-activity-name">The Carenage, St. George's</div>
+                <div class="dh-activity-desc">Grenada's iconic horseshoe harbour. Stroll the waterfront, browse local craft shops, and enjoy fresh seafood at the wharf.</div>
+                <span class="dh-activity-tag"><i class="ri-anchor-line"></i> St. George's Harbour</span>
+              </div>
+              <button class="dh-add-btn" data-id="d1-carenage" data-day="Day 1" data-name="The Carenage, St. George's" aria-label="Add The Carenage to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d1-fort-george">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&auto=format&fit=crop&q=60"
+                   alt="Fort George"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-moon-line"></i> &nbsp;Late Afternoon</div>
+                <div class="dh-activity-name">Fort George</div>
+                <div class="dh-activity-desc">A historic 18th-century fort with panoramic views over St. George's and the harbour. A must-visit for history and photography.</div>
+                <span class="dh-activity-tag"><i class="ri-ancient-gate-line"></i> Historic Site</span>
+              </div>
+              <button class="dh-add-btn" data-id="d1-fort-george" data-day="Day 1" data-name="Fort George" aria-label="Add Fort George to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Day 2 -->
+          <div class="dh-day-panel" data-day="2">
+
+            <div class="dh-activity-card" data-id="d2-annandale">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1529307474719-3d0a417aaf8a?w=300&auto=format&fit=crop&q=60"
+                   alt="Annandale Falls"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-sun-line"></i> &nbsp;Morning</div>
+                <div class="dh-activity-name">Annandale Falls</div>
+                <div class="dh-activity-desc">A stunning 30-foot waterfall surrounded by lush tropical foliage. Just 15 minutes from St. George's â€” perfect for a refreshing swim.</div>
+                <span class="dh-activity-tag"><i class="ri-water-flash-line"></i> Nature</span>
+              </div>
+              <button class="dh-add-btn" data-id="d2-annandale" data-day="Day 2" data-name="Annandale Falls" aria-label="Add Annandale Falls to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d2-grand-etang">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&auto=format&fit=crop&q=60"
+                   alt="Grand Etang National Park"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-time-line"></i> &nbsp;Midday</div>
+                <div class="dh-activity-name">Grand Etang National Park</div>
+                <div class="dh-activity-desc">A volcanic crater lake set in a lush rainforest. Hike the trails, spot mona monkeys, and experience Grenada's untouched interior.</div>
+                <span class="dh-activity-tag"><i class="ri-tree-line"></i> Rainforest &amp; Wildlife</span>
+              </div>
+              <button class="dh-add-btn" data-id="d2-grand-etang" data-day="Day 2" data-name="Grand Etang National Park" aria-label="Add Grand Etang to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d2-belmont">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?w=300&auto=format&fit=crop&q=60"
+                   alt="Belmont Estate"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-moon-line"></i> &nbsp;Afternoon</div>
+                <div class="dh-activity-name">Belmont Estate â€” Chocolate &amp; Spice Tour</div>
+                <div class="dh-activity-desc">Explore a working cocoa and spice estate in St. Patrick. Tour the grounds, see cocoa fermentation, and taste Grenada's world-famous chocolate.</div>
+                <span class="dh-activity-tag"><i class="ri-plant-line"></i> Cultural Experience</span>
+              </div>
+              <button class="dh-add-btn" data-id="d2-belmont" data-day="Day 2" data-name="Belmont Estate â€” Chocolate & Spice Tour" aria-label="Add Belmont Estate to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Day 3 -->
+          <div class="dh-day-panel" data-day="3">
+
+            <div class="dh-activity-card" data-id="d3-sculpture">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&auto=format&fit=crop&q=60"
+                   alt="Underwater Sculpture Park"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-sun-line"></i> &nbsp;Morning</div>
+                <div class="dh-activity-name">Underwater Sculpture Park</div>
+                <div class="dh-activity-desc">The world's first underwater sculpture park off Molinere Bay â€” accessible by snorkel or dive. Over 70 sculptures creating an artificial reef.</div>
+                <span class="dh-activity-tag"><i class="ri-water-percent-line"></i> Diving &amp; Snorkelling</span>
+              </div>
+              <button class="dh-add-btn" data-id="d3-sculpture" data-day="Day 3" data-name="Underwater Sculpture Park" aria-label="Add Underwater Sculpture Park to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d3-gouyave">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=300&auto=format&fit=crop&q=60"
+                   alt="Gouyave Nutmeg Station"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-time-line"></i> &nbsp;Afternoon</div>
+                <div class="dh-activity-name">Gouyave Nutmeg Processing Station</div>
+                <div class="dh-activity-desc">Grenada is the world's second-largest producer of nutmeg. Visit the historic station in Gouyave and learn how this spice is processed.</div>
+                <span class="dh-activity-tag"><i class="ri-seedling-line"></i> The Spice Isle</span>
+              </div>
+              <button class="dh-add-btn" data-id="d3-gouyave" data-day="Day 3" data-name="Gouyave Nutmeg Processing Station" aria-label="Add Gouyave to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d3-bathway">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=300&auto=format&fit=crop&q=60"
+                   alt="Bathway Beach"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-moon-line"></i> &nbsp;Evening</div>
+                <div class="dh-activity-name">Bathway Beach</div>
+                <div class="dh-activity-desc">A natural rock barrier forms a tranquil lagoon at this northeastern beach. Less frequented than Grand Anse, ideal for a peaceful end-of-day swim.</div>
+                <span class="dh-activity-tag"><i class="ri-map-pin-2-line"></i> Sauteurs, North Grenada</span>
+              </div>
+              <button class="dh-add-btn" data-id="d3-bathway" data-day="Day 3" data-name="Bathway Beach" aria-label="Add Bathway Beach to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Day 4 -->
+          <div class="dh-day-panel" data-day="4">
+
+            <div class="dh-activity-card" data-id="d4-levera">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=300&auto=format&fit=crop&q=60"
+                   alt="Levera Beach"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-sun-line"></i> &nbsp;Morning</div>
+                <div class="dh-activity-name">Levera Beach &amp; National Park</div>
+                <div class="dh-activity-desc">A protected nesting site for leatherback turtles. The beach faces the Sugar Loaf, Sandy, and Bird Islands with breathtaking views across to Carriacou.</div>
+                <span class="dh-activity-tag"><i class="ri-earth-line"></i> Wildlife Reserve</span>
+              </div>
+              <button class="dh-add-btn" data-id="d4-levera" data-day="Day 4" data-name="Levera Beach & National Park" aria-label="Add Levera Beach to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d4-carib">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1565060169194-19fabf63012c?w=300&auto=format&fit=crop&q=60"
+                   alt="Carib's Leap"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-time-line"></i> &nbsp;Afternoon</div>
+                <div class="dh-activity-name">Carib's Leap, Sauteurs</div>
+                <div class="dh-activity-desc">A poignant historic cliff site where the last Caribs leapt to their deaths rather than surrender to French forces in 1651. Memorial and museum on site.</div>
+                <span class="dh-activity-tag"><i class="ri-ancient-pavilion-line"></i> History &amp; Heritage</span>
+              </div>
+              <button class="dh-add-btn" data-id="d4-carib" data-day="Day 4" data-name="Carib's Leap, Sauteurs" aria-label="Add Carib's Leap to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d4-pearls">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1586423253068-57c2b6b4b5d0?w=300&auto=format&fit=crop&q=60"
+                   alt="Pearls Airport"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-moon-line"></i> &nbsp;Late Afternoon</div>
+                <div class="dh-activity-name">Pearls Airport â€” Abandoned Aircraft</div>
+                <div class="dh-activity-desc">A fascinating relic from the US invasion of 1983. Two derelict Soviet aircraft sit on the old airstrip â€” a unique open-air history exhibit.</div>
+                <span class="dh-activity-tag"><i class="ri-plane-line"></i> Hidden Gem</span>
+              </div>
+              <button class="dh-add-btn" data-id="d4-pearls" data-day="Day 4" data-name="Pearls Airport â€” Abandoned Aircraft" aria-label="Add Pearls Airport to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Day 5 -->
+          <div class="dh-day-panel" data-day="5">
+
+            <div class="dh-activity-card" data-id="d5-hog">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=300&auto=format&fit=crop&q=60"
+                   alt="Hog Island"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-sun-line"></i> &nbsp;Morning</div>
+                <div class="dh-activity-name">Hog Island, Clarke's Court Bay</div>
+                <div class="dh-activity-desc">A hidden islet accessible by short boat ride from Clarke's Court. Home to a famed beach bar, iguana spotting, and one of the clearest water spots on the island.</div>
+                <span class="dh-activity-tag"><i class="ri-ship-line"></i> Island Getaway</span>
+              </div>
+              <button class="dh-add-btn" data-id="d5-hog" data-day="Day 5" data-name="Hog Island, Clarke's Court Bay" aria-label="Add Hog Island to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d5-laura-herbs">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=300&auto=format&fit=crop&q=60"
+                   alt="Laura Herb and Spice Garden"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-time-line"></i> &nbsp;Midday</div>
+                <div class="dh-activity-name">Laura Herb &amp; Spice Garden</div>
+                <div class="dh-activity-desc">A guided tour through an authentic Grenadian spice garden. See nutmeg, cinnamon, cloves, bay leaf, and cocoa growing in their natural habitat.</div>
+                <span class="dh-activity-tag"><i class="ri-plant-line"></i> Guided Garden Tour</span>
+              </div>
+              <button class="dh-add-btn" data-id="d5-laura-herbs" data-day="Day 5" data-name="Laura Herb & Spice Garden" aria-label="Add Laura Herb Garden to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+            <div class="dh-activity-card" data-id="d5-morne-rouge">
+              <img class="dh-activity-img"
+                   src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&auto=format&fit=crop&q=60"
+                   alt="Morne Rouge Beach"/>
+              <div>
+                <div class="dh-activity-time"><i class="ri-moon-line"></i> &nbsp;Sunset</div>
+                <div class="dh-activity-name">Morne Rouge Beach â€” Sunset farewell</div>
+                <div class="dh-activity-desc">A quieter crescent bay, steps from Grand Anse. End your Grenada adventure watching the sun set over the warm Caribbean Sea â€” a perfect farewell.</div>
+                <span class="dh-activity-tag"><i class="ri-sun-foggy-line"></i> Sunset Spot</span>
+              </div>
+              <button class="dh-add-btn" data-id="d5-morne-rouge" data-day="Day 5" data-name="Morne Rouge Beach â€” Sunset Farewell" aria-label="Add Morne Rouge to itinerary">
+                <i class="ri-add-line"></i> Add
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right: My Itinerary panel -->
+        <aside class="dh-my-itinerary" id="my-itinerary" aria-label="My saved itinerary">
+          <div class="dh-my-itinerary__header">
+            <span class="dh-my-itinerary__title"><i class="ri-map-2-line"></i> My Itinerary</span>
+            <span class="dh-my-itinerary__count" id="itinerary-count">0 stops</span>
+          </div>
+
+          <div class="dh-my-itinerary__list" id="itinerary-list">
+            <div class="dh-my-itinerary__empty" id="itinerary-empty">
+              <i class="ri-map-pin-add-line"></i>
+              <span>No activities added yet.</span>
+              <span style="font-size:0.72rem;">Click "Add" on any activity to build your trip.</span>
+            </div>
+          </div>
+
+          <div class="dh-my-itinerary__footer">
+            <button class="dh-print-btn" id="print-itinerary-btn" disabled>
+              <i class="ri-printer-line"></i> Share / Print Itinerary
+            </button>
+            <button class="dh-clear-btn" id="clear-itinerary-btn">
+              <i class="ri-delete-bin-line"></i> Clear All
+            </button>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="dh-divider"></div>
+
+
+  <!-- â•â• SECTION: SERVICE AREA MAP â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="dh-service-map" id="service-map">
+    <div class="dh-section">
+      <div class="dh-smap-header">
+        <div class="dh-smap-eyebrow"><i class="ri-flight-takeoff-line"></i> &nbsp;Main Pickup Location</div>
+        <h2 class="dh-smap-title">Maurice Bishop International <span class="dh-smap-title--accent">Airport</span></h2>
+        <p class="dh-smap-sub">Our primary pickup and dropoff point. We&rsquo;ll have your vehicle ready when you land &mdash; curbside or in our private bay.</p>
+      </div>
+
+      <div class="dh-smap-cta-wrap">
+
+        <a href="live-map.html" class="dh-smap-cta-btn">
+          <span class="dh-smap-cta-btn__live-dot"></span>
+          <i class="ri-radar-line"></i>
+          <span>
+            <strong>Open Live Airport Pickup Tracker</strong>
+            <span class="dh-smap-cta-btn__sub">Real-time tracking &bull; Notify your driver &bull; Curbside directions</span>
+          </span>
+          <i class="ri-arrow-right-line dh-smap-cta-btn__arrow"></i>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="dh-divider"></div>
+
+
+  <!-- â•â• SECTION 7: MOBILE APP â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="dh-app" id="app">
+    <div class="dh-section">
+      <div class="dh-app-grid">
+
+        <div>
+          <div class="dh-app-eyebrow">Coming Soon</div>
+          <h2 class="dh-app-title">Premium Eco Rentals<br/><span style="background:linear-gradient(90deg,#0EA5E9,#22D3EE,#14B8A6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Mobile App</span></h2>
+          <p class="dh-app-desc">
+            Book, manage, and track your rental from anywhere. Digital check-in, loyalty rewards, trip planning and 24/7 concierge â€” all in your pocket.
+          </p>
+
+          <div class="dh-store-btns">
+            <div class="dh-store-btn" aria-label="App Store â€” Coming Soon" title="Coming Soon">
+              <i class="ri-apple-line"></i>
+              <div class="dh-store-btn__text">
+                <span class="dh-store-btn__label">Download on the</span>
+                <span class="dh-store-btn__name">App Store</span>
+              </div>
+            </div>
+
+            <div class="dh-store-btn" aria-label="Google Play â€” Coming Soon" title="Coming Soon">
+              <i class="ri-google-play-line"></i>
+              <div class="dh-store-btn__text">
+                <span class="dh-store-btn__label">Get it on</span>
+                <span class="dh-store-btn__name">Google Play</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dh-app-coming-soon">
+            <i class="ri-rocket-2-line"></i> In Development â€” Launching Soon
+          </div>
+        </div>
+
+        <!-- Phone mockup -->
+        <div class="dh-phone-mockup" aria-hidden="true">
+          <div class="dh-phone">
+            <div class="dh-phone__screen">
+              <div class="dh-phone__logo">Premium Eco Rentals</div>
+              <div class="dh-phone__tile dh-phone__tile--accent">
+                <i class="ri-car-line"></i> Your booking is confirmed
+              </div>
+              <div class="dh-phone__tile">
+                <i class="ri-map-2-line"></i> Trip Planner Â· Day 3
+              </div>
+              <div class="dh-phone__tile">
+                <i class="ri-coins-line"></i> 240 loyalty points earned
+              </div>
+              <div class="dh-phone__tile">
+                <i class="ri-customer-service-2-line"></i> Concierge online
+              </div>
+              <div class="dh-phone__tile" style="background:rgba(20,184,166,0.07);border-color:rgba(20,184,166,0.18);">
+                <i class="ri-leaf-line"></i> Eco impact: 0.3t COâ‚‚ saved
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <footer class="dh-footer">
+    <div class="dh-footer__logo">Premium Eco Rentals Â· Digital Hub</div>
+    <div class="dh-footer__links">
+      <a href="Index.html">Home</a>
+      <a href="Reservations.html">Reservations</a>
+      <a href="Offers.html">Offers</a>
+      <a href="Business Rentals.html">Business</a>
+      <a href="Help.html">Help &amp; Support</a>
+      <a href="Index.html#member-hub">Member Hub</a>
+    </div>
+    <p class="dh-footer__copy">&copy; 2026 Premium Eco Rentals Â· Grenada Â· All rights reserved.</p>
+  </footer>
+
+
+  <script src="Digital-Hub.js"></script>
+  <link rel="stylesheet" href="chatbot.css">
+  <script src="chatbot.js"></script>
+</body>
+</html>

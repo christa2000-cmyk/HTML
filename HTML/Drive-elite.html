@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elite Membership | Premium Eco Rentals</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #D4A853;
+      --gold-light: #f0c97a;
+      --gold-dark: #a87c30;
+      --dark: #0a0a0a;
+      --dark-card: #111111;
+      --dark-card2: #161616;
+      --red: #BD062E;
+      --white: #ffffff;
+      --text-light: #c8c8c8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { scroll-behavior: smooth; }
+
+    body {
+      background-color: #FFFFF0;
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212,168,83,0.2);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* HERO */
+    .elite-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 60%, rgba(212,168,83,0.12) 0%, transparent 70%), #D9D3B0;
+    }
+    .elite-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4A853' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .elite-badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.5rem;
+      border-radius: 50px;
+      margin-bottom: 2rem;
+    }
+    .elite-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+      color: var(--gold);
+    }
+    .elite-hero h1 span { color: var(--gold); }
+    .elite-hero p {
+      font-size: 1.1rem;
+      color: #8B6914;
+      max-width: 600px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+    .gold-line {
+      width: 80px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 3rem;
+    }
+    .elite-access-note {
+      margin-top: 1.5rem;
+      max-width: 860px;
+      font-size: 0.96rem;
+      line-height: 1.9;
+      color: #6f5311;
+      text-align: center;
+    }
+
+    /* ELIGIBILITY SECTION */
+    .section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      color: var(--text-light);
+      text-align: center;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+      line-height: 1.8;
+    }
+
+    /* ELIGIBILITY CARDS */
+    .eligibility-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .eligibility-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(212,168,83,0.2);
+      border-radius: 1rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .eligibility-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .eligibility-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .eligibility-card:hover::before { opacity: 1; }
+    .eligibility-icon {
+      width: 64px; height: 64px;
+      background: rgba(212,168,83,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .eligibility-icon i { font-size: 1.8rem; color: var(--gold); }
+    .eligibility-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--white);
+    }
+    .eligibility-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.7; }
+    .eligibility-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.5rem;
+    }
+
+    /* PERKS */
+    .perks-section {
+      background: var(--dark-card2);
+      padding: 6rem 2rem;
+      border-top: 1px solid rgba(212,168,83,0.1);
+      border-bottom: 1px solid rgba(212,168,83,0.1);
+    }
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .perk-item {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .perk-icon-wrap {
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      background: rgba(212,168,83,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .perk-icon-wrap i { font-size: 1.4rem; color: var(--gold); }
+    .perk-text h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .perk-text p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
+
+    /* POINTS & MILES */
+    .points-banner {
+      background: linear-gradient(135deg, #111 0%, #1a1200 50%, #111 100%);
+      border: 1px solid rgba(212,168,83,0.3);
+      border-radius: 1.5rem;
+      padding: 4rem 3rem;
+      text-align: center;
+      margin: 0 auto;
+      max-width: 900px;
+      position: relative;
+      overflow: hidden;
+    }
+    .points-banner::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(212,168,83,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .points-banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1.5rem;
+    }
+    .points-banner h2 span { color: var(--gold); }
+    .points-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .points-stat { text-align: center; }
+    .points-stat .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      display: block;
+    }
+    .points-stat .label { font-size: 0.8rem; color: var(--text-light); letter-spacing: 0.1em; text-transform: uppercase; }
+    .points-divider { width: 1px; background: rgba(212,168,83,0.2); }
+
+    /* PROMO CODE */
+    .promo-section {
+      text-align: center;
+      padding: 6rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .promo-code-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(212,168,83,0.08);
+      border: 1px dashed var(--gold);
+      border-radius: 0.75rem;
+      padding: 1.25rem 2rem;
+      margin: 2rem 0;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .promo-code-display:hover { background: rgba(212,168,83,0.15); }
+    .promo-code-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+    }
+    .promo-code-display.redacted {
+      overflow: hidden;
+    }
+    .promo-code-display.redacted .promo-code-text {
+      position: relative;
+      z-index: 1;
+      filter: blur(5px);
+      color: transparent;
+      user-select: none;
+    }
+    .promo-code-display.redacted::before {
+      display: none;
+    }
+    .promo-code-display.redacted::after {
+      display: none;
+    }
+    .promo-bow {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 238px;
+      max-width: 94%;
+      height: auto;
+      transform: translate(-57%, -42%);
+      pointer-events: none;
+      z-index: 4;
+      opacity: 0.72;
+      filter: drop-shadow(0 4px 10px rgba(145, 0, 0, 0.22));
+    }
+    .copy-icon { color: var(--gold); font-size: 1.2rem; }
+    .tooltip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      letter-spacing: 0.05em;
+    }
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--gold);
+    }
+    .promo-code-display.copied .tooltip { opacity: 1; }
+    .promo-note { font-size: 0.85rem; color: var(--text-light); line-height: 1.7; }
+
+    /* CTA BUTTONS */
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--dark);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 3rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(212,168,83,0.3);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,168,83,0.45); }
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: var(--gold); color: var(--dark); }
+    .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+
+    /* FOOTER */
+    .elite-footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(212,168,83,0.1);
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+    .elite-footer a { color: var(--gold); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .points-divider { display: none; }
+      .points-banner { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="Index.html" class="nav-logo">Premium Eco Rentals</a>
+    <ul class="nav-links">
+      <li><a href="Index.html">Home</a></li>
+      <li><a href="Reservations.html">Reservations</a></li>
+      <li><a href="Offers.html">Offers</a></li>
+      <li><a href="Help.html">Rental Assist</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="elite-hero">
+    <div class="elite-badge">&#10022; Exclusive Membership &#10022;</div>
+    <h1>Join the <span>Elite</span><br/>Experience</h1>
+    <div class="gold-line"></div>
+    <p>More than a car rental — a lifestyle upgrade. Elite Members enjoy exclusive perks, priority service, and rewards that redefine travel in Grenada.</p>
+    <a href="https://premiumecorentals2.us5.hqrentals.app/public/car-rental/reservations/step1?new=1&brand=blsea0wm-snln-xg0c-9xxu-esymdste3acy" target="_blank" class="btn-gold">EXPERIENCE ELITE</a>
+    <p class="elite-access-note">Explore the distinction of Elite—add the Elite Experience Package at checkout, or if already a member, select <strong>EXPERIENCE ELITE</strong> to unlock your exclusive promo code and privileges.</p>
+  </section>
+
+  <!-- Eligibility -->
+  <div class="section">
+    <p class="section-label">How to Qualify</p>
+    <h2 class="section-title">Earn Your Elite Status</h2>
+    <p class="section-subtitle">Three paths to Elite — choose the one that fits your lifestyle.</p>
+
+    <div class="eligibility-grid">
+      <div class="eligibility-card">
+        <div class="eligibility-icon"><i class="ri-money-dollar-circle-line"></i></div>
+        <div class="eligibility-value">$1,500+</div>
+        <h3>Spend Threshold</h3>
+        <p>Spend $1,500 or more in cumulative rentals with Premium Eco Rentals and Elite status is automatically unlocked.</p>
+      </div>
+      <div class="eligibility-card">
+        <div class="eligibility-icon"><i class="ri-calendar-check-line"></i></div>
+        <div class="eligibility-value">6+ Rentals</div>
+        <h3>Rental Frequency</h3>
+        <p>Complete 6 or more rentals in a calendar year and gain instant Elite access — rewarding your loyalty every visit.</p>
+      </div>
+      <div class="eligibility-card">
+        <div class="eligibility-icon"><i class="ri-vip-crown-line"></i></div>
+        <div class="eligibility-value">$99 / yr</div>
+        <h3>Elite Subscription</h3>
+        <p>Skip the wait. Subscribe directly to Elite membership for $99/year and unlock all perks from your very first booking.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Perks -->
+  <div class="perks-section">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">What You Get</p>
+      <h2 class="section-title">Elite Privileges</h2>
+      <p class="section-subtitle">Elite is the ultimate tier — includes everything in Premium &amp; Premium Plus, plus your exclusive Elite benefits below.</p>
+
+      <!-- Tier Breakdown -->
+      <div style="margin-bottom:4rem;">
+        <p class="section-label" style="text-align:left;margin-bottom:1.5rem;">Included in Every Elite Booking</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+
+          <!-- Standard Premium -->
+          <div style="background:#0a0a0a;border:1px solid rgba(212,168,83,0.15);border-radius:1rem;padding:2rem;">
+            <p style="color:var(--gold);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.75rem;">Standard Premium — Included</p>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;">
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>24/7 service &amp; support</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>24/7 roadside assistance</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Free delivery to your accommodation</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Some offers apply</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Free return at a different location</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Complimentary beverage</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>No extra fees</li>
+            </ul>
+          </div>
+
+          <!-- Premium Plus -->
+          <div style="background:#0a0a0a;border:1px solid rgba(212,168,83,0.25);border-radius:1rem;padding:2rem;">
+            <p style="color:var(--gold);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.75rem;">Premium Plus+ — Included</p>
+            <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:1rem;font-style:italic;">Everything in Standard Premium, plus:</p>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;">
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Free child safety seats included</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Free WiFi hotspot in vehicle</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--text-light);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Early pickup / late drop-off options</li>
+            </ul>
+          </div>
+
+          <!-- Elite Exclusives -->
+          <div style="background:linear-gradient(135deg,#1a1200,#111);border:1px solid rgba(212,168,83,0.45);border-radius:1rem;padding:2rem;position:relative;overflow:hidden;">
+            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);"></div>
+            <p style="color:var(--gold);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.75rem;">Elite Exclusives &#10022;</p>
+            <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:1rem;font-style:italic;">Everything from Standard and Premium Plus+, plus:</p>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;">
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--white);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>20%–35% exclusive discounts</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--white);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Complimentary Loyalty Program membership</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--white);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Elite Membership — earn Road Miles &amp; Rewards</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--white);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>All offers unlocked</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--white);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Automatic vehicle upgrade</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--white);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Dedicated concierge + personalized service</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--white);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Free reward days &amp; flexible rentals</li>
+              <li style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.88rem;color:var(--white);"><i class="ri-check-line" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>Family inclusion + private tour invitations</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="perks-grid">
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-discount-percent-line"></i></div>
+          <div class="perk-text"><h4>Up to 35% Off Future Rentals</h4><p>Exclusive discounts of 20%–35% on every booking, automatically applied.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-vip-crown-line"></i></div>
+          <div class="perk-text"><h4>Complimentary Loyalty Program Membership</h4><p>Instant enrolment into our Exclusive Loyalty Program — earn points and level up your travel.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-roadster-line"></i></div>
+          <div class="perk-text"><h4>Elite Membership — Road Miles &amp; Rewards</h4><p>Earn Road Miles on every Elite rental and redeem them for free days, vehicle upgrades, and exclusive Elite rewards.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-price-tag-3-line"></i></div>
+          <div class="perk-text"><h4>Elite Unlocks All Offers</h4><p>Every current and future special offer on our platform is automatically unlocked for Elite members.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-car-line"></i></div>
+          <div class="perk-text"><h4>Automatic Vehicle Upgrade</h4><p>When a higher SUV model is available, you get it — at no extra charge.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-user-star-line"></i></div>
+          <div class="perk-text"><h4>Dedicated Concierge Service</h4><p>Your personal concierge available 24/7 for bookings, assistance, and special requests.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-emotion-happy-line"></i></div>
+          <div class="perk-text"><h4>Personalized Service</h4><p>Every interaction tailored to you — your preferences remembered, your experience elevated.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-gift-2-line"></i></div>
+          <div class="perk-text"><h4>Free Reward Days</h4><p>Earn free rental days through our points program — the more you rent, the more you earn.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-time-line"></i></div>
+          <div class="perk-text"><h4>Flexible Rentals</h4><p>Longer rental periods with no extra charge and flexible return policies.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-team-line"></i></div>
+          <div class="perk-text"><h4>Family Inclusion</h4><p>Elite benefits extend to family members — everyone travels in style.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-star-smile-line"></i></div>
+          <div class="perk-text"><h4>Access to Special Events &amp; Private Tours</h4><p>Exclusive invitations to private tours, special events, and premium island experiences.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-route-line"></i></div>
+          <div class="perk-text"><h4>Free Return at Different Location</h4><p>Return your vehicle at a different location with zero additional fees.</p></div>
+        </div>
+        <div class="perk-item">
+          <div class="perk-icon-wrap"><i class="ri-shield-check-line"></i></div>
+          <div class="perk-text"><h4>No Extra Fees</h4><p>No hidden charges. No surprises. Just transparent, premium service.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Points & Road Miles -->
+  <div class="section">
+    <div class="points-banner">
+      <p class="section-label" style="margin-bottom:0.5rem;">Loyalty Rewards</p>
+      <h2>Earn <span>Points</span> & <span>Road Miles</span></h2>
+      <p style="color:var(--text-light);font-size:0.95rem;line-height:1.8;margin-top:1rem;">Every rental earns you Elite Points and Road Miles — redeemable for free days, upgrades, and exclusive rewards.</p>
+      <div class="points-grid">
+        <div class="points-stat">
+          <span class="num">2x</span>
+          <span class="label">Points per $1 spent</span>
+        </div>
+        <div class="points-divider"></div>
+        <div class="points-stat">
+          <span class="num">500</span>
+          <span class="label">Points = 1 Free Day</span>
+        </div>
+        <div class="points-divider"></div>
+        <div class="points-stat">
+          <span class="num">100</span>
+          <span class="label">Road Miles per rental</span>
+        </div>
+        <div class="points-divider"></div>
+        <div class="points-stat">
+          <span class="num">1,000</span>
+          <span class="label">Miles = Elite Upgrade</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Promo Code -->
+  <div class="promo-section">
+    <p class="section-label">Exclusive Offer</p>
+    <h2 class="section-title">Your Elite Promo Code</h2>
+    <p class="section-subtitle" style="margin-bottom:0;">Apply this code at checkout to activate your Elite membership benefits on your first booking.</p>
+
+    <div class="promo-code-display redacted" id="promoBox">
+      <span class="promo-code-text" id="promoCode">BOOKELITE26</span>
+      <img src="Images/Bow covering promo code.jpg" alt="" class="promo-bow" aria-hidden="true" />
+      <i class="ri-file-copy-line copy-icon"></i>
+      <div class="tooltip" id="promoTooltip">Code hidden for now</div>
+    </div>
+
+      <p class="promo-note">Enter this code in the <strong style="color:#8B6914;">Discount Code</strong> field during checkout on the booking page.<br/>Valid for new Elite members only. One use per customer.</p>
+
+    <div class="cta-row">
+      <a href="https://premiumecorentals2.us5.hqrentals.app/public/car-rental/reservations/step1?new=1&brand=blsea0wm-snln-xg0c-9xxu-esymdste3acy" target="_blank" class="btn-gold">EXPERIENCE ELITE</a>
+      <a href="Index.html" class="btn-outline">Back to Home</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="elite-footer">
+    <p>&copy; 2026 Premium Eco Rentals &mdash; <a href="Index.html">Home</a> &bull; <a href="Help.html">Contact Us</a></p>
+    <p style="margin-top:0.5rem;">WhatsApp: <a href="https://wa.me/14734109570">+1 473 410 9570</a> &bull; <a href="mailto:premiumecorentals@gmail.com">premiumecorentals@gmail.com</a></p>
+  </footer>
+
+  <script>
+    function copyPromo() {
+      return;
+    }
+  </script>
+  <link rel="stylesheet" href="chatbot.css">
+  <script src="chatbot.js"></script>
+
+</body>
+</html>

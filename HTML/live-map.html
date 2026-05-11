@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track your Premium Eco Rentals vehicle live at Maurice Bishop International Airport. Tap to notify your driver the moment you land.">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Oswald:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="Digital-Hub.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <title>Live Airport Pickup Tracker · Premium Eco Rentals</title>
+  <style>
+    /* ── Page shell ─────────────────────────────────────────── */
+    body {
+      background: #020A14;
+      color: #E0F2FE;
+      min-height: 100dvh;
+    }
+
+    /* ── Hero banner ─────────────────────────────────────────── */
+    .lm-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 5.5rem 1.5rem 3.5rem;
+      text-align: center;
+      background: linear-gradient(160deg, #020A14 0%, #061120 55%, #030d1c 100%);
+    }
+    .lm-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(14,165,233,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .lm-hero__back {
+      position: absolute;
+      top: 1.1rem;
+      left: 1.4rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(14,165,233,0.75);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .lm-hero__back:hover { color: #38BDF8; }
+    .lm-hero__back i { font-size: 0.9rem; }
+
+    .lm-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #0EA5E9;
+      margin-bottom: 0.9rem;
+    }
+    .lm-hero__eyebrow .lm-live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22C55E;
+      box-shadow: 0 0 8px #22C55E;
+      animation: lmPulse 1.6s ease-in-out infinite;
+    }
+    @keyframes lmPulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.55; transform: scale(1.35); }
+    }
+
+    .lm-hero__title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin: 0 0 0.75rem;
+      color: #F0F9FF;
+    }
+    .lm-hero__title span {
+      background: linear-gradient(90deg, #0EA5E9, #22D3EE, #14B8A6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .lm-hero__sub {
+      max-width: 540px;
+      margin: 0 auto;
+      font-size: 0.92rem;
+      color: rgba(180,210,230,0.70);
+      line-height: 1.65;
+    }
+
+    /* ── Content wrapper ─────────────────────────────────────── */
+    .lm-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.4rem 4rem;
+    }
+
+    /* ── Guest Lounge section ────────────────────────────────── */
+    .lm-lounge {
+      max-width: 960px;
+      margin: 3rem auto 0;
+      padding: 0 1.4rem 4rem;
+    }
+    .lm-lounge__header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+    }
+    .lm-lounge__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #C49A60;
+      margin-bottom: 0.7rem;
+    }
+    .lm-lounge__title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: #F0ECE4;
+      margin: 0 0 0.65rem;
+      line-height: 1.15;
+    }
+    .lm-lounge__title span {
+      background: linear-gradient(90deg, #D4A860, #E8C878, #C49040);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .lm-lounge__sub {
+      font-size: 0.88rem;
+      color: rgba(190,180,165,0.75);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .lm-lounge__scene-wrap {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(196,154,96,0.20);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.35), 0 0 0 1px rgba(196,154,96,0.08);
+      background: #F5F0E8;
+    }
+    .lm-lounge__svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .lm-lounge__scene-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.55rem 1rem;
+      background: rgba(30,20,10,0.55);
+      backdrop-filter: blur(6px);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: rgba(220,205,180,0.80);
+      text-align: center;
+    }
+    .lm-lounge__scene-label i { margin-right: 0.35rem; }
+    .lm-lounge__amenities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      justify-content: center;
+      margin-top: 1.6rem;
+    }
+    .lm-lounge__amenity {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(196,154,96,0.10);
+      border: 1px solid rgba(196,154,96,0.28);
+      color: #D4AA70;
+      letter-spacing: 0.02em;
+    }
+    .lm-lounge__amenity i { font-size: 0.85rem; }
+
+    /* ── Premium Action Panel ──────────────────────────────── */
+    .lm-action-panel {
+      margin: 1.4rem 0 0;
+      background: rgba(4,16,30,0.60);
+      border: 1px solid rgba(14,165,233,0.12);
+      border-radius: 20px;
+      padding: 1.4rem 1.4rem 1.6rem;
+      backdrop-filter: blur(8px);
+    }
+    .lm-action-panel__heading {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+    }
+    .lm-action-panel__heading-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(14,165,233,0.14);
+    }
+    .lm-action-panel__heading-text {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(100,180,220,0.60);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .lm-action-panel__heading-text i { font-size: 0.8rem; }
+    .lm-action-panel__cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    @media (max-width: 520px) {
+      .lm-action-panel__cards { grid-template-columns: 1fr; }
+    }
+    .lm-notif-card {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 1rem 1.1rem;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+      position: relative;
+      overflow: hidden;
+    }
+    .lm-notif-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.18s;
+      border-radius: 14px;
+    }
+    .lm-notif-card:hover { transform: translateY(-2px); }
+    .lm-notif-card:hover::before { opacity: 1; }
+    .lm-notif-card:active { transform: scale(0.98); }
+    .lm-notif-card:disabled { cursor: default; opacity: 0.7; transform: none; }
+    .lm-notif-card--landed {
+      background: rgba(22,101,52,0.20);
+      border: 1.5px solid rgba(34,197,94,0.35);
+      box-shadow: 0 4px 20px rgba(34,197,94,0.08);
+    }
+    .lm-notif-card--landed::before { background: linear-gradient(135deg,rgba(34,197,94,0.10) 0%,transparent 70%); }
+    .lm-notif-card--landed:hover { box-shadow: 0 8px 28px rgba(34,197,94,0.20); border-color: rgba(34,197,94,0.55); }
+    .lm-notif-card--landed .lm-notif-card__icon { background: rgba(34,197,94,0.15); color: #4ADE80; border: 1px solid rgba(34,197,94,0.30); }
+    .lm-notif-card--landed .lm-notif-card__text strong { color: #86EFAC; }
+    .lm-notif-card--landed .lm-notif-card__arrow { color: rgba(74,222,128,0.50); }
+    .lm-notif-card--curbside {
+      background: rgba(3,60,95,0.25);
+      border: 1.5px solid rgba(14,165,233,0.35);
+      box-shadow: 0 4px 20px rgba(14,165,233,0.08);
+    }
+    .lm-notif-card--curbside::before { background: linear-gradient(135deg,rgba(14,165,233,0.10) 0%,transparent 70%); }
+    .lm-notif-card--curbside:hover { box-shadow: 0 8px 28px rgba(14,165,233,0.20); border-color: rgba(14,165,233,0.55); }
+    .lm-notif-card--curbside .lm-notif-card__icon { background: rgba(14,165,233,0.15); color: #38BDF8; border: 1px solid rgba(14,165,233,0.30); }
+    .lm-notif-card--curbside .lm-notif-card__text strong { color: #7DD3FC; }
+    .lm-notif-card--curbside .lm-notif-card__arrow { color: rgba(56,189,248,0.50); }
+    .lm-notif-card--sent { border-color: rgba(20,184,166,0.45) !important; background: rgba(20,184,166,0.10) !important; }
+    .lm-notif-card--sent .lm-notif-card__text strong { color: #2DD4BF !important; }
+    .lm-notif-card--error { border-color: rgba(248,113,113,0.45) !important; background: rgba(248,113,113,0.08) !important; }
+    .lm-notif-card--error .lm-notif-card__text strong { color: #F87171 !important; }
+    .lm-notif-card__icon {
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    .lm-notif-card__text { flex: 1; display: flex; flex-direction: column; gap: 0.18rem; }
+    .lm-notif-card__text strong { font-size: 0.86rem; font-weight: 700; line-height: 1.2; }
+    .lm-notif-card__text span { font-size: 0.70rem; color: rgba(160,200,225,0.60); line-height: 1.4; }
+    .lm-notif-card__arrow { flex-shrink: 0; font-size: 1.05rem; transition: transform 0.18s; }
+    .lm-notif-card:hover .lm-notif-card__arrow { transform: translateX(3px); }
+    .lm-action-panel__divider {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin: 1.1rem 0 0.9rem;
+    }
+    .lm-action-panel__divider::before,
+    .lm-action-panel__divider::after { content:''; flex:1; height:1px; background: rgba(255,255,255,0.07); }
+    .lm-action-panel__divider span { font-size: 0.65rem; color: rgba(150,180,200,0.45); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+    .lm-action-panel__contact { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    .lm-contact-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.18s, transform 0.15s;
+    }
+    .lm-contact-btn:hover { transform: translateY(-1px); }
+    .lm-contact-btn--call { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); }
+    .lm-contact-btn--call:hover { background: rgba(255,255,255,0.08); }
+    .lm-contact-btn--call .lm-contact-btn__icon { background: rgba(99,102,241,0.15); color: #A5B4FC; border: 1px solid rgba(99,102,241,0.25); }
+    .lm-contact-btn--call .lm-contact-btn__label { color: #C7D2FE; }
+    .lm-contact-btn--whatsapp { background: rgba(37,211,102,0.06); border: 1px solid rgba(37,211,102,0.18); }
+    .lm-contact-btn--whatsapp:hover { background: rgba(37,211,102,0.12); }
+    .lm-contact-btn--whatsapp .lm-contact-btn__icon { background: rgba(37,211,102,0.12); color: #4ADE80; border: 1px solid rgba(37,211,102,0.25); }
+    .lm-contact-btn--whatsapp .lm-contact-btn__label { color: #86EFAC; }
+    .lm-contact-btn__icon { flex-shrink:0; width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.05rem; }
+    .lm-contact-btn__label { font-size: 0.82rem; font-weight: 700; display: block; line-height: 1.2; }
+    .lm-contact-btn__sub { font-size: 0.65rem; color: rgba(150,185,210,0.50); display: block; line-height: 1; margin-top: 0.1rem; }
+
+    /* ── Guest Lounge map pin ─────────────────────────────── */
+    .lm-map-pin-lounge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.38rem 0.75rem 0.38rem 0.55rem;
+      background: #1A0E06;
+      border: 1.5px solid #C49A60;
+      border-radius: 30px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #D4AA70;
+      white-space: nowrap;
+      box-shadow: 0 2px 10px rgba(196,154,96,0.35);
+      cursor: pointer;
+      animation: loungePinPulse 2.8s ease-in-out infinite;
+    }
+    .lm-map-pin-lounge i { font-size: 0.92rem; color: #E8C078; }
+    @keyframes loungePinPulse {
+      0%,100% { box-shadow: 0 2px 10px rgba(196,154,96,0.30); }
+      50%      { box-shadow: 0 2px 18px rgba(196,154,96,0.65), 0 0 0 5px rgba(196,154,96,0.08); }
+    }
+
+    /* ── Guest Lounge popup ───────────────────────────────── */
+    .lm-map-lounge-popup-wrap .leaflet-popup-content-wrapper {
+      background: #0E1820;
+      border: 1px solid rgba(196,154,96,0.30);
+      border-radius: 16px;
+      padding: 0;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+      overflow: hidden;
+    }
+    .lm-map-lounge-popup-wrap .leaflet-popup-content {
+      margin: 0;
+      width: 340px !important;
+    }
+    .lm-map-lounge-popup-wrap .leaflet-popup-tip-container { display: none; }
+    .lm-map-lounge-popup {
+      display: flex;
+      flex-direction: column;
+    }
+    .lm-map-lounge-popup__head {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #E8C878;
+      border-bottom: 1px solid rgba(196,154,96,0.15);
+    }
+    .lm-map-lounge-popup__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #22C55E;
+      box-shadow: 0 0 7px #22C55E;
+      flex-shrink: 0;
+      animation: loungePinPulse 1.8s ease-in-out infinite;
+    }
+    .lm-map-lounge-popup__badge {
+      margin-left: auto;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #C49A60;
+      background: rgba(196,154,96,0.12);
+      border: 1px solid rgba(196,154,96,0.30);
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+    }
+    .lm-map-lounge-popup__svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #F5F0E8;
+    }
+    .lm-map-lounge-popup__desc {
+      font-size: 0.73rem;
+      color: rgba(200,185,160,0.80);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0.55rem 1rem 0.4rem;
+      border-top: 1px solid rgba(196,154,96,0.10);
+    }
+    .lm-map-lounge-popup__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding: 0.4rem 1rem 0.75rem;
+    }
+    .lm-map-lounge-popup__chips span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      background: rgba(196,154,96,0.10);
+      border: 1px solid rgba(196,154,96,0.22);
+      color: #C49A60;
+    }
+    .lm-map-lounge-popup__chips span i { font-size: 0.72rem; }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    .lm-footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.68rem;
+      color: rgba(180,210,230,0.30);
+      border-top: 1px solid rgba(14,165,233,0.08);
+    }
+    .lm-footer a {
+      color: rgba(14,165,233,0.50);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+    .lm-footer a:hover { color: #38BDF8; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Minimal nav ── -->
+  <nav class="dh-nav" id="dh-nav">
+    <a href="Index.html" class="dh-nav__logo" aria-label="Premium Eco Rentals Home">
+      <img src="Images/Logo.jpg" alt="Premium Eco Rentals Logo"/>
+    </a>
+    <ul class="dh-nav__links" id="dh-nav-links">
+      <li><a href="Index.html">Home</a></li>
+      <li><a href="Reservations.html">Reservations</a></li>
+      <li><a href="Business Rentals.html">Business</a></li>
+      <li><a href="Offers.html">Offers</a></li>
+      <li><a href="Digital-Hub.html">Digital Hub</a></li>
+      <li><a href="Help.html">Help</a></li>
+    </ul>
+    <button class="dh-nav__mobile-btn" id="dh-mobile-btn" aria-label="Open menu">
+      <i class="ri-menu-3-line"></i>
+    </button>
+  </nav>
+
+  <!-- ── Hero banner ── -->
+  <div class="lm-hero">
+    <a href="Digital-Hub.html" class="lm-hero__back"><i class="ri-arrow-left-line"></i> Digital Hub</a>
+    <div class="lm-hero__eyebrow">
+      <span class="lm-live-dot"></span>
+      Live Tracking · Maurice Bishop International Airport
+    </div>
+    <h1 class="lm-hero__title">Your Rental Vehicle Location<br><span>Right Now</span></h1>
+    <p class="lm-hero__sub">
+      See exactly where your car is, notify the driver the second you land, and walk straight to curbside pickup — no calls, no waiting.
+    </p>
+  </div>
+
+  <!-- ── Map section content (extracted from Digital-Hub.html) ── -->
+  <div class="lm-body">
+    <div class="dh-smap-layout" style="margin-top:0;">
+
+      <!-- Vehicle pickup callout -->
+      <div class="dh-smap-vehicle-callout">
+        <div class="dh-smap-vehicle-callout__icon"><i class="ri-car-fill"></i></div>
+        <div>
+          <strong>Live Rental Vehicle Location</strong> &mdash; the car marker on the map below updates in real time when our driver is active.
+          <span class="dh-smap-live-badge" id="dh-live-badge"><span class="dh-smap-live-dot" id="dh-live-dot"></span><span id="dh-live-label">OFFLINE</span></span>
+          <span class="dh-eta-badge" id="dh-eta-badge" style="display:none;"><i class="ri-timer-line"></i> <span id="dh-eta-text"></span></span>
+        </div>
+      </div>
+
+      <!-- ── Premium Action Panel ── -->
+      <div class="lm-action-panel">
+
+        <!-- Panel heading -->
+        <div class="lm-action-panel__heading">
+          <span class="lm-action-panel__heading-line"></span>
+          <span class="lm-action-panel__heading-text"><i class="ri-notification-3-line"></i> Notify Your Driver</span>
+          <span class="lm-action-panel__heading-line"></span>
+        </div>
+
+        <!-- Two primary notification cards -->
+        <div class="lm-action-panel__cards">
+
+          <button class="lm-notif-card lm-notif-card--landed" id="dh-landed-btn" onclick="sendLanded()">
+            <div class="lm-notif-card__icon"><i class="ri-plane-line"></i></div>
+            <div class="lm-notif-card__text">
+              <strong>I&rsquo;ve Landed</strong>
+              <span>Tap to alert your driver the moment you&rsquo;re off the plane</span>
+            </div>
+            <div class="lm-notif-card__arrow"><i class="ri-arrow-right-line"></i></div>
+          </button>
+
+          <button class="lm-notif-card lm-notif-card--curbside" id="dh-curbside-btn" onclick="sendCurbside()">
+            <div class="lm-notif-card__icon"><i class="ri-map-pin-user-fill"></i></div>
+            <div class="lm-notif-card__text">
+              <strong>I&rsquo;m at Curbside</strong>
+              <span>Let your driver know you&rsquo;re at the pickup point</span>
+            </div>
+            <div class="lm-notif-card__arrow"><i class="ri-arrow-right-line"></i></div>
+          </button>
+
+        </div>
+
+        <!-- Contact divider -->
+        <div class="lm-action-panel__divider">
+          <span>or reach us directly</span>
+        </div>
+
+        <!-- Call + WhatsApp -->
+        <div class="lm-action-panel__contact">
+          <a class="lm-contact-btn lm-contact-btn--call" href="tel:+14734057368">
+            <span class="lm-contact-btn__icon"><i class="ri-phone-fill"></i></span>
+            <span class="lm-contact-btn__label">Call Us</span>
+            <span class="lm-contact-btn__sub">+1 473 405 7368</span>
+          </a>
+          <a class="lm-contact-btn lm-contact-btn--whatsapp" href="https://wa.me/14734057368" target="_blank" rel="noopener">
+            <span class="lm-contact-btn__icon"><i class="ri-whatsapp-line"></i></span>
+            <span class="lm-contact-btn__label">WhatsApp</span>
+            <span class="lm-contact-btn__sub">Instant reply</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Live Leaflet Map -->
+      <div class="dh-smap-embed-wrap dh-smap-embed-wrap--full">
+        <div class="dh-smap-embed-label"><i class="ri-map-pin-2-line"></i> &nbsp;Live Vehicle Location &mdash; Airport Arrivals &rarr; Pickup Area</div>
+        <div id="dh-live-map" class="dh-smap-iframe dh-smap-iframe--tall" style="border-radius:16px;"></div>
+        <div class="dh-map-findme-hint" id="dh-findme-hint">
+          <span class="dh-map-findme-hint__dot"></span>
+          <span class="dh-map-findme-hint__text">Tap <strong>Find Me</strong> &mdash; drop your pin &amp; check your distance to the vehicle</span>
+          <i class="ri-crosshair-2-line dh-map-findme-hint__icon"></i>
+        </div>
+        <a class="dh-smap-fullscreen" href="https://www.google.com/maps/dir/Maurice+Bishop+International+Airport,+Maurice+Bishop+Memorial+Hwy,+Grenada/Ants+Nest,+Maurice+Bishop+International+Airport,+Maurice+Bishop+Memorial+Hwy,+St.+George%E2%80%99s,+Grenada/@12.0074735,-61.7883835,674m/am=t/data=!3m2!1e3!4b1!4m14!4m13!1m5!1m1!1s0x8c3820c2fa3419c5:0x16ce2fdfeb0560c3!2m2!1d-61.7859255!2d12.0071446!1m5!1m1!1s0x8c38218871518e1d:0x11609daf3eec4b2!2m2!1d-61.7857201!2d12.0075616!3e2" target="_blank" rel="noopener">
+          <i class="ri-external-link-line"></i> Open in Google Maps
+        </a>
+      </div>
+
+      <!-- Airport detail cards -->
+      <div class="dh-smap-zones dh-smap-zones--row">
+        <div class="dh-smap-zone-title">Pickup &amp; Dropoff Details</div>
+
+        <div class="dh-smap-zone dh-smap-zone--primary">
+          <div class="dh-smap-zone__dot"></div>
+          <div>
+            <div class="dh-smap-zone__name"><i class="ri-map-pin-2-line"></i> Curbside Pickup &mdash; Rental Vehicle Location</div>
+            <div class="dh-smap-zone__desc">Your vehicle is parked curbside at our pickup area on Maurice Bishop Memorial Hwy. Follow the walking route on the map above.</div>
+            <span class="dh-smap-zone__badge">Standard Pickup</span>
+          </div>
+        </div>
+
+        <div class="dh-smap-zone dh-smap-zone--primary">
+          <div class="dh-smap-zone__dot"></div>
+          <div>
+            <div class="dh-smap-zone__name"><i class="ri-car-line"></i> Private Pickup Bay</div>
+            <div class="dh-smap-zone__desc">Elite and pre-arranged clients have access to our private bay for a seamless, no-queue handover.</div>
+            <span class="dh-smap-zone__badge">Elite &amp; VIP</span>
+          </div>
+        </div>
+
+        <div class="dh-smap-zone dh-smap-zone--secondary">
+          <div class="dh-smap-zone__dot"></div>
+          <div>
+            <div class="dh-smap-zone__name"><i class="ri-time-line"></i> Hours of Operation</div>
+            <div class="dh-smap-zone__desc">Available 24 hours, 7 days a week. Pickup coordinated to match your flight arrival time.</div>
+            <span class="dh-smap-zone__badge">24 / 7</span>
+          </div>
+        </div>
+
+        <div class="dh-smap-zone dh-smap-zone--secondary">
+          <div class="dh-smap-zone__dot"></div>
+          <div>
+            <div class="dh-smap-zone__name"><i class="ri-phone-line"></i> On-Arrival Contact</div>
+            <div class="dh-smap-zone__desc">A confirmation SMS with your agent&rsquo;s name and contact is sent once your flight lands.</div>
+            <span class="dh-smap-zone__badge">Auto Notification</span>
+          </div>
+        </div>
+
+        <p class="dh-smap-note"><i class="ri-information-line"></i> &nbsp;Please include your flight number at booking so we can track your arrival and adjust for any delays.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Guest Lounge ── -->
+  <section class="lm-lounge">
+    <div class="lm-lounge__header">
+      <div class="lm-lounge__eyebrow"><i class="ri-cup-line"></i> While You Wait</div>
+      <h2 class="lm-lounge__title">Premium <span>Client Lounge</span></h2>
+      <p class="lm-lounge__sub">Relax in comfort at the airport while your vehicle is being prepared. Our lounge is reserved for Premium Eco Rentals guests.</p>
+    </div>
+
+    <!-- SVG Room Illustration -->
+    <div class="lm-lounge__scene-wrap">
+      <svg class="lm-lounge__svg" viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Premium Client Lounge illustration">
+        <defs>
+          <pattern id="floor-planks" x="0" y="0" width="120" height="20" patternUnits="userSpaceOnUse">
+            <rect width="120" height="20" fill="#C4955A"/>
+            <line x1="0" y1="19" x2="120" y2="19" stroke="#A87E42" stroke-width="1"/>
+            <line x1="60" y1="0" x2="60" y2="19" stroke="#A87E42" stroke-width="0.5" opacity="0.4"/>
+          </pattern>
+          <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="130%">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#8B7055" flood-opacity="0.18"/>
+          </filter>
+          <radialGradient id="lamp-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFF8E0" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#FFF8E0" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- WALL -->
+        <rect x="0" y="0" width="900" height="480" fill="#F5F0E8"/>
+        <!-- Wainscoting lower panel -->
+        <rect x="0" y="248" width="900" height="155" fill="#EBE4D8"/>
+        <!-- Chair rail top shadow -->
+        <rect x="0" y="244" width="900" height="10" fill="#D8D0C4"/>
+        <rect x="0" y="244" width="900" height="3" fill="#C8C0B4"/>
+        <!-- Baseboard -->
+        <rect x="0" y="390" width="900" height="10" fill="#D8D0C4"/>
+        <rect x="0" y="388" width="900" height="3" fill="#C8C0B4"/>
+
+        <!-- FLOOR -->
+        <rect x="0" y="400" width="900" height="80" fill="url(#floor-planks)"/>
+
+        <!-- RUG -->
+        <ellipse cx="450" cy="438" rx="295" ry="36" fill="#E4D0B8"/>
+        <ellipse cx="450" cy="438" rx="278" ry="30" fill="none" stroke="#C8AE94" stroke-width="3"/>
+        <ellipse cx="450" cy="438" rx="255" ry="24" fill="none" stroke="#C8AE94" stroke-width="1.5" stroke-dasharray="10 5"/>
+
+        <!-- LEFT PAINTING -->
+        <rect x="108" y="30" width="168" height="128" rx="5" fill="#5C3D2E" filter="url(#soft-shadow)"/>
+        <rect x="115" y="37" width="154" height="114" rx="3" fill="#B8D4C6"/>
+        <rect x="115" y="105" width="154" height="46" fill="#70B0A0"/>
+        <ellipse cx="192" cy="104" rx="58" ry="32" fill="#9AC8BC"/>
+        <ellipse cx="152" cy="100" rx="28" ry="18" fill="#80B8A8"/>
+        <ellipse cx="230" cy="108" rx="22" ry="14" fill="#88C0B0"/>
+        <rect x="108" y="30" width="168" height="128" rx="5" fill="none" stroke="#3E2518" stroke-width="2"/>
+        <!-- Painting hanger -->
+        <line x1="192" y1="28" x2="192" y2="22" stroke="#9C8070" stroke-width="2"/>
+        <circle cx="192" cy="20" r="3" fill="#9C8070"/>
+
+        <!-- RIGHT PAINTING -->
+        <rect x="624" y="30" width="168" height="128" rx="5" fill="#5C3D2E" filter="url(#soft-shadow)"/>
+        <rect x="631" y="37" width="154" height="114" rx="3" fill="#F2E0C8"/>
+        <circle cx="708" cy="94" r="38" fill="#ECC896" opacity="0.65"/>
+        <rect x="670" y="62" width="76" height="64" rx="3" fill="none" stroke="#C49060" stroke-width="2.5"/>
+        <line x1="670" y1="94" x2="746" y2="94" stroke="#C49060" stroke-width="1.5"/>
+        <line x1="708" y1="62" x2="708" y2="126" stroke="#C49060" stroke-width="1.5"/>
+        <circle cx="708" cy="94" r="12" fill="#D4A454" opacity="0.5"/>
+        <rect x="624" y="30" width="168" height="128" rx="5" fill="none" stroke="#3E2518" stroke-width="2"/>
+        <line x1="708" y1="28" x2="708" y2="22" stroke="#9C8070" stroke-width="2"/>
+        <circle cx="708" cy="20" r="3" fill="#9C8070"/>
+
+        <!-- ROUND MIRROR center -->
+        <circle cx="450" cy="100" r="68" fill="#C4BAB0" filter="url(#soft-shadow)"/>
+        <circle cx="450" cy="100" r="63" fill="#DAD4CC"/>
+        <circle cx="450" cy="100" r="56" fill="#EDE8E2"/>
+        <!-- Mirror shimmer -->
+        <ellipse cx="434" cy="84" rx="14" ry="7" fill="white" opacity="0.35" transform="rotate(-30 434 84)"/>
+        <ellipse cx="462" cy="118" rx="8" ry="4" fill="white" opacity="0.18" transform="rotate(-30 462 118)"/>
+        <!-- Decorative outer ring -->
+        <circle cx="450" cy="100" r="68" fill="none" stroke="#C4A070" stroke-width="5"/>
+        <circle cx="450" cy="100" r="74" fill="none" stroke="#D4B080" stroke-width="1.5"/>
+        <!-- Mirror nail/hook -->
+        <line x1="450" y1="30" x2="450" y2="24" stroke="#9C8070" stroke-width="2"/>
+        <circle cx="450" cy="22" r="3" fill="#9C8070"/>
+
+        <!-- FLOOR LAMP (right) -->
+        <!-- Glow behind lamp -->
+        <ellipse cx="830" cy="230" rx="70" ry="80" fill="url(#lamp-glow)"/>
+        <!-- Base plate -->
+        <ellipse cx="830" cy="400" rx="26" ry="7" fill="#8C7A60"/>
+        <rect x="826" y="375" width="8" height="28" rx="4" fill="#8C7A60"/>
+        <!-- Pole -->
+        <rect x="828" y="188" width="5" height="196" fill="#C4A030"/>
+        <!-- Shade outer -->
+        <path d="M792 190 L868 190 L852 242 L808 242 Z" fill="#F5EED8"/>
+        <!-- Shade inner shading -->
+        <path d="M798 195 L862 195 L848 238 L812 238 Z" fill="#EDE5C8"/>
+        <!-- Shade rim lines -->
+        <line x1="792" y1="190" x2="868" y2="190" stroke="#B09028" stroke-width="2"/>
+        <line x1="808" y1="242" x2="852" y2="242" stroke="#B09028" stroke-width="1.5"/>
+        <!-- Lamp arm curve -->
+        <path d="M830 188 Q830 175 830 170" stroke="#C4A030" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <!-- Bulb hint -->
+        <circle cx="830" cy="196" r="5" fill="#FFF0A0" opacity="0.9"/>
+
+        <!-- PLANT (left) -->
+        <!-- Pot shadow -->
+        <ellipse cx="102" cy="404" rx="40" ry="8" fill="#B09070" opacity="0.3"/>
+        <!-- Pot body -->
+        <path d="M64 400 L72 422 L132 422 L140 400 Z" fill="#C49060"/>
+        <path d="M60 398 L144 398 L144 405 L60 405 Z" rx="2" fill="#D4A070"/>
+        <ellipse cx="102" cy="399" rx="42" ry="7" fill="#D4A070"/>
+        <!-- Soil -->
+        <ellipse cx="102" cy="399" rx="36" ry="5" fill="#6B4832"/>
+        <!-- Stems -->
+        <path d="M102 398 Q96 358 78 318 Q70 288 84 256" stroke="#4A7A42" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M102 398 Q110 362 128 322 Q138 288 122 254" stroke="#4A7A42" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M102 390 Q90 368 70 355 Q52 345 40 326" stroke="#4A7A42" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M102 386 Q116 368 138 354 Q156 344 166 325" stroke="#4A7A42" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Leaves large left -->
+        <path d="M84 256 Q44 215 28 162 Q56 186 84 256" fill="#58A048" opacity="0.92"/>
+        <line x1="84" y1="256" x2="48" y2="170" stroke="#3A6E30" stroke-width="1.2" fill="none"/>
+        <!-- Leaves large right -->
+        <path d="M122 254 Q168 212 178 158 Q148 184 122 254" fill="#58A048" opacity="0.92"/>
+        <line x1="122" y1="254" x2="160" y2="166" stroke="#3A6E30" stroke-width="1.2" fill="none"/>
+        <!-- Leaf up center -->
+        <path d="M102 398 Q94 338 82 258 Q108 302 102 398" fill="#68B058" opacity="0.85"/>
+        <line x1="102" y1="398" x2="90" y2="265" stroke="#3A6E30" stroke-width="1" fill="none"/>
+        <!-- Lower side leaves -->
+        <path d="M70 355 Q28 342 14 310 Q46 328 70 355" fill="#58A048" opacity="0.85"/>
+        <path d="M138 354 Q180 340 196 308 Q162 326 138 354" fill="#58A048" opacity="0.85"/>
+        <!-- Leaf highlights -->
+        <path d="M84 256 Q68 228 70 200" stroke="#8DD07A" stroke-width="1" fill="none" opacity="0.55"/>
+        <path d="M122 254 Q144 224 144 196" stroke="#8DD07A" stroke-width="1" fill="none" opacity="0.55"/>
+
+        <!-- SOFA (3-seat center) -->
+        <!-- Shadow -->
+        <ellipse cx="450" cy="392" rx="205" ry="10" fill="#B8A888" opacity="0.3"/>
+        <!-- Sofa frame/base -->
+        <rect x="226" y="316" width="448" height="72" rx="9" fill="#7FBDCC"/>
+        <!-- Sofa back frame -->
+        <rect x="222" y="250" width="456" height="76" rx="11" fill="#6AAABB"/>
+        <!-- Back cushions -->
+        <rect x="238" y="255" width="134" height="67" rx="9" fill="#9CCCDA"/>
+        <rect x="383" y="255" width="134" height="67" rx="9" fill="#9CCCDA"/>
+        <rect x="528" y="255" width="134" height="67" rx="9" fill="#9CCCDA"/>
+        <!-- Back cushion seams -->
+        <line x1="305" y1="260" x2="305" y2="318" stroke="#7AAABB" stroke-width="1.5" opacity="0.5"/>
+        <line x1="450" y1="260" x2="450" y2="318" stroke="#7AAABB" stroke-width="1.5" opacity="0.5"/>
+        <line x1="595" y1="260" x2="595" y2="318" stroke="#7AAABB" stroke-width="1.5" opacity="0.5"/>
+        <!-- Back cushion top highlight -->
+        <rect x="238" y="255" width="134" height="8" rx="4" fill="#B0DCE8" opacity="0.5"/>
+        <rect x="383" y="255" width="134" height="8" rx="4" fill="#B0DCE8" opacity="0.5"/>
+        <rect x="528" y="255" width="134" height="8" rx="4" fill="#B0DCE8" opacity="0.5"/>
+        <!-- Seat cushions -->
+        <rect x="238" y="319" width="134" height="65" rx="7" fill="#9ECEDA"/>
+        <rect x="383" y="319" width="134" height="65" rx="7" fill="#9ECEDA"/>
+        <rect x="528" y="319" width="134" height="65" rx="7" fill="#9ECEDA"/>
+        <!-- Seat seams -->
+        <line x1="305" y1="322" x2="305" y2="382" stroke="#7FBDCC" stroke-width="1.5" opacity="0.5"/>
+        <line x1="450" y1="322" x2="450" y2="382" stroke="#7FBDCC" stroke-width="1.5" opacity="0.5"/>
+        <line x1="595" y1="322" x2="595" y2="382" stroke="#7FBDCC" stroke-width="1.5" opacity="0.5"/>
+        <!-- Seat front highlight -->
+        <rect x="238" y="319" width="134" height="7" rx="3" fill="#B4D8E4" opacity="0.5"/>
+        <rect x="383" y="319" width="134" height="7" rx="3" fill="#B4D8E4" opacity="0.5"/>
+        <rect x="528" y="319" width="134" height="7" rx="3" fill="#B4D8E4" opacity="0.5"/>
+        <!-- Left armrest -->
+        <path d="M222 252 Q198 252 198 278 L198 378 Q198 390 220 390 L238 390 L238 316 Z" fill="#5A9AAE" rx="8"/>
+        <rect x="197" y="248" width="44" height="14" rx="6" fill="#6AAABB"/>
+        <!-- Right armrest -->
+        <path d="M678 252 Q702 252 702 278 L702 378 Q702 390 680 390 L662 390 L662 316 Z" fill="#5A9AAE" rx="8"/>
+        <rect x="659" y="248" width="44" height="14" rx="6" fill="#6AAABB"/>
+        <!-- Sofa legs -->
+        <rect x="216" y="382" width="16" height="22" rx="4" fill="#5C3D2E"/>
+        <rect x="668" y="382" width="16" height="22" rx="4" fill="#5C3D2E"/>
+        <!-- Bolster pillow left -->
+        <rect x="254" y="295" width="62" height="62" rx="10" fill="#EAC898" transform="rotate(-7 285 326)"/>
+        <line x1="258" y1="298" x2="314" y2="354" stroke="#D4AC78" stroke-width="1.2" opacity="0.5"/>
+        <line x1="314" y1="298" x2="258" y2="354" stroke="#D4AC78" stroke-width="1.2" opacity="0.5"/>
+        <!-- Bolster pillow right -->
+        <rect x="584" y="295" width="58" height="58" rx="10" fill="#D4A882" transform="rotate(7 613 324)"/>
+        <line x1="586" y1="297" x2="640" y2="351" stroke="#BC9068" stroke-width="1.2" opacity="0.5"/>
+        <line x1="640" y1="297" x2="586" y2="351" stroke="#BC9068" stroke-width="1.2" opacity="0.5"/>
+
+        <!-- LEFT ARMCHAIR -->
+        <ellipse cx="136" cy="392" rx="74" ry="10" fill="#B8A880" opacity="0.25"/>
+        <rect x="66" y="326" width="142" height="62" rx="9" fill="#C8A06A"/>
+        <rect x="61" y="268" width="152" height="67" rx="11" fill="#B89060"/>
+        <rect x="72" y="274" width="130" height="57" rx="9" fill="#D4AE80"/>
+        <!-- Chair seat cushion -->
+        <rect x="74" y="329" width="128" height="55" rx="7" fill="#DEB888"/>
+        <rect x="74" y="329" width="128" height="8" rx="4" fill="#E8C898" opacity="0.5"/>
+        <!-- Left armrest -->
+        <path d="M61 270 Q42 270 42 295 L42 378 Q42 390 62 390 L74 390 L74 326 Z" fill="#9E7848"/>
+        <rect x="40" y="265" width="40" height="14" rx="6" fill="#B08A58"/>
+        <!-- Right armrest -->
+        <path d="M213 270 Q232 270 232 295 L232 378 Q232 390 212 390 L200 390 L200 326 Z" fill="#9E7848"/>
+        <rect x="194" y="265" width="40" height="14" rx="6" fill="#B08A58"/>
+        <rect x="60" y="382" width="15" height="20" rx="4" fill="#5C3D2E"/>
+        <rect x="199" y="382" width="15" height="20" rx="4" fill="#5C3D2E"/>
+
+        <!-- RIGHT ARMCHAIR -->
+        <ellipse cx="764" cy="392" rx="74" ry="10" fill="#B8A880" opacity="0.25"/>
+        <rect x="692" y="326" width="142" height="62" rx="9" fill="#C8A06A"/>
+        <rect x="687" y="268" width="152" height="67" rx="11" fill="#B89060"/>
+        <rect x="698" y="274" width="130" height="57" rx="9" fill="#D4AE80"/>
+        <rect x="698" y="329" width="128" height="55" rx="7" fill="#DEB888"/>
+        <rect x="698" y="329" width="128" height="8" rx="4" fill="#E8C898" opacity="0.5"/>
+        <!-- Left armrest -->
+        <path d="M687 270 Q668 270 668 295 L668 378 Q668 390 688 390 L700 390 L700 326 Z" fill="#9E7848"/>
+        <rect x="666" y="265" width="40" height="14" rx="6" fill="#B08A58"/>
+        <!-- Right armrest -->
+        <path d="M839 270 Q858 270 858 295 L858 378 Q858 390 838 390 L826 390 L826 326 Z" fill="#9E7848"/>
+        <rect x="826" y="265" width="40" height="14" rx="6" fill="#B08A58"/>
+        <rect x="685" y="382" width="15" height="20" rx="4" fill="#5C3D2E"/>
+        <rect x="825" y="382" width="15" height="20" rx="4" fill="#5C3D2E"/>
+
+        <!-- COFFEE TABLE -->
+        <ellipse cx="450" cy="444" rx="162" ry="11" fill="#A89070" opacity="0.28"/>
+        <!-- Table top surface -->
+        <rect x="308" y="396" width="284" height="22" rx="7" fill="#8B6342"/>
+        <rect x="310" y="397" width="280" height="10" rx="5" fill="#A07855"/>
+        <!-- Legs -->
+        <rect x="318" y="416" width="14" height="28" rx="4" fill="#6B4830"/>
+        <rect x="568" y="416" width="14" height="28" rx="4" fill="#6B4830"/>
+        <!-- Tray on table -->
+        <rect x="358" y="388" width="88" height="10" rx="4" fill="#C8A878"/>
+        <!-- Two cups -->
+        <rect x="366" y="376" width="22" height="14" rx="5" fill="#F5F0E5"/>
+        <ellipse cx="377" cy="376" rx="11" ry="4" fill="#E8E0D5"/>
+        <ellipse cx="377" cy="382" rx="5" ry="2" fill="#8B5E38" opacity="0.55"/>
+        <rect x="404" y="376" width="22" height="14" rx="5" fill="#F5F0E5"/>
+        <ellipse cx="415" cy="376" rx="11" ry="4" fill="#E8E0D5"/>
+        <ellipse cx="415" cy="382" rx="5" ry="2" fill="#8B5E38" opacity="0.55"/>
+        <!-- Magazine -->
+        <rect x="464" y="382" width="54" height="16" rx="3" fill="#6888AE"/>
+        <rect x="464" y="382" width="54" height="5" rx="3" fill="#789ABF"/>
+        <line x1="468" y1="390" x2="514" y2="390" stroke="#B0C8E0" stroke-width="1" opacity="0.6"/>
+        <!-- Decorative object -->
+        <path d="M524 393 Q534 380 544 393" fill="#C4956A" opacity="0.85"/>
+        <line x1="524" y1="393" x2="544" y2="393" stroke="#B08050" stroke-width="1.5"/>
+
+        <!-- SIDE TABLE (right of sofa) -->
+        <rect x="716" y="344" width="56" height="9" rx="5" fill="#8B6342"/>
+        <rect x="718" y="345" width="52" height="7" rx="4" fill="#A07855"/>
+        <rect x="724" y="352" width="8" height="32" rx="3" fill="#6B4830"/>
+        <rect x="748" y="352" width="8" height="32" rx="3" fill="#6B4830"/>
+        <!-- Succulent on side table -->
+        <rect x="730" y="327" width="20" height="18" rx="5" fill="#B08A5A"/>
+        <ellipse cx="740" cy="327" rx="10" ry="4" fill="#9A7848"/>
+        <circle cx="735" cy="319" r="9" fill="#68B050" opacity="0.92"/>
+        <circle cx="745" cy="316" r="7.5" fill="#58A040" opacity="0.92"/>
+        <circle cx="740" cy="322" r="6" fill="#78C060" opacity="0.85"/>
+        <circle cx="735" cy="319" r="3" fill="#B0E090" opacity="0.5"/>
+
+        <!-- AMBIENT light gradient from ceiling -->
+        <rect x="0" y="0" width="900" height="40" fill="url(#lamp-glow)" opacity="0.3"/>
+        <rect x="300" y="0" width="300" height="20" fill="#FFF9F0" opacity="0.25"/>
+      </svg>
+
+      <!-- Lounge label overlay -->
+      <div class="lm-lounge__scene-label"><i class="ri-sofa-line"></i> Premium Lounge &mdash; Airport Terminal, Maurice Bishop International</div>
+    </div>
+
+    <!-- Amenity chips -->
+    <div class="lm-lounge__amenities">
+      <div class="lm-lounge__amenity"><i class="ri-wifi-line"></i> Free Wi-Fi</div>
+      <div class="lm-lounge__amenity"><i class="ri-cup-line"></i> Refreshments</div>
+      <div class="lm-lounge__amenity"><i class="ri-temp-cold-line"></i> Air Conditioned</div>
+      <div class="lm-lounge__amenity"><i class="ri-flashlight-line"></i> Charging Points</div>
+      <div class="lm-lounge__amenity"><i class="ri-newspaper-line"></i> Press &amp; Magazines</div>
+      <div class="lm-lounge__amenity"><i class="ri-shield-check-line"></i> Guests Only</div>
+    </div>
+  </section> -->
+  <footer class="lm-footer">
+    <div style="margin-bottom:0.6rem;">
+      <a href="Index.html">Home</a>
+      <a href="Reservations.html">Reservations</a>
+      <a href="Digital-Hub.html">Digital Hub</a>
+      <a href="Help.html">Help</a>
+    </div>
+    &copy; 2026 Premium Eco Rentals &nbsp;&middot;&nbsp; Grenada
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    /* ── Live GPS Map — Premium Eco Rentals (live-map.html) ── */
+    (function () {
+      const API_BASE    = 'http://localhost:5000';
+      const AIRPORT_LAT = 12.0071446, AIRPORT_LNG = -61.7859255;
+      const DEFAULT_LAT = 12.007629,  DEFAULT_LNG  = -61.785719;
+
+      const map = L.map('dh-live-map', { zoomControl: false, attributionControl: true })
+                   .setView([12.0073, -61.7858], 18);
+
+      const streetLayer = L.tileLayer(
+        'https://api.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=95d1c0189c224dc8aea43d95bc38e85b',
+        { attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', maxZoom: 22, maxNativeZoom: 22 }
+      );
+      const satelliteLayer = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        { attribution: 'Tiles &copy; Esri', maxZoom: 21, maxNativeZoom: 19 }
+      );
+      const labelOverlay = L.tileLayer(
+        'https://api.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey=95d1c0189c224dc8aea43d95bc38e85b',
+        { maxZoom: 22, maxNativeZoom: 22, opacity: 0.55 }
+      );
+      streetLayer.addTo(map);
+      L.control.layers({ '🗺 Street': streetLayer, '🛰 Satellite': satelliteLayer }, { '🏷 Labels': labelOverlay }, { position: 'topright', collapsed: false }).addTo(map);
+      map.on('baselayerchange', e => {
+        if (e.name === '🛰 Satellite') { if (!map.hasLayer(labelOverlay)) labelOverlay.addTo(map); }
+        else { if (map.hasLayer(labelOverlay)) map.removeLayer(labelOverlay); }
+      });
+      L.control.zoom({ position: 'bottomright' }).addTo(map);
+      L.control.scale({ position: 'bottomleft', imperial: false }).addTo(map);
+
+      /* Highway */
+      const hwayPath = [
+        [12.0076651,-61.7835009],[12.0075447,-61.7840875],[12.0075278,-61.7843682],
+        [12.0075825,-61.7846922],[12.0076361,-61.7850834],[12.0076723,-61.7852910],
+        [12.0077057,-61.7855646],[12.0077083,-61.7857084],[12.0077053,-61.7859346],
+        [12.0076953,-61.7860968],[12.0076884,-61.7862905],[12.0077080,-61.7864442],
+        [12.0077843,-61.7865920],[12.0078972,-61.7867113]
+      ];
+      const roundaboutPath = [
+        [12.0078972,-61.7867113],[12.0078921,-61.7867299],[12.0078809,-61.7867455],
+        [12.0078651,-61.7867562],[12.0078467,-61.7867605],[12.0078290,-61.7867582],
+        [12.0078130,-61.7867501],[12.0078005,-61.7867370],[12.0077930,-61.7867205],
+        [12.0077912,-61.7867023],[12.0077955,-61.7866845],[12.0078053,-61.7866692],
+        [12.0078195,-61.7866581],[12.0078348,-61.7866527],[12.0078511,-61.7866523],
+        [12.0078667,-61.7866570],[12.0078802,-61.7866662],[12.0078904,-61.7866792],
+        [12.0078962,-61.7866947],[12.0078972,-61.7867113]
+      ];
+      [[hwayPath, roundaboutPath]].forEach(() => {
+        [hwayPath, roundaboutPath].forEach(path => {
+          L.polyline(path, { color: '#B8860B', weight: 14, opacity: 0.55, lineCap: 'round', lineJoin: 'round' }).addTo(map);
+          L.polyline(path, { color: '#FFD700', weight: 9,  opacity: 0.80, lineCap: 'round', lineJoin: 'round' }).addTo(map);
+        });
+      });
+
+      /* Airport marker */
+      L.marker([AIRPORT_LAT, AIRPORT_LNG], { icon: L.divIcon({ className:'', html:'<div class="dh-map-pin-airport"><i class="ri-flight-takeoff-line"></i></div>', iconAnchor:[18,0], iconSize:[36,44] }) })
+       .addTo(map)
+       .bindTooltip('<div class="dh-map-tooltip-inner"><span class="dh-map-tooltip-brand" style="color:#9333EA"><i class="ri-flight-takeoff-line"></i> Arrivals — Point A</span><span class="dh-map-tooltip-text">Maurice Bishop International Airport</span></div>',
+         { permanent:true, direction:'top', offset:[0,-4], className:'dh-map-car-tooltip', interactive:false });
+
+      /* Exit & walk pill */
+      L.marker([12.0074100,-61.7861000], { icon: L.divIcon({ className:'', html:'<div class="dh-map-pin-exit"><i class="ri-door-open-line"></i><span>Arrivals Exit</span></div>', iconAnchor:[54,13], iconSize:[108,26] }), interactive:false }).addTo(map);
+      L.marker([12.0073800,-61.7861000], { icon: L.divIcon({ className:'', html:'<div class="dh-map-pin-walk"><i class="ri-walk-line"></i><span>Head this way</span></div>', iconAnchor:[52,14], iconSize:[104,28] }), interactive:false }).addTo(map);
+
+      /* Walking route */
+      L.polyline([[12.0073800,-61.7861000],[12.007660,-61.786050]], { color:'#ffffff', weight:9, opacity:0.55, lineCap:'round', lineJoin:'round' }).addTo(map);
+      L.polyline([[12.0073800,-61.7861000],[12.007660,-61.786050]], { color:'#22D3EE', weight:5, opacity:1, dashArray:'1 11', lineCap:'round', lineJoin:'round' }).addTo(map);
+
+      /* Walk time label */
+      const walkDistM = Math.round(L.latLng(AIRPORT_LAT, AIRPORT_LNG).distanceTo(L.latLng(12.007660,-61.786050)));
+      const walkMins  = Math.ceil(walkDistM / 60);
+      L.marker([12.0075200,-61.7860600], { icon: L.divIcon({ className:'', html:'<div class="dh-map-pin-walktime"><i class="ri-walk-line"></i><span>~'+walkMins+' min walk &bull; ~'+walkDistM+' m</span></div>', iconAnchor:[62,13], iconSize:[124,26] }), interactive:false }).addTo(map);
+
+      /* Car marker */
+      const carMarker = L.marker([DEFAULT_LAT, DEFAULT_LNG], { icon: L.divIcon({ className:'', html:'<div class="dh-map-pin-live"><i class="ri-car-fill"></i></div>', iconAnchor:[18,18], iconSize:[36,36] }), zIndexOffset:1000 })
+        .addTo(map)
+        .bindTooltip('<div class="dh-map-tooltip-inner"><span class="dh-map-tooltip-brand"><i class="ri-leaf-line"></i> Premium Eco Rentals</span><span class="dh-map-tooltip-text">Your rental vehicle is here</span></div>',
+          { permanent:true, direction:'top', offset:[0,-28], className:'dh-map-car-tooltip', interactive:false });
+
+      /* Curbside marker */
+      L.marker([12.007660,-61.786050], { icon: L.divIcon({ className:'', html:'<div class="dh-map-pin-curbside"><i class="ri-map-pin-2-fill"></i></div>', iconAnchor:[14,36], iconSize:[28,36] }), zIndexOffset:900 })
+        .addTo(map)
+        .bindTooltip('<div class="dh-map-tooltip-inner"><span class="dh-map-tooltip-brand" style="color:#22C55E"><i class="ri-map-pin-2-fill"></i> Curbside Pickup — Point B</span><span class="dh-map-tooltip-text">Premium Eco Rentals</span></div>',
+          { permanent:true, direction:'right', offset:[8,0], className:'dh-map-car-tooltip', interactive:false });
+
+      /* Restaurant markers */
+      [
+        { pos:[12.0075900,-61.7858400], icon:'ri-restaurant-fill',  color:'',                          name:"Ant's Nest",      stars:'&#9733;&#9733;&#9733;&#9733;&#9734;', score:'4.7', w:140 },
+        { pos:[12.0075440,-61.7853000], icon:'ri-cup-line',          color:'--coffee',                  name:'Rituals Express', stars:'&#9733;&#9733;&#9733;&#9733;&#9733;', score:'4.5', w:148 },
+        { pos:[12.0076630,-61.7855850], icon:'ri-restaurant-2-line', color:'--orange',                  name:'Lunch Box Cafe',  stars:'&#9733;&#9733;&#9733;&#9733;&#9734;', score:'4.2', w:152 }
+      ].forEach(r => {
+        L.marker(r.pos, { icon: L.divIcon({ className:'', html:
+          '<div class="dh-map-pin-restaurant">'
+          +'<div class="dh-map-pin-restaurant__badge'+r.color+'"><i class="'+r.icon+'"></i></div>'
+          +'<div class="dh-map-pin-restaurant__info">'
+          +'<span class="dh-map-pin-restaurant__name">'+r.name+'</span>'
+          +'<span class="dh-map-pin-restaurant__rating"><span class="dh-map-pin-restaurant__stars">'+r.stars+'</span> <span class="dh-map-pin-restaurant__score">'+r.score+'</span></span>'
+          +'</div></div>', iconAnchor:[16,16], iconSize:[r.w,32] }), interactive:false, zIndexOffset:500 }).addTo(map);
+      });
+
+      /* ── Guest Lounge marker (inside arrivals hall) ── */
+      const loungePopupHTML =
+        '<div class="lm-map-lounge-popup">'
+        +'<div class="lm-map-lounge-popup__head">'
+        +'<span class="lm-map-lounge-popup__dot"></span>'
+        +'<strong>Premium Client Lounge</strong>'
+        +'<span class="lm-map-lounge-popup__badge">Guests Only</span>'
+        +'</div>'
+        +'<svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" class="lm-map-lounge-popup__svg">'
+        // Wall + floor
+        +'<rect x="0" y="0" width="500" height="220" fill="#F5F0E8"/>'
+        +'<rect x="0" y="112" width="500" height="70" fill="#EBE4D8"/>'
+        +'<rect x="0" y="108" width="500" height="6" fill="#D8D0C4"/>'
+        +'<rect x="0" y="180" width="500" height="6" fill="#D8D0C4"/>'
+        +'<rect x="0" y="185" width="500" height="35" fill="#C4955A"/>'
+        +'<line x1="0" y1="204" x2="500" y2="204" stroke="#A87E42" stroke-width="1"/>'
+        // Rug
+        +'<ellipse cx="250" cy="208" rx="185" ry="18" fill="#E4D0B8"/>'
+        +'<ellipse cx="250" cy="208" rx="172" ry="13" fill="none" stroke="#C8AE94" stroke-width="2"/>'
+        // Mirror
+        +'<circle cx="250" cy="54" r="42" fill="#C4BAB0"/>'
+        +'<circle cx="250" cy="54" r="37" fill="#EDE8E2"/>'
+        +'<ellipse cx="240" cy="44" rx="9" ry="5" fill="white" opacity="0.35" transform="rotate(-30 240 44)"/>'
+        +'<circle cx="250" cy="54" r="42" fill="none" stroke="#C4A070" stroke-width="4"/>'
+        // Sofa back
+        +'<rect x="98" y="105" width="304" height="48" rx="8" fill="#6AAABB"/>'
+        +'<rect x="108" y="109" width="88" height="40" rx="6" fill="#9CCCDA"/>'
+        +'<rect x="206" y="109" width="88" height="40" rx="6" fill="#9CCCDA"/>'
+        +'<rect x="304" y="109" width="88" height="40" rx="6" fill="#9CCCDA"/>'
+        +'<rect x="108" y="109" width="88" height="6" rx="3" fill="#B0DCE8" opacity="0.5"/>'
+        +'<rect x="206" y="109" width="88" height="6" rx="3" fill="#B0DCE8" opacity="0.5"/>'
+        +'<rect x="304" y="109" width="88" height="6" rx="3" fill="#B0DCE8" opacity="0.5"/>'
+        // Sofa seat
+        +'<rect x="98" y="150" width="304" height="44" rx="6" fill="#7FBDCC"/>'
+        +'<rect x="108" y="153" width="88" height="38" rx="5" fill="#9ECEDA"/>'
+        +'<rect x="206" y="153" width="88" height="38" rx="5" fill="#9ECEDA"/>'
+        +'<rect x="304" y="153" width="88" height="38" rx="5" fill="#9ECEDA"/>'
+        // Armrests
+        +'<path d="M98 106 Q78 106 78 125 L78 185 Q78 194 98 194 L108 194 L108 150 Z" fill="#5A9AAE"/>'
+        +'<rect x="76" y="102" width="36" height="10" rx="5" fill="#6AAABB"/>'
+        +'<path d="M402 106 Q422 106 422 125 L422 185 Q422 194 402 194 L392 194 L392 150 Z" fill="#5A9AAE"/>'
+        +'<rect x="388" y="102" width="36" height="10" rx="5" fill="#6AAABB"/>'
+        // Legs
+        +'<rect x="92" y="186" width="11" height="14" rx="3" fill="#5C3D2E"/>'
+        +'<rect x="397" y="186" width="11" height="14" rx="3" fill="#5C3D2E"/>'
+        // Throw pillow
+        +'<rect x="120" y="125" width="42" height="40" rx="7" fill="#EAC898" transform="rotate(-6 141 145)"/>'
+        +'<rect x="340" y="127" width="38" height="37" rx="7" fill="#D4A882" transform="rotate(6 359 145)"/>'
+        // Coffee table
+        +'<rect x="160" y="182" width="180" height="14" rx="5" fill="#8B6342"/>'
+        +'<rect x="162" y="183" width="176" height="8" rx="4" fill="#A07855"/>'
+        +'<rect x="170" y="195" width="9" height="18" rx="3" fill="#6B4830"/>'
+        +'<rect x="321" y="195" width="9" height="18" rx="3" fill="#6B4830"/>'
+        // Cups on table
+        +'<rect x="196" y="172" width="16" height="11" rx="4" fill="#F5F0E5"/>'
+        +'<ellipse cx="204" cy="172" rx="8" ry="3" fill="#E8E0D5"/>'
+        +'<ellipse cx="204" cy="176" rx="4" ry="2" fill="#8B5E38" opacity="0.55"/>'
+        +'<rect x="220" y="172" width="16" height="11" rx="4" fill="#F5F0E5"/>'
+        +'<ellipse cx="228" cy="172" rx="8" ry="3" fill="#E8E0D5"/>'
+        +'<ellipse cx="228" cy="176" rx="4" ry="2" fill="#8B5E38" opacity="0.55"/>'
+        // Magazine
+        +'<rect x="268" y="174" width="38" height="10" rx="2" fill="#6888AE"/>'
+        +'<rect x="268" y="174" width="38" height="4" rx="2" fill="#789ABF"/>'
+        // Left plant
+        +'<path d="M46 185 L52 200 L80 200 L86 185 Z" fill="#C49060"/>'
+        +'<ellipse cx="63" cy="185" rx="22" ry="5" fill="#D4A070"/>'
+        +'<ellipse cx="63" cy="185" rx="17" ry="3" fill="#6B4832"/>'
+        +'<path d="M63 184 Q57 162 46 142" stroke="#4A7A42" stroke-width="2" fill="none" stroke-linecap="round"/>'
+        +'<path d="M63 184 Q71 162 80 140" stroke="#4A7A42" stroke-width="2" fill="none" stroke-linecap="round"/>'
+        +'<path d="M46 142 Q22 122 12 96 Q36 112 46 142" fill="#58A048" opacity="0.9"/>'
+        +'<path d="M80 140 Q106 120 114 94 Q88 112 80 140" fill="#58A048" opacity="0.9"/>'
+        +'<path d="M63 184 Q54 158 48 128 Q70 152 63 184" fill="#68B058" opacity="0.8"/>'
+        // Floor lamp right
+        +'<rect x="452" y="90" width="4" height="97" fill="#C4A030"/>'
+        +'<path d="M430 92 L476 92 L466 122 L440 122 Z" fill="#F5EED8"/>'
+        +'<line x1="430" y1="92" x2="476" y2="92" stroke="#B09028" stroke-width="2"/>'
+        +'<ellipse cx="454" cy="190" rx="18" ry="5" fill="#8C7A60"/>'
+        +'<rect x="451" y="183" width="5" height="9" rx="2" fill="#8C7A60"/>'
+        +'<circle cx="454" cy="96" r="4" fill="#FFF0A0" opacity="0.85"/>'
+        +'</svg>'
+        +'<p class="lm-map-lounge-popup__desc">Complimentary lounge in the arrivals hall &mdash; rest, refresh, and track your vehicle without stepping outside.</p>'
+        +'<div class="lm-map-lounge-popup__chips">'
+        +'<span><i class="ri-wifi-line"></i> Wi-Fi</span>'
+        +'<span><i class="ri-cup-line"></i> Refreshments</span>'
+        +'<span><i class="ri-temp-cold-line"></i> A/C</span>'
+        +'<span><i class="ri-flashlight-line"></i> Charging</span>'
+        +'<span><i class="ri-newspaper-line"></i> Press</span>'
+        +'</div>'
+        +'</div>';
+
+      L.marker([12.00727, -61.78562], {
+        icon: L.divIcon({
+          className: '',
+          html: '<div class="lm-map-pin-lounge"><i class="ri-sofa-line"></i><span>Guest Lounge</span></div>',
+          iconAnchor: [56, 34], iconSize: [112, 34]
+        }),
+        zIndexOffset: 800
+      }).addTo(map)
+        .bindPopup(loungePopupHTML, {
+          maxWidth: 360,
+          className: 'lm-map-lounge-popup-wrap',
+          offset: [0, -24]
+        });
+
+      /* Find Me button */
+      let userDot = null;
+      const FindMeBtn = L.Control.extend({
+        onAdd() {
+          const btn = L.DomUtil.create('button', 'dh-map-findme-btn');
+          btn.innerHTML = '<i class="ri-focus-3-line"></i> Find Me';
+          L.DomEvent.on(btn, 'click', e => {
+            L.DomEvent.stopPropagation(e);
+            if (!navigator.geolocation) { btn.innerHTML = '<i class="ri-error-warning-line"></i> GPS unavailable'; return; }
+            btn.innerHTML = '<i class="ri-loader-4-line"></i> Locating…'; btn.disabled = true;
+            navigator.geolocation.getCurrentPosition(pos => {
+              const ll = L.latLng(pos.coords.latitude, pos.coords.longitude);
+              if (userDot) userDot.setLatLng(ll);
+              else userDot = L.circleMarker(ll, { radius:10, color:'#1A73E8', fillColor:'#4A90E2', fillOpacity:0.9, weight:3 }).addTo(map).bindTooltip('You are here', { permanent:false, direction:'top' });
+              map.setView(ll, 19);
+              btn.innerHTML = '<i class="ri-focus-3-line"></i> Find Me'; btn.disabled = false;
+              const hint = document.getElementById('dh-findme-hint');
+              if (hint) { hint.style.opacity='0'; hint.style.transform='translateY(-4px)'; setTimeout(()=>hint.remove(),350); }
+            }, err => { btn.innerHTML='<i class="ri-focus-3-line"></i> Find Me'; btn.disabled=false; alert('Could not get your location: '+err.message); }, { enableHighAccuracy:true, timeout:10000 });
+          });
+          return btn;
+        }
+      });
+      new FindMeBtn({ position: 'topleft' }).addTo(map);
+
+      /* Follow Vehicle button */
+      const FollowBtn = L.Control.extend({
+        onAdd() {
+          const btn = L.DomUtil.create('button', 'dh-map-follow-btn');
+          btn.innerHTML = '<i class="ri-focus-3-line"></i> Follow Vehicle';
+          L.DomEvent.on(btn, 'click', e => { L.DomEvent.stopPropagation(e); map.panTo(carMarker.getLatLng()); });
+          return btn;
+        }
+      });
+      new FollowBtn({ position: 'topleft' }).addTo(map);
+
+      const bounds = L.latLngBounds([AIRPORT_LAT, AIRPORT_LNG], [DEFAULT_LAT, DEFAULT_LNG]);
+      map.fitBounds(bounds, { padding: [60, 60] });
+      setTimeout(() => { map.invalidateSize(); map.fitBounds(bounds, { padding:[60,60] }); }, 400);
+
+      /* Live badge */
+      const badge = document.getElementById('dh-live-badge');
+      const dot   = document.getElementById('dh-live-dot');
+      const label = document.getElementById('dh-live-label');
+      function setLiveBadge(active) {
+        if (active) {
+          dot.style.background='#22C55E'; dot.style.boxShadow='0 0 6px #22C55E';
+          label.textContent='LIVE'; badge.style.borderColor='rgba(34,197,94,0.40)'; badge.style.color='#22C55E';
+        } else {
+          dot.style.background='#64748B'; dot.style.boxShadow='none';
+          label.textContent='OFFLINE'; badge.style.borderColor='rgba(100,116,139,0.40)'; badge.style.color='#64748B';
+        }
+      }
+
+      function haversineM(lat1,lng1,lat2,lng2) {
+        const R=6371000, dLat=(lat2-lat1)*Math.PI/180, dLng=(lng2-lng1)*Math.PI/180;
+        const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
+        return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+      }
+      const PICKUP_LAT=12.007660, PICKUP_LNG=-61.786050;
+      let lastActiveLat=null, lastActiveLng=null;
+
+      async function pollDriver() {
+        try {
+          const res = await fetch(`${API_BASE}/api/V1/driver-location`, { cache:'no-store' });
+          if (!res.ok) return;
+          const data = await res.json();
+          setLiveBadge(data.active===true);
+          const etaBadge = document.getElementById('dh-eta-badge');
+          const etaText  = document.getElementById('dh-eta-text');
+          if (typeof data.lat==='number' && typeof data.lng==='number') {
+            carMarker.setLatLng(L.latLng(data.lat, data.lng));
+            if (data.active && (data.lat!==lastActiveLat || data.lng!==lastActiveLng)) {
+              map.panTo(L.latLng(data.lat, data.lng));
+              lastActiveLat=data.lat; lastActiveLng=data.lng;
+            }
+            if (data.active) {
+              const distM=haversineM(data.lat,data.lng,PICKUP_LAT,PICKUP_LNG);
+              const mins=distM/(30000/60);
+              etaText.textContent = distM<100 ? 'Arriving now' : mins<1 ? 'Driver arriving in < 1 min' : 'Driver arriving in ~'+Math.ceil(mins)+' min';
+              etaBadge.style.display='inline-flex';
+            } else { etaBadge.style.display='none'; }
+          } else { etaBadge.style.display='none'; }
+        } catch(e) {}
+      }
+
+      async function sendLanded() {
+        const btn = document.getElementById('dh-landed-btn');
+        if (btn.disabled) return;
+        btn.disabled=true;
+        btn.innerHTML='<i class="ri-refresh-line dh-landed-spin"></i> Notifying driver…';
+        try {
+          const r = await fetch(`${API_BASE}/api/V1/customer-landed`, { method:'POST' });
+          if (r.ok) { btn.innerHTML='<i class="ri-check-double-line"></i> Driver notified — we\'re on our way!'; btn.classList.add('dh-landed-btn--sent'); }
+          else throw new Error();
+        } catch(e) { btn.innerHTML='<i class="ri-error-warning-line"></i> Could not send — please WhatsApp us'; btn.classList.add('dh-landed-btn--error'); btn.disabled=false; }
+      }
+
+      async function sendCurbside() {
+        const btn = document.getElementById('dh-curbside-btn');
+        if (btn.disabled) return;
+        btn.disabled=true;
+        btn.innerHTML='<i class="ri-refresh-line dh-landed-spin"></i> Notifying driver…';
+        try {
+          const r = await fetch(`${API_BASE}/api/V1/customer-curbside`, { method:'POST' });
+          if (r.ok) { btn.innerHTML='<i class="ri-check-double-line"></i> Driver notified — pulling up now!'; btn.classList.add('dh-curbside-btn--sent'); }
+          else throw new Error();
+        } catch(e) { btn.innerHTML='<i class="ri-error-warning-line"></i> Could not send — please WhatsApp us'; btn.classList.add('dh-curbside-btn--error'); btn.disabled=false; }
+      }
+
+      window.sendLanded   = sendLanded;
+      window.sendCurbside = sendCurbside;
+
+      pollDriver();
+      setInterval(pollDriver, 5000);
+    })();
+
+    /* ── Mobile nav toggle ── */
+    document.getElementById('dh-mobile-btn').addEventListener('click', () => {
+      document.getElementById('dh-nav-links').classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>

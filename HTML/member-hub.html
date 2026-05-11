@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Hub | Premium Eco Rentals</title>
+    <link rel="stylesheet" href="Index.css">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, rgba(248,246,240,0.58) 0%, rgba(242,237,227,0.48) 100%), url('Images/Membershub.jpg') no-repeat center center fixed;
+            background-size: 50%;
+            color: #2d2d2d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .member-hub-portal {
+            width: 100%;
+            max-width: 520px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.18) 60%, rgba(255,250,240,0.08) 100%);
+            border-radius: 2.5rem;
+            box-shadow: 0 8px 40px 0 rgba(201,162,39,0.10), 0 1.5px 8px 0 rgba(201,162,39,0.08);
+            padding: 2.8rem 2.2rem 2.2rem;
+            margin: 3vh 1rem;
+            backdrop-filter: blur(10px) saturate(140%);
+            border: 1.5px solid #f5e9d7;
+            position: relative;
+        }
+        .member-hub-portal h1 {
+            font-family: 'Inter', var(--header-font, Arial, sans-serif);
+            font-size: 2.3rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #003366 0%, #1e90ff 45%, #8fd6ff 80%, #e0f7fa 100%);
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.2rem;
+            letter-spacing: 0.04em;
+            text-align: center;
+            text-shadow:
+                0 0 32px #1e90ff,      /* diamond blue */
+                0 0 48px #b0e0ff,      /* light blue */
+                0 2px 32px #b0bfc9,    /* silver */
+                0 0 36px #20e3b2,      /* sea-green glow */
+                0 0 60px #00bfae,      /* teal/sea-green */
+              
+              
+        }
+        .member-hub-portal .subtitle {
+            color: #7a6c4d;
+            font-size: 1.13rem;
+            text-align: center;
+            margin-bottom: 2.1rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+        .member-hub-portal .card {
+            background: linear-gradient(135deg, rgba(245,245,248,0.99) 0%, rgba(220,225,232,0.98) 60%, rgba(200,200,210,0.97) 100%);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 24px rgba(180,180,185,0.18), 0 0 32px 8px rgba(15, 82, 186, 0.38);
+            padding: 1.8rem 1.3rem 1.3rem;
+            margin-bottom: 2rem;
+            border: 1.5px solid #e5e4e2;
+        }
+        .member-hub-portal label {
+            font-weight: 700;
+            color: #b89c5a;
+            letter-spacing: 0.01em;
+        }
+        .member-hub-portal input, .member-hub-portal select {
+            width: 100%;
+            padding: 0.9rem 1.1rem;
+            border-radius: 1rem;
+            border: 1.5px solid #e7dbc7;
+            background: #fffdfa;
+            color: #2d2d2d;
+            margin-bottom: 1.1rem;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border 0.2s;
+        }
+        .member-hub-portal input:focus, .member-hub-portal select:focus {
+            border-color: #b89c5a;
+            outline: none;
+        }
+        .member-hub-portal button {
+            background: linear-gradient(90deg, #f5e9d7 0%, #b89c5a 100%);
+            color: #2d2d2d;
+            font-weight: 700;
+            border: none;
+            border-radius: 1rem;
+            padding: 0.95rem 2.1rem;
+            font-size: 1.08rem;
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(201,162,39,0.10);
+            transition: background 0.2s, color 0.2s;
+        }
+        .member-hub-portal button:hover {
+            background: linear-gradient(90deg, #b89c5a 0%, #f5e9d7 100%);
+            color: #fffdfa;
+        }
+        .member-hub-portal .status {
+            margin: 1rem 0 0.5rem;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: #b89c5a;
+            text-align: center;
+            letter-spacing: 0.01em;
+        }
+        @media (max-width: 600px) {
+            .member-hub-portal {
+                padding: 1.1rem 0.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="member-hub-portal">
+        <h1>Members Hub</h1>
+        <div class="subtitle">Welcome to your exclusive members portal. Manage your account, view rewards, and access premium features.</div>
+
+        <!-- Account Section: Four individual modern glassy cards with icons, each in its own div -->
+        <div class="account-section-individual-cards" style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin:2.5rem 0;">
+            <div class="glassy-card-individual">
+                <span class="icon">👤</span>
+                <span class="label">Profile</span>
+            </div>
+            <div class="glassy-card-individual">
+                <span class="icon">🔒</span>
+                <span class="label">Security</span>
+            </div>
+                <a href="rewards-loyalty.html" class="glassy-card-individual" style="text-decoration:none;cursor:pointer;" title="View Loyalty & Rewards">
+                    <span class="icon">🎁</span>
+                    <span class="label">Rewards & Loyalty</span>
+                </a>
+            <a href="rewards-elitemembership.html" class="glassy-card-individual" style="text-decoration:none;cursor:pointer;" title="Elite Membership & Rewards">
+                <span class="icon">🎁</span>
+                <span class="label">Elite Membership & Rewards</span>
+            </a>
+            <div class="glassy-card-individual">
+                <span class="icon">💳</span>
+                <span class="label">Payments</span>
+            </div>
+            <a href="Account-sign-in.html" class="glassy-card-individual" style="text-decoration:none;cursor:pointer;" title="Accounts">
+                <span class="icon" style="font-size:1.3rem;margin-bottom:1rem;">👥</span>
+                <span class="label">Account-sign-in</span>
+            </a>
+        </div>
+        
+        <div class="card">
+            <!-- Placeholder for dynamic member content (account info, rewards, etc.) -->
+            <div id="member-content">
+                <!-- Content will be loaded here by JS -->
+            </div>
+        </div>
+        <div class="status" id="member-status"></div>
+    </div>
+    <script src="Index.js"></script>
+    <script>
+        // Optionally, you can add a redirect if not signed in, or load member info here
+        // Example: document.getElementById('member-content').innerHTML = '...';
+    </script>
+</body>
+</html>

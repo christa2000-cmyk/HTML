@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Premium Eco Rentals | Book Your Car Rental</title>
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@200;300;400;500;600&display=swap');
+
+    :root {
+      --green:  #22C55E;
+      --teal:   #14B8A6;
+      --green2: #4ADE80;
+      --teal2:  #2DD4BF;
+      --black:  #0A0A0A;
+      --card:   #111111;
+      --border: rgba(255,255,255,0.08);
+      --white60: rgba(255,255,255,0.60);
+      --white40: rgba(255,255,255,0.40);
+      --white10: rgba(255,255,255,0.10);
+      --white05: rgba(255,255,255,0.05);
+      --white03: rgba(255,255,255,0.03);
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #030303;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ─── Background ─── */
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        /* static silver radial glints */
+        radial-gradient(ellipse 30% 20% at 20% 30%,  rgba(210,215,225,0.055) 0%, transparent 70%),
+        radial-gradient(ellipse 22% 14% at 78% 18%,  rgba(230,232,238,0.065) 0%, transparent 65%),
+        radial-gradient(ellipse 25% 18% at 55% 70%,  rgba(200,205,215,0.045) 0%, transparent 65%),
+        radial-gradient(ellipse 18% 12% at 90% 55%,  rgba(220,225,235,0.05)  0%, transparent 60%),
+        radial-gradient(ellipse 15% 10% at 8%  60%,  rgba(215,218,228,0.04)  0%, transparent 60%),
+        /* green/teal glow */
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(34,197,94,0.13)    0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 85% 80%,  rgba(20,184,166,0.10)   0%, transparent 55%),
+        radial-gradient(ellipse 50% 35% at 10% 90%,  rgba(34,197,94,0.07)    0%, transparent 55%),
+        #030303;
+    }
+
+    /* ─── Static shimmer streaks ─── */
+    .shimmer-streak {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+    }
+
+    /* long diagonal silver ribbon — top-left to mid */
+    .shimmer-s1 {
+      width: 55vw;
+      height: 1px;
+      top: 28%;
+      left: -5%;
+      transform: rotate(-32deg);
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(200,205,218,0.04) 20%,
+        rgba(230,235,245,0.14) 45%,
+        rgba(255,255,255,0.18) 50%,
+        rgba(230,235,245,0.14) 55%,
+        rgba(200,205,218,0.04) 80%,
+        transparent 100%
+      );
+      border-radius: 0;
+    }
+
+    /* thinner streak — right side */
+    .shimmer-s2 {
+      width: 40vw;
+      height: 1px;
+      top: 58%;
+      right: -5%;
+      transform: rotate(-28deg);
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(200,205,218,0.03) 20%,
+        rgba(225,230,242,0.11) 45%,
+        rgba(245,248,255,0.15) 50%,
+        rgba(225,230,242,0.11) 55%,
+        rgba(200,205,218,0.03) 80%,
+        transparent 100%
+      );
+      border-radius: 0;
+    }
+
+    /* soft silver spot — upper right */
+    .shimmer-s3 {
+      width: 320px;
+      height: 320px;
+      top: -60px;
+      right: 10%;
+      background: radial-gradient(circle,
+        rgba(215,220,235,0.07) 0%,
+        rgba(200,208,225,0.04) 40%,
+        transparent 70%
+      );
+    }
+
+    /* soft silver spot — lower left */
+    .shimmer-s4 {
+      width: 260px;
+      height: 260px;
+      bottom: 8%;
+      left: 5%;
+      background: radial-gradient(circle,
+        rgba(210,215,230,0.06) 0%,
+        rgba(195,202,220,0.03) 45%,
+        transparent 70%
+      );
+    }
+
+    /* svg dot-grid overlay */
+    .page-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(156,163,175,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.7;
+    }
+
+    /* ─── Page Wrapper ─── */
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem 3rem;
+    }
+
+    /* ─── Logo / Brand strip ─── */
+    .brand-strip {
+      position: absolute;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      opacity: 0.85;
+    }
+
+    .brand-strip .leaf-icon {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--green), var(--teal));
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .brand-strip .leaf-icon svg { width: 15px; height: 15px; color: #fff; }
+
+    .brand-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--green), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Headline Block ─── */
+    .hero-text {
+      text-align: center;
+      margin-bottom: 2.8rem;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.22);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-label .dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.75); }
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: 0.01em;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(90deg, var(--green) 0%, var(--teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.52);
+      letter-spacing: 0.01em;
+      line-height: 1.6;
+    }
+
+    /* ─── Reservation Bar Wrapper ─── */
+    .res-wrapper {
+      width: 100%;
+      max-width: 1080px;
+    }
+
+    /* ─── Animated Glow Frame ─── */
+    .res-glow-frame {
+      position: relative;
+      border-radius: 28px;
+    }
+
+    .res-glow-frame::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 30px;
+      background: linear-gradient(90deg, var(--green), var(--teal), var(--green));
+      background-size: 200% 100%;
+      opacity: 0;
+      filter: blur(4px);
+      transition: opacity 0.5s ease;
+      animation: grad-shift 3s linear infinite;
+      z-index: -1;
+    }
+
+    .res-glow-frame::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 29px;
+      background: linear-gradient(90deg, rgba(34,197,94,0.45), rgba(20,184,166,0.45), rgba(34,197,94,0.45));
+      background-size: 200% 100%;
+      opacity: 0.28;
+      animation: grad-shift 3s linear infinite;
+      z-index: -1;
+    }
+
+    .res-glow-frame:hover::before { opacity: 1; }
+
+    @keyframes grad-shift {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    /* ─── Inner Card ─── */
+    .res-card {
+      position: relative;
+      background: var(--black);
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    /* top shine */
+    .res-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.035) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── ECO Badge ─── */
+    .eco-badge {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(34,197,94,0.10);
+      border: 1px solid rgba(34,197,94,0.22);
+      border-radius: 100px;
+      padding: 4px 10px;
+    }
+
+    .eco-badge svg { width: 11px; height: 11px; color: var(--green); }
+    .eco-badge span {
+      color: var(--green);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* ─── Fields Row ─── */
+    .res-inner {
+      position: relative;
+      z-index: 1;
+      padding: 38px 26px 38px 22px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .res-fields {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      gap: 2px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .res-fields::-webkit-scrollbar { display: none; }
+
+    /* ─── Single Field ─── */
+    .res-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .res-field:hover { background: var(--white05); }
+    .res-field:focus-within { background: var(--white10); }
+
+    /* icon box */
+    .field-icon {
+      width: 36px; height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #E5E7EB, #9CA3AF);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .field-icon svg { width: 16px; height: 16px; color: var(--black); }
+
+    /* teal clock icon */
+    .field-icon.teal-icon {
+      background: transparent;
+      box-shadow: none;
+    }
+    .field-icon.teal-icon svg { width: 16px; height: 16px; color: var(--teal); }
+
+    /* label + input stack */
+    .field-body { display: flex; flex-direction: column; }
+
+    .field-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white40);
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+
+    .field-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 500;
+      font-family: inherit;
+      width: 112px;
+    }
+
+    .field-input::placeholder { color: rgba(255,255,255,0.45); }
+    .field-input[type="date"],
+    .field-input[type="time"] { color-scheme: dark; }
+
+    /* ─── Dividers ─── */
+    .res-divider {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.10), transparent);
+      flex-shrink: 0;
+      margin: 0 4px;
+    }
+
+    /* ─── Arrow chevron between pickup/return ─── */
+    .arrow-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.10);
+      flex-shrink: 0;
+      margin: 0 4px;
+    }
+
+    .arrow-dot svg { width: 12px; height: 12px; color: var(--green); }
+
+    /* ─── Reserve Button ─── */
+    .res-btn {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(180deg, rgba(46,46,46,0.24), rgba(10,10,10,0.16));
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 10px 18px 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(214, 224, 235, 0.24);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.22s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-left: 8px;
+      box-shadow:
+        0 10px 22px rgba(0,0,0,0.26),
+        0 4px 12px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.16),
+        inset 0 -1px 0 rgba(255,255,255,0.04);
+      isolation: isolate;
+      backdrop-filter: blur(18px) saturate(135%);
+      -webkit-backdrop-filter: blur(18px) saturate(135%);
+    }
+
+    .res-btn::before {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.045) 28%, rgba(255,255,255,0.018) 55%, rgba(0,0,0,0.10));
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .res-btn::after {
+      content: '';
+      position: absolute;
+      top: -120%;
+      left: -20%;
+      width: 58%;
+      height: 320%;
+      transform: rotate(24deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+      opacity: 0.45;
+      transition: transform 0.7s ease, left 0.7s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .res-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      border-color: rgba(232,236,242,0.34);
+      background: linear-gradient(180deg, rgba(52,52,52,0.30), rgba(10,10,10,0.20));
+      box-shadow:
+        0 14px 28px rgba(0,0,0,0.34),
+        0 8px 16px rgba(0,0,0,0.20),
+        0 0 0 1px rgba(210,216,224,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.20);
+    }
+    .res-btn:hover::after {
+      left: 85%;
+      transform: rotate(24deg) translateX(10px);
+    }
+    .res-btn:active { transform: translateY(0) scale(0.985); }
+
+    .res-btn .btn-shine {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 50%, rgba(255,255,255,0.13), transparent 22%),
+        linear-gradient(135deg, rgba(60,60,60,0.16), rgba(16,16,16,0.10));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+    .res-btn:hover .btn-shine { opacity: 1; }
+
+    .res-btn .btn-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .res-btn .btn-icon-wrap {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(90,90,90,0.16), rgba(18,18,18,0.10));
+      border: 1px solid rgba(220,224,232,0.22);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.14),
+        0 3px 8px rgba(0,0,0,0.16);
+      backdrop-filter: blur(12px) saturate(130%);
+      -webkit-backdrop-filter: blur(12px) saturate(130%);
+      flex-shrink: 0;
+    }
+
+    .res-btn .btn-text {
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+      color: rgba(250,250,250,0.94);
+    }
+
+    .res-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .res-btn .btn-icon-wrap svg {
+      color: rgba(226,231,238,0.92);
+    }
+    .res-btn .chevron {
+      width: 14px;
+      height: 14px;
+      color: rgba(190,198,210,0.92);
+      opacity: 0.95;
+      transition: transform 0.22s ease, opacity 0.22s ease;
+    }
+    .res-btn:hover .chevron {
+      transform: translateX(3px);
+      opacity: 1;
+    }
+
+    /* ─── Trust Strip ─── */
+    .trust-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      opacity: 0.5;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.03em;
+    }
+
+    .trust-item svg { width: 14px; height: 14px; color: var(--green); }
+
+    /* ─── Decorative floating orbs ─── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: orb-float 10s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .orb-1 {
+      width: 340px; height: 340px;
+      top: -100px; right: -80px;
+      background: radial-gradient(circle, rgba(34,197,94,0.12) 0%, transparent 70%);
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 260px; height: 260px;
+      bottom: -60px; left: -60px;
+      background: radial-gradient(circle, rgba(20,184,166,0.10) 0%, transparent 70%);
+      animation-delay: -4s;
+    }
+
+    .orb-3 {
+      width: 200px; height: 200px;
+      bottom: 20%; right: 5%;
+      background: radial-gradient(circle, rgba(34,197,94,0.07) 0%, transparent 70%);
+      animation-delay: -7s;
+    }
+
+    @keyframes orb-float {
+      0%, 100% { transform: translateY(0px)   scale(1); }
+      50%       { transform: translateY(-18px) scale(1.04); }
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .res-inner {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 0;
+      }
+
+      .res-fields {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        overflow-x: visible;
+      }
+
+      .res-field {
+        padding: 12px 10px;
+        border-radius: 12px;
+      }
+
+      .field-input { width: 100%; min-width: 0; }
+
+      .res-divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+        margin: 2px 0;
+      }
+
+      .arrow-dot { display: none; }
+
+      .res-btn {
+        margin: 12px 0 0;
+        width: 100%;
+        justify-content: center;
+        padding: 12px 15px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { letter-spacing: -0.015em; }
+      .brand-strip { top: 1.2rem; }
+      .page-wrapper { padding-top: 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Static shimmer streaks -->
+  <div class="shimmer-streak shimmer-s1"></div>
+  <div class="shimmer-streak shimmer-s2"></div>
+  <div class="shimmer-streak shimmer-s3"></div>
+  <div class="shimmer-streak shimmer-s4"></div>
+
+  <!-- Floating background orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Page radial gradients -->
+  <div class="page-bg"></div>
+
+  <!-- Brand strip -->
+  <div class="brand-strip">
+    <div class="leaf-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 8C8 10 5.9 16.17 3.82 19.93A2 2 0 0 0 5.5 22.8L6 22a10.19 10.19 0 0 1 .88-1.33A4 4 0 0 0 10 22c8 0 10-7 10-16A2 2 0 0 0 17 8z"/>
+      </svg>
+    </div>
+    <span class="brand-name">Premium Eco Rentals</span>
+  </div>
+
+  <!-- Main -->
+  <div class="page-wrapper">
+
+    <!-- Hero text -->
+    <div class="hero-text">
+      <div class="hero-label">
+        <span class="dot"></span>
+        Luxury &bull; Sustainable &bull; Premium
+      </div>
+
+      <h1 class="hero-title">
+        Book Your Car Rental<br>
+        <span>in Minutes</span>
+      </h1>
+
+      <p class="hero-sub">
+        Explore Business Deals, Member Deals, First Class Traveler Deals on SUVs
+      </p>
+    </div>
+
+    <!-- Reservation Bar -->
+    <div class="res-wrapper">
+      <div class="res-glow-frame">
+        <div class="res-card">
+
+          <!-- ECO badge -->
+          <div class="eco-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17 8C8 10 5.9 16.17 3.82 19.93A2 2 0 0 0 5.5 22.8L6 22a10.19 10.19 0 0 1 .88-1.33A4 4 0 0 0 10 22c8 0 10-7 10-16A2 2 0 0 0 17 8z"/>
+            </svg>
+            <span>ECO</span>
+          </div>
+
+          <div class="res-inner">
+            <div class="res-fields">
+
+              <!-- Location -->
+              <div class="res-field" onclick="this.querySelector('input').focus()">
+                <div class="field-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 21c-4.418 0-8-5.373-8-10a8 8 0 1116 0c0 4.627-3.582 10-8 10z"/>
+                    <circle cx="12" cy="11" r="3"/>
+                  </svg>
+                </div>
+                <div class="field-body">
+                  <span class="field-label">Location</span>
+                  <input class="field-input" type="text" placeholder="Where to?" autocomplete="off"/>
+                </div>
+              </div>
+
+              <div class="res-divider"></div>
+
+              <!-- Pickup Date -->
+              <div class="res-field" onclick="this.querySelector('input').focus()">
+                <div class="field-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                </div>
+                <div class="field-body">
+                  <span class="field-label">Pickup</span>
+                  <input class="field-input" type="date" id="pickup-date"/>
+                </div>
+              </div>
+
+              <!-- Pickup Time -->
+              <div class="res-field" onclick="this.querySelector('input').focus()">
+                <div class="field-icon teal-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                  </svg>
+                </div>
+                <div class="field-body">
+                  <span class="field-label" style="opacity:0">Time</span>
+                  <input class="field-input" type="time" id="pickup-time" style="width:82px"/>
+                </div>
+              </div>
+
+              <!-- Arrow -->
+              <div class="arrow-dot">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </div>
+
+              <!-- Return Date -->
+              <div class="res-field" onclick="this.querySelector('input').focus()">
+                <div class="field-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                </div>
+                <div class="field-body">
+                  <span class="field-label">Return</span>
+                  <input class="field-input" type="date" id="return-date"/>
+                </div>
+              </div>
+
+              <!-- Return Time -->
+              <div class="res-field" onclick="this.querySelector('input').focus()">
+                <div class="field-icon teal-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                  </svg>
+                </div>
+                <div class="field-body">
+                  <span class="field-label" style="opacity:0">Time</span>
+                  <input class="field-input" type="time" id="return-time" style="width:82px"/>
+                </div>
+              </div>
+
+            </div><!-- end .res-fields -->
+
+            <!-- Reserve Button -->
+            <a
+              id="reserve-btn"
+              class="res-btn"
+              href="https://premiumecorentals2.us5.hqrentals.app/public/car-rental/reservations/step1?new=1&brand=blsea0wm-snln-xg0c-9xxu-esymdste3acy"
+              target="_blank"
+            >
+              <div class="btn-shine"></div>
+              <div class="btn-content">
+                <span class="btn-icon-wrap" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/>
+                    <path d="M19 13l.75 2.25L22 16l-2.25.75L19 19l-.75-2.25L16 16l2.25-.75z"/>
+                    <path d="M5 17l.5 1.5L7 19l-1.5.5L5 21l-.5-1.5L3 19l1.5-.5z"/>
+                  </svg>
+                </span>
+                <span class="btn-text">Make A Reservation</span>
+                <!-- Chevron -->
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </div>
+            </a>
+
+          </div><!-- end .res-inner -->
+        </div><!-- end .res-card -->
+      </div><!-- end .res-glow-frame -->
+    </div><!-- end .res-wrapper -->
+
+    <!-- Trust strip -->
+    <div class="trust-strip">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Fully Insured Fleet
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 8C8 10 5.9 16.17 3.82 19.93A2 2 0 0 0 5.5 22.8L6 22a10.19 10.19 0 0 1 .88-1.33A4 4 0 0 0 10 22c8 0 10-7 10-16A2 2 0 0 0 17 8z"/>
+        </svg>
+        Eco-Certified Vehicles
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.56 19a19.45 19.45 0 0 1-5.56-5.56A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 5.56 5.56l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        24/7 Concierge Support
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        Elite Loyalty Rewards
+      </div>
+    </div>
+
+  </div><!-- end .page-wrapper -->
+
+  <script>
+    // Set today as default for pickup, tomorrow for return
+    (function () {
+      const today    = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+
+      const fmt = d => d.toISOString().split('T')[0];
+      document.getElementById('pickup-date').value = fmt(today);
+      document.getElementById('return-date').value  = fmt(tomorrow);
+
+      // Default times
+      document.getElementById('pickup-time').value = '10:00';
+      document.getElementById('return-time').value  = '10:00';
+
+      // Return date must be >= pickup date
+      const pickupInput = document.getElementById('pickup-date');
+      const returnInput = document.getElementById('return-date');
+
+      pickupInput.addEventListener('change', () => {
+        if (returnInput.value && returnInput.value < pickupInput.value) {
+          returnInput.value = pickupInput.value;
+        }
+        returnInput.min = pickupInput.value;
+      });
+      returnInput.min = fmt(today);
+    })();
+  </script>
+  <link rel="stylesheet" href="chatbot.css">
+  <script src="chatbot.js"></script>
+</body>
+</html>

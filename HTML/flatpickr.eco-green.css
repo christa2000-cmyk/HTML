@@ -1,0 +1,23 @@
+/* Eco Green custom theme for flatpickr */
+.flatpickr-calendar {
+  background: #f6fff6;
+  border: 2px solid #4caf50;
+  box-shadow: 0 2px 12px #4caf5022;
+}
+.flatpickr-months .flatpickr-month {
+  color: #388e3c;
+}
+.flatpickr-weekdays {
+  background: #e8f5e9;
+}
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day:hover {
+  background: #4caf50;
+  color: #fff;
+}
+.flatpickr-day.today {
+  border-color: #388e3c;
+}
+.flatpickr-input[readonly] {
+  background: #e8f5e9;
+  border: 1.5px solid #4caf50;
+}

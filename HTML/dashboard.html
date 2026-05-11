@@ -1,0 +1,1109 @@
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Dashboard | Premium Eco Rentals</title>
+    <link rel="stylesheet" href="Index.css">
+    <style>
+                                /* Loyalty Progress Bar Styles - Futuristic Glassmorphism */
+                                .loyalty-progress-card {
+                                    background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(255,0,0,0.32) 100%);
+                                    border-radius: 1.5em;
+                                    border: 2.5px solid #ff5065;
+                                    box-shadow: 0 8px 40px oklch(0.75 0.18 195 / 0.10), 0 2px 12px oklch(0.70 0.20 320 / 0.10);
+                                    padding: 2.2em 2em 2em 2em;
+                                    max-width: 800px;
+                                    min-width: 500px;
+                                    margin: 2em 2.2em 1.5em auto;
+                                    color: #fff;
+                                    position: relative;
+                                    overflow: hidden;
+                                    backdrop-filter: blur(16px);
+                                    -webkit-backdrop-filter: blur(16px);
+                                    right: 0;
+                                }
+                                .loyalty-header {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    margin-bottom: 1.5em;
+                                }
+                                .loyalty-label {
+                                    color: #b0bfc9;
+                                    font-size: 0.82em;
+                                    font-weight: 600;
+                                    letter-spacing: 0.08em;
+                                    text-transform: uppercase;
+                                    margin-bottom: 0.2em;
+                                }
+                                .loyalty-title {
+                                    font-size: 1.5em;
+                                    font-weight: 700;
+                                    color: #fff;
+                                }
+                                .loyalty-tier-badge {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 0.5em;
+                                    background: rgba(255,255,255,0.08);
+                                    box-shadow: 0 0 16px 4px rgba(255,0,0,0.45), 0 2px 12px rgba(255,80,80,0.12), 0 1px 8px rgba(255,255,255,0.10) inset;
+                                    backdrop-filter: blur(12px);
+                                    -webkit-backdrop-filter: blur(12px);
+                                    color: #fff;
+                                    border-radius: 2em;
+                                    padding: 0.5em 1.2em;
+                                    font-weight: 700;
+                                    font-size: 1.1em;
+                                }
+                                #loyalty-tier-name {
+                                    font-weight: 400 !important;
+                                    letter-spacing: 0.01em;
+                                }
+                                .loyalty-tier-badge span:first-child {
+                                    font-size: 1.2em;
+                                }
+                                .loyalty-points-row {
+                                    display: flex;
+                                    align-items: flex-end;
+                                    gap: 0.5em;
+                                    margin-bottom: 1.2em;
+                                }
+                                .loyalty-points {
+                                    font-size: 2.5em;
+                                    font-weight: 900;
+                                    color: #fff;
+                                    letter-spacing: 0.01em;
+                                    text-shadow: 0 0 16px oklch(0.75 0.18 195 / 0.25);
+                                    transition: color 0.4s, text-shadow 0.4s;
+                                }
+                                #loyalty-current-points {
+                                    background: linear-gradient(100deg, #e5e4e2 0%, #bfc1c2 20%, #b3b6b7 40%, #e5e4e2 60%, #c3d0d4 80%, #888a8c 100%);
+                                    -webkit-background-clip: text;
+                                    -webkit-text-fill-color: transparent;
+                                    background-clip: text;
+                                    text-fill-color: transparent;
+                                    filter: brightness(1.04) contrast(1.12) drop-shadow(0 1px 0 #fff6) drop-shadow(0 2px 6px #bfc1c288);
+                                    text-shadow:
+                                        0 0 2px #bfc1c2bb,
+                                        0 0 4px #e5e4e299,
+                                        0 0 1px #fff,
+                                        0 0 0.5px #888a8c;
+                                    position: relative;
+                                    /* animation removed for static metallic look */
+                                }
+
+
+                                .loyalty-points-label {
+                                    color: #b0bfc9;
+                                    font-size: 1.1em;
+                                    margin-bottom: 0.3em;
+                                }
+                                .loyalty-progress-bar-wrap {
+                                    margin-bottom: 1.2em;
+                                }
+                                .loyalty-progress-bar-bg {
+                                    position: relative;
+                                    height: 0.7em;
+                                    background: linear-gradient(90deg, rgba(230, 9, 9, 0.55) 0%, rgba(235, 41, 41, 0.32) 100%);
+                                    border-radius: 0.7em;
+                                    overflow: visible;
+                                    box-shadow: 0 2px 16px oklch(58.754% 0.23233 7.189 / 0.1);
+                                }
+                                .loyalty-progress-divider {
+                                    position: absolute;
+                                    top: 0.2em;
+                                    bottom: 0.2em;
+                                    width: 0.22em;
+                                    background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,80,80,0.18) 100%);
+                                    border-radius: 0.11em;
+                                    z-index: 3;
+                                    box-shadow: 0 0 8px 2px rgba(255,80,80,0.10);
+                                }
+                                .loyalty-progress-bar-fill {
+                                    position: absolute;
+                                    left: 0; top: 0; bottom: 0;
+                                    width: 0%;
+                                    background: linear-gradient(90deg, #bdbdbd 0%, #757575 100%);
+                                    border-radius: 0.3em;
+                                    box-shadow: 0 2px 16px oklch(0.75 0.18 195 / 0.18), 0 0 24px oklch(0.70 0.20 320 / 0.10);
+                                    transition: width 1.2s cubic-bezier(.77,0,.18,1);
+                                    z-index: 1;
+                                    background-size: 200% 100%;
+                                    animation: gradient-shift 8s ease-in-out infinite;
+                                }
+                                .loyalty-progress-indicator {
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 0%;
+                                    transform: translate(-50%, -50%);
+                                    width: 1.2em;
+                                    height: 0.7em;
+                                    border-radius: 0.25em;
+                                    background: linear-gradient(135deg, #222 0%, #000 100%);
+                                    box-shadow:
+                                        0 0 0 4px rgba(255,80,80,0.10),
+                                        0 2px 12px 2px rgba(255,80,80,0.18),
+                                        0 0 16px 4px rgba(255,80,80,0.12),
+                                        0 0 0 1.5px rgba(255,255,255,0.18) inset;
+                                    border: none;
+                                    z-index: 2;
+                                    transition: left 1.2s cubic-bezier(.77,0,.18,1), background 0.3s;
+                                    overflow: hidden;
+                                }
+                                .loyalty-progress-indicator::before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 18%;
+                                    left: 18%;
+                                    width: 64%;
+                                    height: 28%;
+                                    background: linear-gradient(120deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.05) 100%);
+                                    border-radius: 50%;
+                                    filter: blur(1.5px);
+                                    opacity: 0.85;
+                                    pointer-events: none;
+                                }
+                                .loyalty-progress-indicator::after {
+                                    content: '';
+                                    position: absolute;
+                                    left: 0; top: 0; right: 0; bottom: 0;
+                                    border-radius: 50%;
+                                    background: linear-gradient(120deg, rgba(0,0,0,0.18) 40%, rgba(0,0,0,0.12) 100%);
+                                    pointer-events: none;
+                                    animation: indicator-shine 2.8s linear infinite;
+                                }
+                                @keyframes indicator-shine {
+                                    0% { opacity: 0.7; filter: blur(0.5px); }
+                                    50% { opacity: 1; filter: blur(2.5px); }
+                                    100% { opacity: 0.7; filter: blur(0.5px); }
+                                }
+                                .loyalty-progress-ticks {
+                                    position: absolute;
+                                    top: 0; left: 0; right: 0; bottom: 0;
+                                    z-index: 0;
+                                }
+                                .loyalty-progress-ticks div {
+                                    position: absolute;
+                                    top: 0; bottom: 0;
+                                    width: 2px;
+                                    background: oklch(0.75 0.18 195 / 0.18);
+                                }
+                                .loyalty-tier-markers {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    font-size: 0.95em;
+                                    color: #b0bfc9;
+                                    margin-top: 0.3em;
+                                    padding: 0 0.2em;
+                                    text-shadow: 0 0 8px oklch(0.75 0.18 195 / 0.10);
+                                }
+                                .loyalty-next-tier {
+                                    background: linear-gradient(90deg, oklch(0.16 0.02 260 / 0.7) 0%, oklch(0.14 0.02 260 / 0.4) 100%);
+                                    border-radius: 1em;
+                                    padding: 0.8em 1.2em;
+                                    color: #b0bfc9;
+                                    font-weight: 600;
+                                    text-align: center;
+                                    margin-top: 1.2em;
+                                    font-size: 1.1em;
+                                    border: 1.5px solid oklch(0.75 0.18 195 / 0.18);
+                                    box-shadow: 0 2px 8px oklch(0.75 0.18 195 / 0.10);
+                                }
+                                @keyframes gradient-shift {
+                                    0%, 100% { background-position: 0% 50%; }
+                                    50% { background-position: 100% 50%; }
+                                }
+                .background-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0, 0, 0, 0.5);
+                    z-index: 0;
+                    pointer-events: none;
+                }
+        body {
+            background: black url('Images/Elevate Executive.jpg') no-repeat left center fixed;
+            background-size: 34%;
+            background-repeat: no-repeat;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+        }
+        .dashboard-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 3.5rem auto 2.5rem auto;
+            max-width: 1200px;
+        }
+        .dashboard-transparent {
+            background: rgba(255,255,255,0.18);
+            border-radius: 1.2rem;
+            box-shadow: 0 2px 12px #bfa14a22;
+            padding: 2rem 2.2rem;
+            min-width: 320px;
+            max-width: 370px;
+            flex: 1 1 320px;
+            margin-bottom: 1.5rem;
+            z-index: 1;
+        }
+        .dashboard-header {
+            text-align: center;
+        }
+        .dashboard-status-section {
+            text-align: center;
+        }
+        .dashboard-header {
+            font-size: 2.7rem;
+            font-weight: 900;
+            color: #1976d2;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.01em;
+            font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+        }
+        .dashboard-section {
+            margin-bottom: 2.2rem;
+        }
+        .dashboard-card {
+            background: linear-gradient(90deg, #b0bfc9 0%, #e5e4e2 50%, #1976d2 100%);
+            color: #1a237e;
+            border-radius: 1.2rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 12px #bfa14a22;
+        }
+        .dashboard-label {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #b89c5a;
+            margin-bottom: 0.5rem;
+        }
+
+
+        #dashboard-status-label {
+           position: absolute;
+            top: 950px;
+            left: 15%;
+
+        }
+
+        #dashboard-status {
+            position: absolute;
+            top: 1000px;
+            left: 15%;
+            color: #b1b0ab; /* platinum shade */
+            font-weight: 700;
+        }
+            
+            
+        .dashboard-value {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #1976d2;
+        }
+        .dashboard-points {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #e1006a;
+        }
+        .dashboard-activity-list {
+            list-style: none;
+            padding: 0;
+        }
+        .dashboard-activity-list li {
+            padding: 0.7em 0;
+            border-bottom: 1px solid #e5e4e2;
+            font-size: 1.08rem;
+        }
+        .dashboard-special {
+            background: #fffbe6;
+            color: #b89c5a;
+            border-radius: 0.8em;
+            padding: 1em 1.5em;
+            margin-top: 1.2em;
+            font-size: 1.15em;
+            font-weight: 700;
+        }
+        .dashboard-gift-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fffbe6;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px #bfa14a22;
+            padding: 1.2rem 1.1rem;
+            margin: 2rem auto;
+            max-width: 340px;
+            min-width: 220px;
+        }
+
+        #birthday-claim-section {
+            background: linear-gradient(90deg, #e6fff0 0%, #5ee4c2 100%);
+            border: 2px solid #22bfa1;
+            box-shadow: 0 4px 16px #22bfa133;
+        }
+        
+        .gift-claim-section {
+            display: flex;
+            align-items: center;
+        }
+        .gift-icon {
+            font-size: 2.2rem;
+            color: #bfa14a;
+            margin-right: 1.2rem;
+        }
+        .gift-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #222;
+        }
+        .claim-gift-btn {
+            background: #e1006a;
+            color: #fff;
+            border: none;
+            border-radius: 0.7rem;
+            padding: 0.6rem 1.1rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        #signup-gift-section {
+            background: linear-gradient(90deg, #fffbe6 0%, #ffe6f7 100%);
+            border: 2px solid #e1006a;
+            box-shadow: 0 4px 16px #e1006a22;
+            max-width: 600px;
+            min-width: 260px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+
+    <!-- Rewards Program Intro -->
+    <div style="max-width:800px;margin:2.5em auto 0 auto;text-align:center;padding-right:0;">
+        <h2 style="font-size:2.1em;font-weight:800;color:#db152c;margin-bottom:0.15em;letter-spacing:0.01em;">Rewards Program</h2>
+        <div style="font-size:1.18em;color:#b0bfc9;font-weight:500;line-height:1.4;text-align:center;margin-right:0;">Track your progress and unlock exclusive benefits</div>
+    </div>
+
+    <!-- Loyalty Progress Bar -->
+                <div class="loyalty-progress-card">
+                <div class="loyalty-header">
+                    <div>
+                    <div class="loyalty-label">Rewards Program</div>
+                    <div class="loyalty-title" id="loyalty-member-name">Member's Status</div>
+                    </div>
+                    <div class="loyalty-tier-badge" id="loyalty-tier-badge">
+                    <span id="loyalty-tier-icon">★</span>
+                    <span id="loyalty-tier-name">Silver</span>
+                    </div>
+                </div>
+                                <div class="loyalty-points-row">
+                                        <span class="loyalty-points" id="loyalty-current-points">3,750</span>
+                                        <span class="loyalty-points-label">points</span>
+                                </div>
+                                <!-- Removed duplicate redeem button and modal from progress bar area -->
+                <script>
+                // Ensure DOM is loaded before attaching event listeners
+                document.addEventListener('DOMContentLoaded', function() {
+                    const redeemBtn = document.getElementById('redeem-points-btn');
+                    const redeemModal = document.getElementById('redeem-modal');
+                    const closeRedeemModal = document.getElementById('close-redeem-modal');
+                    const redeemForm = document.getElementById('redeem-form');
+
+                    if (redeemBtn && redeemModal && closeRedeemModal && redeemForm) {
+                        redeemBtn.addEventListener('click', () => {
+                            redeemModal.style.display = 'flex';
+                        });
+                        closeRedeemModal.addEventListener('click', () => {
+                            redeemModal.style.display = 'none';
+                        });
+                        redeemModal.addEventListener('click', (e) => {
+                            if (e.target === redeemModal) redeemModal.style.display = 'none';
+                        });
+
+                        redeemForm.addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            const days = parseInt(document.querySelector('input[name="days"]:checked').value);
+                            // Use the same token as the rest of the dashboard
+                            if (!window.token) {
+                                alert('You must be logged in to redeem points.');
+                                return;
+                            }
+                            fetch('http://localhost:5000/api/V1/loyalty/redeem', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + window.token
+                                },
+                                body: JSON.stringify({ days })
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.code) {
+                                    // Update points display if present
+                                    if (data.pointsBalance !== undefined) {
+                                        const pointsEls = document.querySelectorAll('#loyalty-current-points, #dashboard-points');
+                                        pointsEls.forEach(el => el.textContent = data.pointsBalance);
+                                    }
+                                    alert(`Success! Promo code: ${data.code}\nEnter this promo code when booking your car to redeem your free rental days.`);
+                                } else {
+                                    alert(data.message || 'Redemption failed.');
+                                }
+                                redeemModal.style.display = 'none';
+                            })
+                            .catch(err => {
+                                alert('Redemption failed. Please try again.');
+                                redeemModal.style.display = 'none';
+                            });
+                        });
+                    }
+                });
+                </script>
+                <div class="loyalty-progress-bar-wrap">
+                    <div class="loyalty-progress-bar-bg">
+                    <div class="loyalty-progress-bar-fill" id="loyalty-progress-bar-fill"></div>
+                    <div class="loyalty-progress-indicator" id="loyalty-progress-indicator"></div>
+                    <!-- Modern vertical dividers -->
+                    <div class="loyalty-progress-divider" style="left: 0%"></div>
+                    <div class="loyalty-progress-divider" style="left: 25%"></div>
+                    <div class="loyalty-progress-divider" style="left: 50%"></div>
+                    <div class="loyalty-progress-divider" style="left: 75%"></div>
+                    <div class="loyalty-progress-divider" style="left: 100%"></div>
+                    </div>
+                    <!-- Tier markers -->
+                    <div class="loyalty-tier-markers">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:0.2em;">
+                        <span style="font-size:2em;">★</span>
+                        <span>Bronze</span>
+                        <span style="font-size:0.95em;color:#ffb300;opacity:0.85;">1,500</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:0.2em;">
+                        <span style="font-size:2em;">⚡</span>
+                        <span>Silver</span>
+                        <span style="font-size:0.95em;color:#b0bfc9;opacity:0.85;">2,500</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:0.2em;">
+                        <span style="font-size:2em;">👑</span>
+                        <span>Gold</span>
+                        <span style="font-size:0.95em;color:#ffd700;opacity:0.85;">5,000</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:0.2em;">
+                        <span style="font-size:2em;">🏆</span>
+                        <span>Platinum</span>
+                        <span style="font-size:0.95em;color:#b0bfc9;opacity:0.85;">10,000</span>
+                    </div>
+                    </div>
+                </div>
+                <div class="loyalty-next-tier" id="loyalty-next-tier-msg">Only 1,250 points to Gold!</div>
+                </div>
+
+
+
+            
+
+    <div class="dashboard-row">
+        <div class="dashboard-transparent">
+            <div class="dashboard-header">Welcome, <span id="dashboard-username">Loyalty Member</span>, To Your Interactive Dashboard</div>
+            <div class="dashboard-section dashboard-status-section">
+                <div class="dashboard-label" id="dashboard-status-label">Loyalty Status</div>
+                <div class="dashboard-value" id="dashboard-status">Gold</div>
+             </div>           
+        </div>
+        <div class="dashboard-transparent">
+            <div class="dashboard-section">
+                <div class="dashboard-label">Points Balance</div>
+                <div class="dashboard-points" id="dashboard-points">2,350</div>
+                <div class="dashboard-label" style="margin-top:1rem;">Lifetime Points</div>
+                <div class="dashboard-value" id="dashboard-lifetime-points">—</div>
+                <div class="dashboard-gift-row gift-claim-section" id="signup-gift-section">
+                <img src="Images/customer gift.jpg" alt="Customer Gift" style="height: 64px; width: 64px; object-fit: cover; border-radius: 0.7rem; margin-right: 1.2rem; box-shadow: 0 2px 8px #e1006a22;" />
+                <span class="gift-label">Welcome Gift: Claim your free 100 points!</span>
+                <button class="claim-gift-btn" id="claim-signup-gift-btn">Claim Gift</button>
+               
+                </div>
+                <!-- Birthday Points Claim Section (hidden by default) -->
+                <div class="dashboard-gift-row" id="birthday-claim-section" style="display: none; align-items: center; justify-content: space-between; background: #e6fff0; border-radius: 1rem; box-shadow: 0 2px 8px #22bfa122; padding: 1.2rem 1.1rem; margin: 2rem auto; max-width: 340px; min-width: 220px;">
+                    <div style="display: flex; align-items: center;">
+                        <img src="Images/Giftcard 2.jpg" alt="Gift Card" style="height: 64px; width: 64px; object-fit: cover; border-radius: 0.7rem; margin-right: 1.2rem; box-shadow: 0 4px 16px #22bfa133;" />
+                        <span id="birthday-claim-message" style="font-size: 1.2rem; font-weight: 600; color: #222; font-family: 'Segoe UI', Arial, sans-serif;"> Exclusive Reward.</span>
+                    </div>
+                    <button id="claim-birthday-btn" style="background: #22bfa1; color: #fff; border: none; border-radius: 0.7rem; padding: 0.6rem 1.1rem; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: background 0.2s; display: none;">Claim Birthday Points</button>
+                </div>
+
+                <!-- Booking Milestone Progress Section -->
+                <div class="dashboard-section" id="milestone-progress-section" style="margin-top:2.5rem;">
+                    <div class="dashboard-label" style="font-size:1.2rem;">Booking Milestone Progress</div>
+                    <div style="font-size:1.1rem;margin-bottom:0.7em;">
+                        Bookings Completed: <span id="dashboard-booking-count">0</span>
+                    </div>
+                    <div style="background:#f7f7f7;border-radius:1em;padding:1.2em 1.2em 1.5em 1.2em;box-shadow:0 2px 8px #1976d222;max-width:340px;margin:auto;">
+                        <div style="margin-bottom:0.7em;">
+                            <span id="milestone-progress-label">Next Milestone:</span>
+                            <span id="milestone-next-label" style="font-weight:700;color:#1976d2;">—</span>
+                        </div>
+                        <div style="height:1.2em;background:#e0e0e0;border-radius:0.7em;position:relative;margin-bottom:0.5em;">
+                            <div id="milestone-progress-bar" style="height:100%;background:linear-gradient(90deg,#1976d2,#43a047);border-radius:0.7em;width:0%;transition:width 1s;"></div>
+                        </div>
+                        <div style="font-size:0.98em;color:#888;">
+                            <span id="milestone-progress-text">—</span>
+                        </div>
+                    </div>
+                    <div id="milestone-notification-area" style="margin-top:1.2em;"></div>
+                </div>
+        </div>
+            <div class="dashboard-section">
+                <div class="dashboard-label">Rewards</div>
+                                <ul class="dashboard-activity-list" id="dashboard-rewards">
+                                        <li>1 Free Rental Day (950 pts)</li>
+                                        <li>10% Off Next Booking</li>
+                                        <li>Exclusive Access: Platinum Lounge</li>
+                                </ul>
+                                <div class="rewards-section-actions" style="margin:1.5em 0 1em 0;text-align:center;">
+                                        <button id="redeem-points-btn" style="background:#df0534;color:#fff;border:none;border-radius:0.7em;padding:0.7em 1.5em;font-size:1.1em;font-weight:700;box-shadow:0 2px 8px #e1001a33;cursor:pointer;transition:background 0.2s;">Redeem Points for Free Rental Days</button>
+                                </div>
+                                <!-- Referral Stats Section (moved here) -->
+                                <div id="referral-stats-container" style="max-width:700px;margin:2.5rem auto 1.5rem auto;padding:2rem 1.5rem 1.5rem 1.5rem;background:rgba(255,255,255,0.97);border-radius:1.2rem;box-shadow:0 2px 18px #bfa14a22;">
+                                                                        <!-- Social Share Buttons -->
+                                                                        <div id="referral-share-section" style="margin:2rem 0 0 0;text-align:center;">
+                                                                            <div style="font-size:1.08rem;font-weight:600;margin-bottom:0.7rem;">Share your referral code:</div>
+                                                                            <button id="native-share-btn" style="background:#1976d2;color:#fff;border:none;border-radius:0.7em;padding:0.6em 1.2em;font-size:1.05em;font-weight:700;cursor:pointer;margin:0 0.5em 0.5em 0;vertical-align:middle;">
+                                                                                <span style="display:inline-flex;align-items:center;gap:0.5em;">
+                                                                                    <svg width="20" height="20" style="vertical-align:middle;margin-right:0.3em;" viewBox="0 0 24 24"><path fill="#fff" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.03-.47-.09-.7l7.02-4.11c.53.5 1.23.81 2.01.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.91 8.81C8.38 8.31 7.68 8 6.9 8c-1.66 0-3 1.34-3 3s1.34 3 3 3c.78 0 1.48-.31 2.01-.81l7.12 4.18c-.05.21-.08.43-.08.66 0 1.52 1.23 2.75 2.75 2.75s2.75-1.23 2.75-2.75-1.23-2.75-2.75-2.75z"/></svg>
+                                                                                    
+                                                                                </span>
+                                                                            </button>
+                                                                            <a id="whatsapp-share-btn" href="#" target="_blank" rel="noopener" style="background:#25D366;color:#fff;border:none;border-radius:0.7em;padding:0.6em 1.2em;font-size:1.05em;font-weight:700;cursor:pointer;text-decoration:none;margin:0 0.5em 0.5em 0;display:inline-block;vertical-align:middle;">
+                                                                                <svg width="20" height="20" style="vertical-align:middle;margin-right:0.3em;"><use href="share-icons.svg#icon-whatsapp" /></svg>
+                                                                            </a>
+                                                                            <a id="facebook-share-btn" href="#" target="_blank" rel="noopener" style="background:#4267B2;color:#fff;border:none;border-radius:0.7em;padding:0.6em 1.2em;font-size:1.05em;font-weight:700;cursor:pointer;text-decoration:none;margin:0 0.5em 0.5em 0;display:inline-block;vertical-align:middle;">
+                                                                                <svg width="20" height="20" style="vertical-align:middle;margin-right:0.3em;"><use href="share-icons.svg#icon-facebook" /></svg>
+                                                                            </a>
+                                                                            <a id="twitter-share-btn" href="#" target="_blank" rel="noopener" style="background:#1DA1F2;color:#fff;border:none;border-radius:0.7em;padding:0.6em 1.2em;font-size:1.05em;font-weight:700;cursor:pointer;text-decoration:none;margin:0 0.5em 0.5em 0;display:inline-block;vertical-align:middle;">
+                                                                                <svg width="20" height="20" style="vertical-align:middle;margin-right:0.3em;"><use href="share-icons.svg#icon-twitter" /></svg>
+                                                                            </a>
+                                                                            <button id="copy-share-btn" style="background:#bfa14a;color:#fff;border:none;border-radius:0.7em;padding:0.6em 1.2em;font-size:1.05em;font-weight:700;cursor:pointer;margin:0 0.5em 0.5em 0;vertical-align:middle;">
+                                                                                <span style="display:inline-flex;align-items:center;gap:0.5em;">
+                                                                                    <svg width="18" height="18" style="vertical-align:middle;margin-right:0.2em;" viewBox="0 0 24 24"><path fill="#fff" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                                                                    
+                                                                                </span>
+                                                                            </button>
+                                                                            <div id="share-copied-msg" style="color:#1976d2;font-size:0.98em;margin-top:0.5em;display:none;">Copied!</div>
+                                                                        </div>
+                                    <h2 style="font-family:'Cormorant Garamond','Playfair Display',serif;font-size:2.1rem;font-weight:900;color:#b89c5a;text-align:center;margin-bottom:0.5rem;">Your Referral Progress</h2>
+                                    <div id="referral-stats-loading" style="text-align:center;color:#1976d2;font-size:1.1rem;">Loading referral stats...</div>
+                                    <div id="referral-stats-error" style="text-align:center;color:#b00;font-size:1.1rem;display:none;"></div>
+                                    <div id="referral-stats-content" style="display:none;">
+                                        <div style="font-size:1.15rem;color:#23304e;font-weight:600;margin-bottom:1.1rem;">
+                                            <span id="referral-code-label" style="display:block;text-align:center;font-size:1.18rem;font-weight:700;color:#1976d2;margin-bottom:1.1rem;"></span>
+                                        </div>
+                                        <div style="display:flex;gap:2.5rem;justify-content:center;margin-bottom:1.2rem;flex-wrap:wrap;">
+                                            <div><strong>Total Referrals:</strong> <span id="total-referrals">0</span></div>
+                                            <div><strong>Completed:</strong> <span id="completed-referrals">0</span></div>
+                                            <div><strong>Pending:</strong> <span id="pending-referrals">0</span></div>
+                                            <div><strong>Bonuses Awarded:</strong> <span id="bonus-applied">0</span></div>
+                                        </div>
+                                        <div id="referral-list-section">
+                                            <table style="width:100%;border-collapse:collapse;font-size:1.01rem;margin-top:1.2rem;">
+                                                <thead>
+                                                    <tr style="background:#f7f7f7;color:#1a237e;">
+                                                        <th style="padding:0.5em 0.3em;border-bottom:2px solid #b89c5a;text-align:center;">Referred User</th>
+                                                        <th style="padding:0.5em 0.3em;border-bottom:2px solid #b89c5a;text-align:center;">Status</th>
+                                                        <th style="padding:0.5em 0.3em;border-bottom:2px solid #b89c5a;text-align:center;">Bonus</th>
+                                                        <th style="padding:0.5em 0.3em;border-bottom:2px solid #b89c5a;text-align:center;">Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="referral-list"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Redeem Modal -->
+                                <div id="redeem-modal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;">
+                                    <div style="background:#fff;color:#222;border-radius:1.2em;max-width:370px;width:92vw;padding:2em 1.5em;box-shadow:0 8px 32px #0002;position:relative;">
+                                        <button id="close-redeem-modal" style="position:absolute;top:1em;right:1em;background:none;border:none;font-size:1.5em;color:#888;cursor:pointer;">&times;</button>
+                                        <h3 style="margin-top:0;color:#ac0d20;font-size:1.3em;font-weight:800;">Redeem Points for Free Rental Days</h3>
+                                        <div style="margin-bottom:1em;font-size:1.08em;">Select how many free rental days you want to redeem:</div>
+                                        <form id="redeem-form">
+                                            <div style="display:flex;flex-direction:column;gap:0.7em;">
+                                                <label><input type="radio" name="days" value="1" checked> 1 Free Rental Day <span style="color:#e1001a;font-weight:600;">950 Points</span></label>
+                                                <label><input type="radio" name="days" value="2"> 2 Free Rental Days <span style="color:#e1001a;font-weight:600;">1900 Points</span></label>
+                                                <label><input type="radio" name="days" value="3"> 3 Free Rental Days <span style="color:#e1001a;font-weight:600;">2850 Points</span></label>
+                                                <label><input type="radio" name="days" value="4"> 4 Free Rental Days <span style="color:#e1001a;font-weight:600;">3800 Points</span></label>
+                                            </div>
+                                            <button type="submit" style="margin-top:1.5em;background:#e1001a;color:#fff;border:none;border-radius:0.7em;padding:0.7em 1.5em;font-size:1.1em;font-weight:700;box-shadow:0 2px 8px #e1001a33;cursor:pointer;transition:background 0.2s;width:100%;">Redeem Now</button>
+                                        </form>
+                                    </div>
+                                </div>
+            </div>
+        </div>
+        <script>
+        // --- Referral Stats Fetch & Display (uses logged-in user session) ---
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Use the session from Index.js (assumes Index.js is loaded on this page)
+            // Use the same session object as the rest of the dashboard
+            // (session is already defined globally below as 'const session = readSession();')
+            // Debug output
+            const globalSession = window.session || session;
+            console.log('[Referral Debug] Global session:', globalSession);
+            console.log('[Referral Debug] session.user:', globalSession.user);
+            if (globalSession.user && typeof globalSession.user === 'object') {
+                console.log('[Referral Debug] session.user keys:', Object.keys(globalSession.user));
+                for (const [k, v] of Object.entries(globalSession.user)) {
+                    console.log(`[Referral Debug] session.user[${k}]:`, v);
+                }
+            }
+            let referralCode = globalSession?.user?.referralCode;
+            let fallbackId = null;
+            if (!referralCode) {
+                // Try loyaltyId or username as fallback
+                if (globalSession?.user?.loyaltyId) {
+                    fallbackId = globalSession.user.loyaltyId;
+                    console.log('[Referral Debug] Using loyaltyId as fallback:', fallbackId);
+                } else if (globalSession?.user?.username) {
+                    fallbackId = globalSession.user.username;
+                    console.log('[Referral Debug] Using username as fallback:', fallbackId);
+                }
+            }
+            console.log('[Referral Debug] referralCode:', referralCode);
+            if (!referralCode && !fallbackId) {
+                document.getElementById('referral-stats-loading').style.display = 'none';
+                document.getElementById('referral-stats-error').textContent = 'You must be signed in to view your referral stats.';
+                document.getElementById('referral-stats-error').style.display = 'block';
+                return;
+            }
+            try {
+                let url;
+                if (referralCode) {
+                    url = `http://localhost:5000/api/V1/referral/stats?referralCode=${encodeURIComponent(referralCode)}`;
+                } else if (fallbackId) {
+                    url = `http://localhost:5000/api/V1/referral/stats?loyaltyId=${encodeURIComponent(fallbackId)}`;
+                }
+                console.log('[Referral Debug] Fetching referral stats from:', url);
+                const res = await fetch(url);
+                if (!res.ok) throw new Error((await res.json()).message || 'Failed to fetch stats');
+                const data = await res.json();
+                document.getElementById('referral-stats-loading').style.display = 'none';
+                document.getElementById('referral-stats-content').style.display = 'block';
+                document.getElementById('referral-code-label').textContent = `Your Referral Code: ${data.referrer?.referralCode || fallbackId}`;
+                document.getElementById('total-referrals').textContent = data.totalReferrals;
+                document.getElementById('completed-referrals').textContent = data.completedReferrals;
+                document.getElementById('pending-referrals').textContent = data.pendingReferrals;
+                document.getElementById('bonus-applied').textContent = data.bonusApplied;
+                // Populate referral list
+                const tbody = document.getElementById('referral-list');
+                tbody.innerHTML = '';
+                if (data.referrals.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#888;">No referrals yet.</td></tr>';
+                } else {
+                    data.referrals.forEach(r => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="padding:0.5em 0.3em;text-align:center;">${r.referredUser ? (r.referredUser.customerName || r.referredUser.username || r.referredUser.email) : 'N/A'}</td>
+                            <td style="padding:0.5em 0.3em;text-align:center;">${r.completed ? 'Completed' : 'Pending'}</td>
+                            <td style="padding:0.5em 0.3em;text-align:center;">${r.bonusApplied ? 'Yes' : 'No'}</td>
+                            <td style="padding:0.5em 0.3em;text-align:center;">${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : ''}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (err) {
+                document.getElementById('referral-stats-loading').style.display = 'none';
+                document.getElementById('referral-stats-error').textContent = err.message || 'Failed to load referral stats.';
+                document.getElementById('referral-stats-error').style.display = 'block';
+            }
+        });
+        // --- Social Share Logic ---
+        function getShareMessage(referralCode, loyaltyStatus) {
+            return `Join me at Premium Eco Rentals! Use my referral code ${referralCode} (${loyaltyStatus} member) for rewards. Sign up here: https://premiumecorentals.com/?ref=${referralCode}`;
+        }
+        function getShareUrl(referralCode) {
+            return `https://premiumecorentals.com/?ref=${referralCode}`;
+        }
+        function updateShareLinks(referralCode, loyaltyStatus) {
+            // WhatsApp: Only send the referral link (not the full message twice)
+            const url = getShareUrl(referralCode);
+            const msg = `Join me at Premium Eco Rentals! Use my referral code ${referralCode} for rewards. Sign up here: ${url}`;
+            document.getElementById('whatsapp-share-btn').href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+            document.getElementById('facebook-share-btn').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(msg)}`;
+            document.getElementById('twitter-share-btn').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(msg)}`;
+        }
+        document.getElementById('native-share-btn').addEventListener('click', function() {
+            const session = JSON.parse(localStorage.getItem(window.STORAGE_KEY || 'premium_eco_rentals_session')) || {};
+            const referralCode = session?.user?.referralCode || '';
+            const loyaltyStatus = session?.user?.accountType || 'member';
+            const msg = getShareMessage(referralCode, loyaltyStatus);
+            const url = getShareUrl(referralCode);
+            if (navigator.share) {
+                navigator.share({ title: 'Join Premium Eco Rentals', text: msg, url })
+                    .catch(() => {});
+            } else {
+                // fallback: copy to clipboard
+                navigator.clipboard.writeText(msg + ' ' + url);
+                document.getElementById('share-copied-msg').style.display = 'inline';
+                setTimeout(() => { document.getElementById('share-copied-msg').style.display = 'none'; }, 1500);
+            }
+        });
+        document.getElementById('copy-share-btn').addEventListener('click', function() {
+            const session = JSON.parse(localStorage.getItem(window.STORAGE_KEY || 'premium_eco_rentals_session')) || {};
+            const referralCode = session?.user?.referralCode || '';
+            const loyaltyStatus = session?.user?.accountType || 'member';
+            const msg = getShareMessage(referralCode, loyaltyStatus);
+            navigator.clipboard.writeText(msg);
+            document.getElementById('share-copied-msg').style.display = 'inline';
+            setTimeout(() => { document.getElementById('share-copied-msg').style.display = 'none'; }, 1500);
+        });
+        // Update links on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const session = JSON.parse(localStorage.getItem(window.STORAGE_KEY || 'premium_eco_rentals_session')) || {};
+            const referralCode = session?.user?.referralCode || '';
+            const loyaltyStatus = session?.user?.accountType || 'member';
+            updateShareLinks(referralCode, loyaltyStatus);
+        });
+        </script>
+        <div class="dashboard-transparent">
+            <div class="dashboard-section">
+                <div class="dashboard-label">Recent Activity</div>
+                <ul class="dashboard-activity-list" id="dashboard-activity">
+                <!-- Recent activity will be loaded here dynamically -->
+                </ul>
+                <button id="show-all-activity-btn" style="display:none;margin:0.7em auto 0 auto;max-width:140px;width:100%;background:#1976d2;color:#fff;border:none;border-radius:0.5rem;padding:0.4rem 0.7rem;font-size:0.98rem;font-weight:500;cursor:pointer;transition:background 0.2s;">Show All Activity</button>
+                </ul>
+            </div>
+            <div class="dashboard-section dashboard-special">
+                Special Offer: Earn double points on your next booking!
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGN OUT BUTTON -->
+        <div class="dashboard-section" style="text-align:right;">
+        <button id="logout-btn" style="padding:0.5em 1.2em;font-size:1em;background:#e1006a;color:#fff;border:none;border-radius:0.5em;cursor:pointer;">Sign Out</button>
+    </div>
+
+    <!-- Birthday Points Claim Section (hidden by default) -->
+    <div class="dashboard-gift-row" id="birthday-claim-section" style="display: none; align-items: center; justify-content: space-between; background: #e6fff0; border-radius: 1rem; box-shadow: 0 2px 8px #22bfa122; padding: 1.2rem 1.1rem; margin: 2rem auto; max-width: 320px; min-width: 220px;">
+        <div style="display: flex; align-items: center;">
+            <img src="Images/Giftcard 2.jpg" alt="Gift Card" style="height: 80px; width: 80px; object-fit: cover; border-radius: 0.7rem; margin-right: 1.2rem; box-shadow: 0 4px 16px #22bfa133;" />
+            <span id="birthday-claim-message" style="font-size: 1.2rem; font-weight: 600; color: #222; font-family: 'Segoe UI', Arial, sans-serif;"> Exclusive Reward.</span>
+        </div>
+        <button id="claim-birthday-btn" style="background: #22bfa1; color: #fff; border: none; border-radius: 0.7rem; padding: 0.6rem 1.1rem; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: background 0.2s; display: none;">Claim Birthday Points</button>
+    </div>
+
+
+    <script>
+    // --- Booking Milestone Progress & Notifications ---
+    function renderMilestoneProgress(data) {
+        // Booking count
+        document.getElementById('dashboard-booking-count').textContent = data.bookingCount ?? 0;
+        let next = data.nextMilestone;
+        let label = '—';
+        let progress = 0;
+        let progressText = '';
+        if (data.allMilestonesAchieved || next === null) {
+            label = "All milestones achieved!";
+            progress = 100;
+            progressText = "";
+        } else if (typeof next === 'number' && next > 0) {
+            label = `${next} bookings (${data.nextMilestonePoints || 0} pts bonus)`;
+            const milestones = [1, 5, 10, 20, 50];
+            let prev = 0;
+            for (let i = 0; i < milestones.length; i++) {
+                if (milestones[i] < next) prev = milestones[i];
+            }
+            let curr = data.bookingCount ?? 0;
+            let total = next - prev;
+            let done = curr - prev;
+            progress = Math.max(0, Math.min(100, (done / total) * 100));
+            progressText = `${done} / ${total} bookings toward next milestone`;
+        }
+        document.getElementById('milestone-next-label').textContent = label;
+        document.getElementById('milestone-progress-bar').style.width = progress + '%';
+        document.getElementById('milestone-progress-text').textContent = progressText;
+
+        // Milestone notifications
+        const area = document.getElementById('milestone-notification-area');
+        area.innerHTML = '';
+        // Show milestone achieved notification if just reached a milestone
+        if (Array.isArray(data.milestonesClaimed) && data.milestonesClaimed.length > 0) {
+            // Find the highest milestone achieved
+            const achieved = Math.max(...data.milestonesClaimed);
+            if (achieved === data.bookingCount) {
+                const div = document.createElement('div');
+                div.style = 'background:#fffbe6;border-left:5px solid #bfa14a;padding:0.7em 1em;margin-bottom:0.7em;border-radius:0.7em;color:#bfa14a;font-weight:700;';
+                div.textContent = `Milestone achieved! You reached ${achieved} bookings.`;
+                area.appendChild(div);
+            }
+        }
+        if (Array.isArray(data.milestoneNotifications) && data.milestoneNotifications.length > 0) {
+            data.milestoneNotifications.forEach(msg => {
+                const div = document.createElement('div');
+                div.style = 'background:#e6fff0;border-left:5px solid #22bfa1;padding:0.7em 1em;margin-bottom:0.7em;border-radius:0.7em;color:#1976d2;font-weight:600;';
+                div.textContent = msg;
+                area.appendChild(div);
+            });
+        }
+    }
+    // Fetch user data securely with Authorization header
+    const STORAGE_KEY = "premium-eco-rentals-session";
+    function readSession() {
+        try {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        } catch {
+            return {};
+        }
+    }
+    const session = readSession();
+    console.log("[Dashboard] Full session object:", session);
+    let token;
+    if (session && typeof session === 'object') {
+        if (session.token) {
+            token = session.token;
+        } else if (Array.isArray(session) && session.length && session[0].token) {
+            token = session[0].token;
+        }
+    }
+    window.token = token; // Make token globally available
+    console.log("[Dashboard] Extracted token:", token);
+    // Fetch and display recent activity
+    function renderActivity(activity, showAll = false) {
+        const ul = document.getElementById('dashboard-activity');
+        const showAllBtn = document.getElementById('show-all-activity-btn');
+        if (!Array.isArray(activity) || !ul) return;
+        if (activity.length === 0) {
+            ul.innerHTML = '<li>No recent activity yet.</li>';
+            if (showAllBtn) showAllBtn.style.display = 'none';
+            return;
+        }
+        ul.innerHTML = activity.map(a => {
+            const date = a.date ? new Date(a.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+            let sign = a.type === 'redeem' ? '-' : '+';
+            let pts = a.points ? `${sign}${a.points} pts` : '';
+            let desc = a.description || '';
+            // Map backend descriptions to user-friendly messages
+            if (a.type === 'bonus' && desc.toLowerCase().includes('signup gift')) {
+                desc = 'You claimed your welcome gift';
+            } else if (a.type === 'bonus' && desc.toLowerCase().includes('birthday points')) {
+                desc = 'You claimed your birthday gift';
+            }
+            return `<li><span style=\"font-weight:600;\">${pts}</span> — ${desc}${date ? ` <span style='color:#888;font-size:0.95em;'>(${date})</span>` : ''}</li>`;
+        }).join('');
+        // Only show the button if there are 5 activities and not already showing all
+        if (showAllBtn) showAllBtn.style.display = (!showAll && activity.length === 5) ? 'block' : 'none';
+    }
+
+    function fetchRecentActivity(token, showAll = false) {
+            // Wire up Show All Activity button
+            document.addEventListener('DOMContentLoaded', function() {
+                const showAllBtn = document.getElementById('show-all-activity-btn');
+                if (showAllBtn) {
+                    showAllBtn.onclick = function() {
+                        fetchRecentActivity(token, true);
+                        showAllBtn.style.display = 'none';
+                    };
+                }
+            });
+        fetch('http://localhost:5000/api/V1/loyalty/recent-activity' + (showAll ? '?all=true' : ''), {
+            headers: {
+                ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (Array.isArray(data.activity)) {
+                renderActivity(data.activity, showAll);
+            } else {
+                renderActivity([], showAll);
+            }
+        })
+        .catch(() => renderActivity([], showAll));
+    }
+
+    // Fetch user data securely with Authorization header
+    fetch('http://localhost:5000/api/V1/loyalty/dashboard', {
+        headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        credentials: 'include'
+    })
+        .then(res => {
+            console.log("[Dashboard] Response status:", res.status);
+            return res.json();
+        })
+        .then(data => {
+            // Render milestone progress and notifications
+            renderMilestoneProgress(data);
+            // Fetch and render recent activity
+            fetchRecentActivity(token);
+            console.log("[Dashboard] API data:", data);
+            // Signup Gift Claim Logic
+            const signupGiftSection = document.getElementById('signup-gift-section');
+            const signupGiftBtn = document.getElementById('claim-signup-gift-btn');
+            if (data.signupGiftClaimed) {
+                signupGiftSection.style.display = 'none';
+            } else {
+                signupGiftBtn.onclick = function() {
+                    fetch('http://localhost:5000/api/V1/loyalty/claim-signup-gift', {
+                        method: 'POST',
+                        headers: {
+                            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include',
+                        body: '{}'
+                    })
+                    .then(async res => {
+                        const result = await res.json();
+                        if (res.ok) {
+                            signupGiftSection.style.display = 'none';
+                            if(result.pointsBalance !== undefined) document.getElementById('dashboard-points').textContent = result.pointsBalance;
+                            if(result.lifetimePoints !== undefined) document.getElementById('dashboard-lifetime-points').textContent = result.lifetimePoints;
+                        } else {
+                            signupGiftSection.querySelector('.gift-label').textContent = result.message || 'Unable to claim gift.';
+                        }
+                    });
+                };
+            }
+            // Prefer customerName, then user's name, fallback to email, then 'Loyalty Member'
+            let name = data.customerName || data.name || data.username || (data.user && (data.user.customerName || data.user.name || data.user.username || data.user.email));
+            if (name) {
+                document.getElementById('dashboard-username').textContent = name;
+            } else {
+                document.getElementById('dashboard-username').textContent = 'Loyalty Member';
+            }
+            if(data.status) {
+                document.getElementById('dashboard-status').textContent = data.status;
+            } else if (typeof data.pointsToBronze === 'number' && data.pointsToBronze > 0) {
+                document.getElementById('dashboard-status').textContent = `Earn ${data.pointsToBronze} more points within the loyalty year to get to Bronze Tier`;
+            } else {
+                document.getElementById('dashboard-status').textContent = 'No Tier';
+            }
+            if(data.points !== undefined) document.getElementById('dashboard-points').textContent = data.points;
+            if(data.lifetimePoints !== undefined) document.getElementById('dashboard-lifetime-points').textContent = data.lifetimePoints;
+            if(Array.isArray(data.rewards)) {
+                document.getElementById('dashboard-rewards').innerHTML = data.rewards.map(r => `<li>${r}</li>`).join('');
+            }
+            if(Array.isArray(data.activity)) {
+                document.getElementById('dashboard-activity').innerHTML = data.activity.map(a => `<li>${a}</li>`).join('');
+            }
+
+            // --- Loyalty Progress Bar: Use live data ---
+            // Fallbacks for missing data
+            const currentPoints = typeof data.points === 'number' ? data.points : 0;
+            const currentTier = data.status || 'Bronze';
+            const memberName = name || 'Member';
+
+            const tiers = [
+              { name: 'Bronze', points: 1500, icon: '★' },
+              { name: 'Silver', points: 2500, icon: '⚡' },
+              { name: 'Gold', points: 5000, icon: '👑' },
+              { name: 'Platinum', points: 10000, icon: '🏆' }
+            ];
+
+            const currentTierIndex = tiers.findIndex(t => t.name.toLowerCase() === currentTier.toLowerCase());
+            const nextTier = tiers[currentTierIndex + 1];
+            const prevTierPoints = tiers[currentTierIndex]?.points || 0;
+            const nextTierPoints = nextTier?.points || tiers[tiers.length - 1].points;
+            const progressInTier = ((currentPoints - prevTierPoints) / (nextTierPoints - prevTierPoints)) * 100;
+            let progressInTierSafe = 0;
+            if (nextTierPoints > prevTierPoints) {
+                progressInTierSafe = ((currentPoints - prevTierPoints) / (nextTierPoints - prevTierPoints)) * 100;
+                progressInTierSafe = Math.max(0, Math.min(progressInTierSafe, 100));
+            } else if (currentTierIndex === tiers.length - 1) {
+                // If user is in the highest tier, fill the bar
+                progressInTierSafe = 100;
+            }
+            const overallProgress = (currentPoints / tiers[tiers.length - 1].points) * 100;
+            const pointsToNext = nextTierPoints - currentPoints;
+
+            // Set member name, tier, and points
+            document.getElementById('loyalty-member-name').textContent = `${memberName}'s Status`;
+            document.getElementById('loyalty-tier-name').textContent = tiers[currentTierIndex]?.name || currentTier;
+            document.getElementById('loyalty-tier-icon').textContent = tiers[currentTierIndex]?.icon || '★';
+            document.getElementById('loyalty-current-points').textContent = currentPoints.toLocaleString();
+            document.getElementById('loyalty-next-tier-msg').textContent = nextTier
+              ? `Only ${pointsToNext.toLocaleString()} points to ${nextTier.name}!`
+              : `You've reached the highest tier!`;
+
+            // Set progress bar fill and indicator
+            const fill = document.getElementById('loyalty-progress-bar-fill');
+            const indicator = document.getElementById('loyalty-progress-indicator');
+            console.log('[ProgressBar Debug] currentPoints:', currentPoints, 'currentTier:', currentTier, 'currentTierIndex:', currentTierIndex);
+            console.log('[ProgressBar Debug] prevTierPoints:', prevTierPoints, 'nextTierPoints:', nextTierPoints);
+            console.log('[ProgressBar Debug] progressInTierSafe:', progressInTierSafe);
+            console.log('[ProgressBar Debug] fill:', fill, 'indicator:', indicator);
+            // Set fill and indicator to match progress within current tier
+            if (fill && indicator) {
+                fill.style.width = `${progressInTierSafe}%`;
+                indicator.style.left = `${progressInTierSafe}%`;
+            } else {
+                console.error('[ProgressBar Debug] Progress bar elements not found!');
+            }
+
+            // Change indicator color based on progress
+            if (overallProgress < 33) {
+              indicator.style.background = 'radial-gradient(circle, #fff 60%, #e53935 100%)';
+            } else if (overallProgress < 66) {
+              indicator.style.background = 'radial-gradient(circle, #fff 60%, #fbc02d 100%)';
+            } else {
+              indicator.style.background = 'radial-gradient(circle, #fff 60%, #43a047 100%)';
+            }
+
+            // Birthday claim logic
+            const birthdaySection = document.getElementById('birthday-claim-section');
+            const birthdayBtn = document.getElementById('claim-birthday-btn');
+            const birthdayMsg = document.getElementById('birthday-claim-message');
+            // Hide by default
+            birthdaySection.style.display = 'none';
+
+            // Show section and message if eligible: Silver/Gold/Platinum and not already claimed
+            if (data.status && ['Silver','Gold','Platinum'].includes(data.status) && !data.birthdayClaimed) {
+                birthdaySection.style.display = 'flex';
+                birthdayMsg.innerHTML = "Exclusive Reward.";
+                // Show claim button only if isBirthday is true
+                if (data.isBirthday) {
+                    birthdayBtn.style.display = '';
+                } else {
+                    birthdayBtn.style.display = 'none';
+                }
+                // Add click handler for actual claim (if eligible)
+                birthdayBtn.onclick = function() {
+                    fetch('http://localhost:5000/api/V1/loyalty/claim-birthday', {
+                        method: 'POST',
+                        headers: {
+                            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include',
+                        body: '{}'
+                    })
+                    .then(async res => {
+                        const result = await res.json();
+                        if (res.ok) {
+                            birthdaySection.style.display = 'none';
+                            if(result.pointsBalance !== undefined) document.getElementById('dashboard-points').textContent = result.pointsBalance;
+                            if(result.lifetimePoints !== undefined) document.getElementById('dashboard-lifetime-points').textContent = result.lifetimePoints;
+                        } else {
+                            birthdayMsg.textContent = result.message || 'Unable to claim birthday points.';
+                            if(result.message === 'Birthday points already claimed this year') birthdayBtn.style.display = 'none';
+                        }
+                    });
+                };
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('logout-btn').onclick = function() {
+            localStorage.removeItem('premium-eco-rentals-session');
+            window.location.href = 'accounts-sign-in.html';
+        };
+    </script>
+</body>
+</html>

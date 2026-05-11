@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Loyalty Program</title>
+    <link rel="stylesheet" href="Index.css">
+    <style>
+        body { background: #f8f6f0; font-family: 'Inter', 'Segoe UI', Arial, sans-serif; }
+        .signin-container {
+            max-width: 420px;
+            margin: 6rem auto 0 auto;
+            background: #fff;
+            border-radius: 1.2rem;
+            box-shadow: 0 4px 32px rgba(201,162,39,0.10);
+            padding: 2.5rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+        .signin-title {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #1976d2;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.01em;
+            font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+        }
+        .signin-message {
+            font-size: 1.1rem;
+            color: #b00;
+            margin-bottom: 1.2rem;
+        }
+        .signin-success { color: #009688; }
+        .signin-form input {
+            width: 100%;
+            padding: 0.8em 1em;
+            font-size: 1.1em;
+            border-radius: 0.7em;
+            border: 1.5px solid #bfa14a;
+            outline: none;
+            margin-bottom: 1.1em;
+        }
+        .signin-form button {
+            width: 100%;
+            padding: 0.9em 0;
+            font-size: 1.15em;
+            font-weight: 700;
+            background: linear-gradient(90deg,#ffd700 0%,#bfa14a 100%);
+            color: #1a237e;
+            border: none;
+            border-radius: 0.7em;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #bfa14a22;
+        }
+        .signin-link {
+            display: inline-block;
+            margin-top: 1.5em;
+            color: #1976d2;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <div class="signin-title">Sign In</div>
+        <div id="signin-message" class="signin-message"></div>
+        <form id="signin-form" class="signin-form" autocomplete="off">
+            <input type="email" name="email" placeholder="Email Address" required />
+            <input type="password" name="password" placeholder="Password" required minlength="8" />
+            <button type="submit">Sign In</button>
+        </form>
+        <a href="rewards-loyalty.html" class="signin-link">Don't have an account? Join Loyalty</a>
+    </div>
+    <script>
+    document.getElementById('signin-form').onsubmit = async function(e) {
+        e.preventDefault();
+        const email = this.email.value.trim();
+        const password = this.password.value;
+        const msgDiv = document.getElementById('signin-message');
+        msgDiv.textContent = '';
+        msgDiv.className = 'signin-message';
+        try {
+            const res = await fetch('http://localhost:5000/api/V1/users/signin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ email, password, program: 'Loyalty' })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                if (data.user && data.user.isEmailConfirmed === false) {
+                    msgDiv.textContent = 'Please confirm your email before signing in. Check your inbox.';
+                    msgDiv.className = 'signin-message';
+                } else {
+                    // Debug: log backend response
+                    console.log('[SignIn] Backend response:', data);
+                    // Save token and user info to localStorage for dashboard.html
+                    const session = {
+                        token: data.token,
+                        user: data.user
+                    };
+                    console.log('[SignIn] Session to save:', session);
+                    localStorage.setItem('premium-eco-rentals-session', JSON.stringify(session));
+                    // Debug: confirm what is now in localStorage
+                    console.log('[SignIn] Saved session:', localStorage.getItem('premium-eco-rentals-session'));
+                    msgDiv.textContent = 'Sign in successful! Redirecting...';
+                    msgDiv.className = 'signin-message signin-success';
+                    setTimeout(() => window.location.href = 'dashboard.html', 1200);
+                }
+            } else {
+                msgDiv.textContent = data.message || 'Sign in failed. Please try again.';
+                msgDiv.className = 'signin-message';
+            }
+        } catch (err) {
+            msgDiv.textContent = 'Network error. Please try again.';
+            msgDiv.className = 'signin-message';
+        }
+    };
+    </script>
+</body>
+</html>

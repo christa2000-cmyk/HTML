@@ -1,0 +1,19 @@
+.luxury-elite-btn {
+  background: linear-gradient(90deg, #f2e8c8 0%, #d4af37 100%) !important;
+  color: #6b4f1d !important;
+  border: 2px solid #d4af37 !important;
+  box-shadow: 0 4px 18px 0 rgba(212, 175, 55, 0.18), 0 1.5px 0 #fff inset;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 8px #fff8, 0 0.5px 0 #d4af37;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+.luxury-elite-btn:hover {
+  background: linear-gradient(90deg, #ffeec2 0%, #ffe6a7 100%) !important;
+  color: #b08d2c !important;
+  box-shadow: 0 6px 24px 0 rgba(212, 175, 55, 0.28), 0 2px 0 #fff inset;
+}
+.member_card.elite-regular-portal {
+  min-height: 800px !important;
+  height: auto !important;
+}
