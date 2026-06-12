@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="HTML, CSS">
+    <meta name="description" content="Modern Car Rental Reservations - Premium Eco Rentals">
+    <title>Make A Reservation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+                            .floating-reviews {
+                                position: absolute;
+                                top: 2.2rem;
+                                right: 2.5rem;
+                                width: 340px;
+                                background: rgba(255,255,255,0.13);
+                                border-radius: 1.3rem;
+                                box-shadow: 0 2px 24px #0002, 0 1.5px 8px #D4AF3722;
+                                border: 1.5px solid #D4AF37;
+                                padding: 1.3rem 1.3rem 1.1rem 1.3rem;
+                                z-index: 30;
+                                backdrop-filter: blur(7px);
+                            }
+                            .floating-reviews .reviews-title {
+                                font-family: 'Oswald', 'Montserrat', sans-serif;
+                                font-size: 1.18rem;
+                                font-weight: 900;
+                                color: #D4AF37;
+                                margin-bottom: 0.7rem;
+                                letter-spacing: 0.03em;
+                                text-align: left;
+                            }
+                            .floating-reviews .review {
+                                background: rgba(255,255,255,0.18);
+                                border-radius: 1.1rem;
+                                padding: 0.8rem 1.1rem 0.7rem 1.1rem;
+                                box-shadow: 0 1px 8px #D4AF3722;
+                                border: 1px solid #D4AF37;
+                                color: #fff;
+                                font-family: 'Montserrat', 'Roboto', sans-serif;
+                                font-size: 0.99rem;
+                                margin-bottom: 0.7rem;
+                            }
+                            .floating-reviews .stars {
+                                color: #FFD700;
+                                font-size: 1.05rem;
+                                margin-bottom: 0.2rem;
+                                display: block;
+                            }
+                            .floating-reviews .reviewer {
+                                color: #D4AF37;
+                                font-weight: 700;
+                                font-size: 0.97rem;
+                                margin-top: 0.5rem;
+                                font-family: 'Oswald', 'Montserrat', sans-serif;
+                            }
+                            @media (max-width: 900px) {
+                                .floating-reviews {
+                                    position: static;
+                                    width: 100%;
+                                    margin-bottom: 1.2rem;
+                                }
+                            }
+                    
+                        .review {
+                            background: rgba(255,255,255,0.18);
+                            border-radius: 1.1rem;
+                            padding: 1.1rem 1.5rem 1rem 1.5rem;
+                            box-shadow: 0 1px 8px #D4AF3722;
+                            border: 1px solid #D4AF37;
+                            color: #fff;
+                            font-family: 'Montserrat', 'Roboto', sans-serif;
+                            font-size: 1.08rem;
+                            position: relative;
+                            
+                        }
+                        .review .stars {
+                            color: #FFD700;
+                            font-size: 1.15rem;
+                            margin-bottom: 0.3rem;
+                            display: block;
+                        }
+                        .review .reviewer {
+                            color: #D4AF37;
+                            font-weight: 700;
+                            font-size: 1.01rem;
+                            margin-top: 0.7rem;
+                            font-family: 'Oswald', 'Montserrat', sans-serif;
+                        }
+                .circle-sticker {
+                    width: 92px;
+                    height: 92px;
+                    background: #fff;
+                    border-radius: 50%;
+                    box-shadow: 0 2px 16px #D4AF3722, 0 1.5px 8px #0002;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 2.5px solid #D4AF37;
+                }
+                .circle-sticker span {
+                    color: #D4AF37;
+                    font-family: 'Oswald', 'Montserrat', sans-serif;
+                    font-size: 1.01rem;
+                    font-weight: 900;
+                    text-align: center;
+                    letter-spacing: 0.01em;
+                    line-height: 1.15;
+                    padding: 0.2rem 0.1rem;
+                }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            background: url('Images/premium_car-reservations.avif') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(120deg, rgba(20,20,20,0.85) 60%, rgba(212,175,55,0.10) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .main-content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 3rem;
+        }
+        .logo-link {
+            display: block;
+            margin: 2rem auto 1rem auto;
+            text-align: center;
+        }
+        .logo-img {
+            height: 70px;
+            width: 100px;
+            border-radius: 10px;
+            box-shadow: 0 2px 16px #0005;
+            object-fit: contain;
+        }
+        .gold {
+            color: #D4AF37;
+        }
+        .section_header {
+            font-family: 'Oswald', 'Montserrat', sans-serif;
+            font-size: 2.7rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: transparent;
+            -webkit-text-stroke: 0.5px #D4AF37;
+            text-stroke: 0.5px #D4AF37;
+            text-shadow: 0 0 2px #fff7, 0 0 6px #D4AF37aa;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #fffbe6 0%, #D4AF37 40%, #fffbe6 60%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .booking {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 2px 24px #000a, 0 1px 0 #D4AF37;
+            font-family: 'Oswald', 'Montserrat', sans-serif;
+            letter-spacing: 0.04em;
+        }
+        .section_description {
+            font-size: 1.3rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 2.2rem;
+            max-width: 650px;
+            text-shadow: 0 2px 16px #000a;
+            font-family: 'Roboto', 'Montserrat', sans-serif;
+            font-weight: 400;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+        }
+        .reservation-bar-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto 0 auto;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            padding: 0 1rem;
+        }
+        .reservation-bar {
+            background: rgba(30, 30, 30, 0.60);
+            border-radius: 1.7rem;
+            padding: 1.2rem 2.2rem 1rem 2.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.85rem;
+            width: 100%;
+            max-width: 1200px;
+            box-shadow: 0 8px 32px #000a;
+            border: 1px solid #D4AF37;
+            backdrop-filter: blur(8px);
+            transition: box-shadow 0.2s;
+        }
+        .reservation-bar:hover {
+            box-shadow: 0 12px 48px #D4AF3755, 0 2px 24px #000a;
+        }
+        .reservation-field {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.09);
+            border-radius: 1rem;
+            padding: 0.65rem 1rem;
+            min-width: 180px;
+            flex: 1 1 180px;
+            margin-bottom: 0.2rem;
+            border: 1px solid #D4AF37;
+            box-shadow: 0 1px 4px #0001;
+        }
+        .reservation-icon {
+            margin-right: 0.7rem;
+            color: #D4AF37;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        .reservation-label-input {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .reservation-label-input label {
+            color: #D4AF37;
+            font-size: 0.93rem;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+            letter-spacing: 0.01em;
+        }
+        .reservation-label-input input {
+            border: none;
+            background: transparent;
+            color: #fff;
+            font-size: 1.08rem;
+            outline: none;
+            padding: 0.1rem 0;
+            font-family: inherit;
+        }
+        .reservation-label-input input::placeholder {
+            color: #eee;
+            opacity: 0.7;
+        }
+        .reservation-label-input input[type="date"], .reservation-label-input input[type="time"] {
+            color-scheme: dark;
+        }
+        .reservation-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, #D4AF37 0%, #b88a1e 100%);
+            color: #222;
+            font-weight: 900;
+            border: none;
+            border-radius: 1rem;
+            padding: 1rem 2rem;
+            font-size: 1.08rem;
+            text-decoration: none;
+            box-shadow: 0 2px 12px #D4AF3755;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+            margin-left: auto;
+            white-space: nowrap;
+            min-width: 180px;
+        }
+        .reservation-btn:hover {
+            background: linear-gradient(90deg, #b88a1e 0%, #D4AF37 100%);
+            color: #111;
+            transform: translateY(-2px) scale(1.03);
+        }
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin: 0.5rem 0 2rem 0;
+            flex-wrap: wrap;
+        }
+        .trust-badge {
+            background: rgba(255,255,255,0.10);
+            border: 1.5px solid #D4AF37;
+            border-radius: 1.1rem;
+            padding: 1rem 1.3rem 0.8rem 1.3rem;
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 1px 8px #0002;
+        }
+        .trust-badge svg {
+            margin-bottom: 0.2rem;
+        }
+        .trust-badge span {
+            color: #D4AF37;
+            font-size: 1.08rem;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            text-align: center;
+            font-family: 'Roboto', 'Montserrat', sans-serif;
+        }
+        @media (max-width: 700px) {
+            .trust-badges {
+                flex-direction: column;
+                gap: 1.2rem;
+                align-items: center;
+            }
+            .trust-badge {
+                min-width: 180px;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <div class="floating-reviews">
+            <div class="reviews-title">What Our Customers Say</div>
+            <div class="review">
+                <span class="stars">★★★★★</span>
+                "Absolutely seamless experience! The service was top-notch. Will book again."
+                <div class="reviewer">— Sarah L.</div>
+            </div>
+        </div>
+                            
+        <div style="position:absolute;left:2.2rem;top:14.2rem;z-index:21;width:92px;text-align:center;">
+            <span style="font-size:1.01rem;font-weight:900;color:#D4AF37;font-family:'Oswald','Montserrat',sans-serif;letter-spacing:0.01em;">Join Loyalty</span>
+        </div>
+        <div class="circle-sticker" style="position:absolute;left:2.2rem;top:15.5rem;z-index:20;">
+            <span>Unlock<br>Exclusive<br>Benefits</span>
+        </div>
+
+        <!-- Second sticker: Join Elite / Unlock Ultimate Luxury -->
+        <div style="position:absolute;left:2.2rem;top:25.2rem;z-index:21;width:92px;text-align:center;">
+            <span style="font-size:1.01rem;font-weight:900;color:#D4AF37;font-family:'Oswald','Montserrat',sans-serif;letter-spacing:0.01em;">Join Elite</span>
+        </div>
+        <div class="circle-sticker" style="position:absolute;left:2.2rem;top:26.5rem;z-index:20;">
+            <span>Unlock<br>Ultimate<br>Luxury</span>
+        </div>
+        <div class="logo-link">
+            <img src="Images/Logo.jpg" alt="Premium Eco Rentals Grenada car rental logo" class="logo-img"/>
+        </div>
+        <div class="section_header gold">Reservations</div>
+       
+        <div class="section_description">
+            <span style="color:#D4AF37;font-weight:700;">Luxury. Flexibility. Service.</span><br>
+            Choose the right car to make your journey extraordinary. Enjoy exclusive offers, seamless booking, and a premium experience for 2026 and beyond.
+        </div>
+        <div class="trust-badges">
+            <div class="trust-badge">
+                <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="#D4AF37" stroke-width="1.5"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M8 7V5a4 4 0 018 0v2"/><path d="M12 13v2"/><circle cx="12" cy="17" r="1"/></svg>
+                <span>Secure Payment</span>
+            </div>
+            <div class="trust-badge">
+                <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="#D4AF37" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span>24/7 Support</span>
+            </div>
+            <div class="trust-badge">
+                <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="#D4AF37" stroke-width="1.5"><path d="M12 17.75l-6.16 3.24 1.18-6.88L2 9.76l6.92-1.01L12 2.5l3.08 6.25L22 9.76l-5.02 4.35 1.18 6.88z"/></svg>
+                <span>Top-Rated Service</span>
+            </div>
+        </div>
+        
+
+        <div class="reservation-bar-container">
+            <div class="reservation-bar">
+                   
+                <div class="reservation-field">
+                    <div class="reservation-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21c-4.418 0-8-5.373-8-10a8 8 0 1116 0c0 4.627-3.582 10-8 10z"/><circle cx="12" cy="11" r="3"/></svg>
+                    </div>
+                    <div class="reservation-label-input">
+                        <label>Pickup Location</label>
+                        <input type="text" placeholder="Enter city or airport" />
+                    </div>
+                </div>
+                <div class="reservation-field">
+                    <div class="reservation-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2" stroke="currentColor" fill="none"/><path d="M16 2v4M8 2v4M3 10h18" stroke-width="2" stroke="currentColor" fill="none"/></svg>
+                    </div>
+                    <div class="reservation-label-input">
+                        <label>Pickup Date</label>
+                        <input type="date" />
+                    </div>
+                </div>
+                <div class="reservation-field">
+                    <div class="reservation-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="2" stroke="currentColor" fill="none"/><path d="M12 6v6l4 2" stroke-width="2" stroke="currentColor" fill="none"/></svg>
+                    </div>
+                    <div class="reservation-label-input">
+                        <label>Pickup Time</label>
+                        <input type="time" />
+                    </div>
+                </div>
+                <div class="reservation-field">
+                    <div class="reservation-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2" stroke="currentColor" fill="none"/><path d="M16 2v4M8 2v4M3 10h18" stroke-width="2" stroke="currentColor" fill="none"/></svg>
+                    </div>
+                    <div class="reservation-label-input">
+                        <label>Return Date</label>
+                        <input type="date" />
+                    </div>
+                </div>
+                <div class="reservation-field">
+                    <div class="reservation-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="2" stroke="currentColor" fill="none"/><path d="M12 6v6l4 2" stroke-width="2" stroke="currentColor" fill="none"/></svg>
+                    </div>
+                    <div class="reservation-label-input">
+                        <label>Return Time</label>
+                        <input type="time" />
+                    </div>
+                </div>
+                <a href="https://premiumecorentals2.us5.hqrentals.app/public/car-rental/reservations/step1?new=1&brand=blsea0wm-snln-xg0c-9xxu-esymdste3acy" target="_blank" class="reservation-btn">Make A Reservation</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
