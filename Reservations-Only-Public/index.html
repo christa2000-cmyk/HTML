@@ -2,6 +2,15 @@
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10816487182"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-10816487182');
+    </script>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS">
@@ -9,113 +18,14 @@
     <title>Make A Reservation</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-                            .floating-reviews {
-                                position: absolute;
-                                top: 2.2rem;
-                                right: 2.5rem;
-                                width: 340px;
-                                background: rgba(255,255,255,0.13);
-                                border-radius: 1.3rem;
-                                box-shadow: 0 2px 24px #0002, 0 1.5px 8px #D4AF3722;
-                                border: 1.5px solid #D4AF37;
-                                padding: 1.3rem 1.3rem 1.1rem 1.3rem;
-                                z-index: 30;
-                                backdrop-filter: blur(7px);
-                            }
-                            .floating-reviews .reviews-title {
-                                font-family: 'Oswald', 'Montserrat', sans-serif;
-                                font-size: 1.18rem;
-                                font-weight: 900;
-                                color: #D4AF37;
-                                margin-bottom: 0.7rem;
-                                letter-spacing: 0.03em;
-                                text-align: left;
-                            }
-                            .floating-reviews .review {
-                                background: rgba(255,255,255,0.18);
-                                border-radius: 1.1rem;
-                                padding: 0.8rem 1.1rem 0.7rem 1.1rem;
-                                box-shadow: 0 1px 8px #D4AF3722;
-                                border: 1px solid #D4AF37;
-                                color: #fff;
-                                font-family: 'Montserrat', 'Roboto', sans-serif;
-                                font-size: 0.99rem;
-                                margin-bottom: 0.7rem;
-                            }
-                            .floating-reviews .stars {
-                                color: #FFD700;
-                                font-size: 1.05rem;
-                                margin-bottom: 0.2rem;
-                                display: block;
-                            }
-                            .floating-reviews .reviewer {
-                                color: #D4AF37;
-                                font-weight: 700;
-                                font-size: 0.97rem;
-                                margin-top: 0.5rem;
-                                font-family: 'Oswald', 'Montserrat', sans-serif;
-                            }
-                            @media (max-width: 900px) {
-                                .floating-reviews {
-                                    position: static;
-                                    width: 100%;
-                                    margin-bottom: 1.2rem;
-                                }
-                            }
-                    
-                        .review {
-                            background: rgba(255,255,255,0.18);
-                            border-radius: 1.1rem;
-                            padding: 1.1rem 1.5rem 1rem 1.5rem;
-                            box-shadow: 0 1px 8px #D4AF3722;
-                            border: 1px solid #D4AF37;
-                            color: #fff;
-                            font-family: 'Montserrat', 'Roboto', sans-serif;
-                            font-size: 1.08rem;
-                            position: relative;
-                            
-                        }
-                        .review .stars {
-                            color: #FFD700;
-                            font-size: 1.15rem;
-                            margin-bottom: 0.3rem;
-                            display: block;
-                        }
-                        .review .reviewer {
-                            color: #D4AF37;
-                            font-weight: 700;
-                            font-size: 1.01rem;
-                            margin-top: 0.7rem;
-                            font-family: 'Oswald', 'Montserrat', sans-serif;
-                        }
-                .circle-sticker {
-                    width: 92px;
-                    height: 92px;
-                    background: #fff;
-                    border-radius: 50%;
-                    box-shadow: 0 2px 16px #D4AF3722, 0 1.5px 8px #0002;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border: 2.5px solid #D4AF37;
-                }
-                .circle-sticker span {
-                    color: #D4AF37;
-                    font-family: 'Oswald', 'Montserrat', sans-serif;
-                    font-size: 1.01rem;
-                    font-weight: 900;
-                    text-align: center;
-                    letter-spacing: 0.01em;
-                    line-height: 1.15;
-                    padding: 0.2rem 0.1rem;
-                }
         body {
-            min-height: 100vh;
+            min-height: 108vh;
             margin: 0;
             font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
             background: url('Images/premium_car-reservations.avif') no-repeat center center fixed;
             background-size: cover;
             position: relative;
+            overflow-x: hidden;
         }
         body::before {
             content: "";
@@ -128,12 +38,26 @@
         .main-content {
             position: relative;
             z-index: 1;
-            min-height: 100vh;
+            min-height: 108vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding-top: 3rem;
+            padding-top: 4.95rem;
+        }
+        .brand-title {
+            font-family: 'Oswald', 'Montserrat', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0 auto 0.4rem auto;
+            background: linear-gradient(90deg, #fffbe6 0%, #D4AF37 45%, #fffbe6 70%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 1px 6px #D4AF3766);
         }
         .logo-link {
             display: block;
@@ -153,19 +77,16 @@
         .section_header {
             font-family: 'Oswald', 'Montserrat', sans-serif;
             font-size: 2.7rem;
-            font-weight: 900;
-            letter-spacing: 0.08em;
+            font-weight: 700;
+            letter-spacing: 0.12em;
             text-align: center;
             margin-bottom: 1.5rem;
-            color: transparent;
-            -webkit-text-stroke: 0.5px #D4AF37;
-            text-stroke: 0.5px #D4AF37;
-            text-shadow: 0 0 2px #fff7, 0 0 6px #D4AF37aa;
             text-transform: uppercase;
-            background: linear-gradient(90deg, #fffbe6 0%, #D4AF37 40%, #fffbe6 60%, #fff 100%);
+            background: linear-gradient(90deg, #fffbe6 0%, #D4AF37 45%, #fffbe6 70%, #fff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            filter: drop-shadow(0 1px 6px #D4AF3766);
         }
         .booking {
             font-size: 2.5rem;
@@ -189,10 +110,60 @@
             line-height: 1.7;
             letter-spacing: 0.01em;
         }
+        .contact-strip {
+            width: 100%;
+            max-width: 440px;
+            margin: 2.3rem auto 1.8rem auto;
+            padding: 0.95rem 1.1rem;
+            border: 1px solid #D4AF37;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 1px 8px #0002;
+            backdrop-filter: blur(8px);
+        }
+        .contact-strip strong {
+            color: #D4AF37;
+            font-family: 'Oswald', 'Montserrat', sans-serif;
+            letter-spacing: 0.03em;
+        }
+        .contact-strip a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .contact-strip a:hover {
+            text-decoration: underline;
+        }
+        .location-strip {
+            position: absolute;
+            top: 1rem;
+            left: 1.2rem;
+            margin: 0;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background: transparent;
+            color: #fff;
+            text-align: left;
+            box-shadow: none;
+            backdrop-filter: none;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.45rem;
+            z-index: 4;
+            font-size: 0.98rem;
+        }
+        .location-strip svg {
+            flex: 0 0 auto;
+        }
         .reservation-bar-container {
             width: 100%;
             max-width: 1200px;
-            margin: 2rem auto 0 auto;
+            margin: 3rem auto 0 auto;
             display: flex;
             justify-content: center;
             position: relative;
@@ -202,13 +173,14 @@
         .reservation-bar {
             background: rgba(30, 30, 30, 0.60);
             border-radius: 1.7rem;
-            padding: 1.2rem 2.2rem 1rem 2.2rem;
+            padding: 1.55rem 2.35rem 1.35rem 2.35rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 0.85rem;
+            justify-content: center;
+            gap: 0.9rem;
             width: 100%;
-            max-width: 1200px;
+            max-width: 560px;
             box-shadow: 0 8px 32px #000a;
             border: 1px solid #D4AF37;
             backdrop-filter: blur(8px);
@@ -216,53 +188,6 @@
         }
         .reservation-bar:hover {
             box-shadow: 0 12px 48px #D4AF3755, 0 2px 24px #000a;
-        }
-        .reservation-field {
-            display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.09);
-            border-radius: 1rem;
-            padding: 0.65rem 1rem;
-            min-width: 180px;
-            flex: 1 1 180px;
-            margin-bottom: 0.2rem;
-            border: 1px solid #D4AF37;
-            box-shadow: 0 1px 4px #0001;
-        }
-        .reservation-icon {
-            margin-right: 0.7rem;
-            color: #D4AF37;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-        }
-        .reservation-label-input {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-        .reservation-label-input label {
-            color: #D4AF37;
-            font-size: 0.93rem;
-            font-weight: 700;
-            margin-bottom: 0.1rem;
-            letter-spacing: 0.01em;
-        }
-        .reservation-label-input input {
-            border: none;
-            background: transparent;
-            color: #fff;
-            font-size: 1.08rem;
-            outline: none;
-            padding: 0.1rem 0;
-            font-family: inherit;
-        }
-        .reservation-label-input input::placeholder {
-            color: #eee;
-            opacity: 0.7;
-        }
-        .reservation-label-input input[type="date"], .reservation-label-input input[type="time"] {
-            color-scheme: dark;
         }
         .reservation-btn {
             display: inline-flex;
@@ -278,7 +203,7 @@
             text-decoration: none;
             box-shadow: 0 2px 12px #D4AF3755;
             transition: background 0.2s, color 0.2s, transform 0.15s;
-            margin-left: auto;
+            margin-left: 0;
             white-space: nowrap;
             min-width: 180px;
         }
@@ -316,6 +241,150 @@
             text-align: center;
             font-family: 'Roboto', 'Montserrat', sans-serif;
         }
+        #google-reviews-section {
+            width: 100%;
+            max-width: 780px;
+            margin: 1.7rem auto 0 auto;
+            background: linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(212,175,55,0.14) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.85);
+            border-radius: 1rem;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.25);
+            backdrop-filter: blur(12px);
+            padding: 1.2rem;
+        }
+        .google-heading {
+            margin: 0 0 0.75rem 0;
+            text-align: center;
+            font-family: 'Oswald', 'Montserrat', sans-serif;
+            letter-spacing: 0.055em;
+            font-size: 1.4rem;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+        }
+        .google-word span:nth-child(1) { color: #4285F4; }
+        .google-word span:nth-child(2) { color: #EA4335; }
+        .google-word span:nth-child(3) { color: #FBBC05; }
+        .google-word span:nth-child(4) { color: #4285F4; }
+        .google-word span:nth-child(5) { color: #34A853; }
+        .google-word span:nth-child(6) { color: #EA4335; }
+        .review-carousel {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.62);
+            border-radius: 1rem;
+            background: linear-gradient(155deg, rgba(255,255,255,0.09), rgba(212,175,55,0.12));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.24), 0 8px 24px rgba(0,0,0,0.24);
+            margin-bottom: 1rem;
+        }
+        .review-track {
+            display: flex;
+            transition: transform 0.35s ease;
+            will-change: transform;
+        }
+        .review-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 1.05rem 1.15rem 0.95rem 1.15rem;
+            color: #fff;
+        }
+        .review-stars {
+            color: #FBBC04;
+            font-size: 1.06rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 12px rgba(251,188,4,0.38);
+        }
+        .review-text {
+            margin: 0 0 0.6rem 0;
+            line-height: 1.6;
+            font-size: 1rem;
+            color: #fffef9;
+        }
+        .review-author {
+            margin: 0;
+            color: #f0cb6a;
+            font-family: 'Oswald', 'Montserrat', sans-serif;
+            letter-spacing: 0.03em;
+            font-size: 0.98rem;
+        }
+        .review-source {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: #fff9db;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 249, 219, 0.55);
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .review-source:hover {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.85);
+        }
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+        .carousel-btn {
+            pointer-events: auto;
+            background: linear-gradient(160deg, rgba(212,175,55,0.9), rgba(169,122,28,0.9));
+            color: #201505;
+            border: 1px solid rgba(255,233,170,0.8);
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            cursor: pointer;
+            margin: 0 0.45rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            transition: transform 0.18s ease, box-shadow 0.2s ease;
+        }
+        .carousel-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.38);
+        }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.45rem;
+            margin: 0.55rem 0 0.95rem 0;
+        }
+        .carousel-dot {
+            width: 9px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.36);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .carousel-dot.active {
+            background: #D4AF37;
+            width: 20px;
+            border-radius: 999px;
+        }
+        .google-map-embed {
+            width: 100%;
+            height: 420px;
+            border: 0;
+            border-radius: 0.7rem;
+        }
+        .google-listing-link {
+            text-align: center;
+            margin: 0.85rem 0 0.25rem 0;
+        }
+        .google-listing-link a {
+            color: #fff8d8;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,248,216,0.6);
+        }
+        .google-listing-link a:hover {
+            color: #fff;
+            border-bottom-color: rgba(255,255,255,0.9);
+        }
         @media (max-width: 700px) {
             .trust-badges {
                 flex-direction: column;
@@ -326,35 +395,143 @@
                 min-width: 180px;
                 width: 90%;
             }
+            body {
+                background-attachment: scroll;
+            }
+            .main-content {
+                padding-top: 2.5rem;
+                padding-left: 0.9rem;
+                padding-right: 0.9rem;
+            }
+            .brand-title {
+                font-size: 1.6rem;
+                letter-spacing: 0.08em;
+            }
+            .logo-link {
+                margin: 0.75rem auto 0.5rem auto;
+            }
+            .logo-img {
+                width: 88px;
+                height: 60px;
+            }
+            .section_header {
+                font-size: 2rem;
+                letter-spacing: 0.05em;
+                margin-bottom: 0.85rem;
+            }
+            .section_description {
+                font-size: 1rem;
+                line-height: 1.5;
+                margin-bottom: 1.35rem;
+            }
+            .contact-strip {
+                margin-top: 2.1rem;
+                margin-bottom: 1.15rem;
+                max-width: 370px;
+                padding: 0.85rem 0.95rem;
+                font-size: 0.95rem;
+            }
+            .location-strip {
+                top: 0.65rem;
+                left: 0.8rem;
+                font-size: 0.93rem;
+            }
+            .reservation-bar-container {
+                margin-top: 2rem;
+                padding: 0;
+            }
+            .reservation-bar {
+                padding: 1.15rem 0.95rem 1rem 0.95rem;
+                border-radius: 1.2rem;
+                gap: 0.8rem;
+                max-width: 420px;
+            }
+            .reservation-btn {
+                width: 100%;
+                min-width: 0;
+                margin-left: 0;
+                padding: 0.95rem 1rem;
+                font-size: 1rem;
+            }
+            #google-reviews-section {
+                max-width: 420px;
+                padding: 0.9rem;
+            }
+            .google-heading {
+                font-size: 1.18rem;
+            }
+            .google-map-embed {
+                height: 360px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding-top: 2.1rem;
+                padding-left: 0.7rem;
+                padding-right: 0.7rem;
+            }
+            .brand-title {
+                font-size: 1.35rem;
+                letter-spacing: 0.06em;
+            }
+            .section_header {
+                font-size: 1.7rem;
+            }
+            .section_description {
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+            }
+            .contact-strip {
+                margin-top: 1.9rem;
+                margin-bottom: 1rem;
+                max-width: 340px;
+                padding: 0.8rem 0.85rem;
+                font-size: 0.92rem;
+            }
+            .location-strip {
+                top: 0.5rem;
+                left: 0.6rem;
+                font-size: 0.88rem;
+            }
+            .trust-badges {
+                display: none;
+            }
+            .trust-badge {
+                width: 100%;
+                min-width: 0;
+                padding: 0.9rem 1rem 0.75rem 1rem;
+            }
+            .reservation-bar-container {
+                margin-top: 1.4rem;
+            }
+            .reservation-bar {
+                padding: 0.95rem 0.8rem 0.85rem 0.8rem;
+                gap: 0.7rem;
+                max-width: 380px;
+            }
+            .reservation-btn {
+                font-size: 0.95rem;
+                padding: 0.85rem 0.95rem;
+            }
+            .logo-img {
+                width: 82px;
+                height: 56px;
+            }
+            #google-reviews-section {
+                max-width: 380px;
+                padding: 0.8rem;
+            }
+            .google-map-embed {
+                height: 320px;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="main-content">
-        <div class="floating-reviews">
-            <div class="reviews-title">What Our Customers Say</div>
-            <div class="review">
-                <span class="stars">★★★★★</span>
-                "Absolutely seamless experience! The service was top-notch. Will book again."
-                <div class="reviewer">— Sarah L.</div>
-            </div>
-        </div>
-                            
-        <div style="position:absolute;left:2.2rem;top:14.2rem;z-index:21;width:92px;text-align:center;">
-            <span style="font-size:1.01rem;font-weight:900;color:#D4AF37;font-family:'Oswald','Montserrat',sans-serif;letter-spacing:0.01em;">Join Loyalty</span>
-        </div>
-        <div class="circle-sticker" style="position:absolute;left:2.2rem;top:15.5rem;z-index:20;">
-            <span>Unlock<br>Exclusive<br>Benefits</span>
-        </div>
-
-        <!-- Second sticker: Join Elite / Unlock Ultimate Luxury -->
-        <div style="position:absolute;left:2.2rem;top:25.2rem;z-index:21;width:92px;text-align:center;">
-            <span style="font-size:1.01rem;font-weight:900;color:#D4AF37;font-family:'Oswald','Montserrat',sans-serif;letter-spacing:0.01em;">Join Elite</span>
-        </div>
-        <div class="circle-sticker" style="position:absolute;left:2.2rem;top:26.5rem;z-index:20;">
-            <span>Unlock<br>Ultimate<br>Luxury</span>
-        </div>
+        <div class="brand-title">Premium Eco Rentals</div>
         <div class="logo-link">
             <img src="Images/Logo.jpg" alt="Premium Eco Rentals Grenada car rental logo" class="logo-img"/>
         </div>
@@ -382,56 +559,126 @@
 
         <div class="reservation-bar-container">
             <div class="reservation-bar">
-                   
-                <div class="reservation-field">
-                    <div class="reservation-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21c-4.418 0-8-5.373-8-10a8 8 0 1116 0c0 4.627-3.582 10-8 10z"/><circle cx="12" cy="11" r="3"/></svg>
-                    </div>
-                    <div class="reservation-label-input">
-                        <label>Pickup Location</label>
-                        <input type="text" placeholder="Enter city or airport" />
-                    </div>
-                </div>
-                <div class="reservation-field">
-                    <div class="reservation-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2" stroke="currentColor" fill="none"/><path d="M16 2v4M8 2v4M3 10h18" stroke-width="2" stroke="currentColor" fill="none"/></svg>
-                    </div>
-                    <div class="reservation-label-input">
-                        <label>Pickup Date</label>
-                        <input type="date" />
-                    </div>
-                </div>
-                <div class="reservation-field">
-                    <div class="reservation-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="2" stroke="currentColor" fill="none"/><path d="M12 6v6l4 2" stroke-width="2" stroke="currentColor" fill="none"/></svg>
-                    </div>
-                    <div class="reservation-label-input">
-                        <label>Pickup Time</label>
-                        <input type="time" />
-                    </div>
-                </div>
-                <div class="reservation-field">
-                    <div class="reservation-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2" stroke="currentColor" fill="none"/><path d="M16 2v4M8 2v4M3 10h18" stroke-width="2" stroke="currentColor" fill="none"/></svg>
-                    </div>
-                    <div class="reservation-label-input">
-                        <label>Return Date</label>
-                        <input type="date" />
-                    </div>
-                </div>
-                <div class="reservation-field">
-                    <div class="reservation-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="2" stroke="currentColor" fill="none"/><path d="M12 6v6l4 2" stroke-width="2" stroke="currentColor" fill="none"/></svg>
-                    </div>
-                    <div class="reservation-label-input">
-                        <label>Return Time</label>
-                        <input type="time" />
-                    </div>
-                </div>
                 <a href="https://premiumecorentals2.us5.hqrentals.app/public/car-rental/reservations/step1?new=1&brand=blsea0wm-snln-xg0c-9xxu-esymdste3acy" target="_blank" class="reservation-btn">Make A Reservation</a>
             </div>
         </div>
+        <div class="location-strip">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s6-5.1 6-10.2A6 6 0 1 0 6 10.8C6 15.9 12 21 12 21Z" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="10.8" r="2.2" stroke="#D4AF37" stroke-width="1.8"/>
+            </svg>
+            <div>Points Salines, Grenada</div>
+        </div>
+        <div class="contact-strip">
+            <strong>Direct Calls / WhatsApp:</strong> <a href="tel:+14734057368">+1 473 405 7368</a>
+        </div>
+        <div id="google-reviews-section">
+            <h3 class="google-heading"><span class="google-word"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span> Reviews</h3>
+
+            <div class="review-carousel" id="review-carousel">
+                <div class="review-track" id="review-track">
+                    <article class="review-slide">
+                        <p class="review-stars">★★★★★</p>
+                        <p class="review-text">"I highly recommend premium rentals! My experience from the start was exceptional... complimentary gifts upon arrival and superb customer service."</p>
+                        <p class="review-author">- Hon. Nasha D Marshall</p>
+                        <a class="review-source" href="https://maps.google.com/?cid=11332491426425774902" target="_blank" rel="noopener">Source: Google Reviews</a>
+                    </article>
+                    <article class="review-slide">
+                        <p class="review-stars">★★★★★</p>
+                        <p class="review-text">"Fantastic car rental experience... professional, friendly, and ready to answer any questions. The rental process was fast and efficient."</p>
+                        <p class="review-author">- Aidar Karimush</p>
+                        <a class="review-source" href="https://maps.google.com/?cid=11332491426425774902" target="_blank" rel="noopener">Source: Google Reviews</a>
+                    </article>
+                    <article class="review-slide">
+                        <p class="review-stars">★★★★★</p>
+                        <p class="review-text">"Excellent service. Very easy communication... A brand new car was delivered next day at a very reasonable price. First class service."</p>
+                        <p class="review-author">- stef draper</p>
+                        <a class="review-source" href="https://maps.google.com/?cid=11332491426425774902" target="_blank" rel="noopener">Source: Google Reviews</a>
+                    </article>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="carousel-prev" type="button" aria-label="Previous review">&#10094;</button>
+                    <button class="carousel-btn" id="carousel-next" type="button" aria-label="Next review">&#10095;</button>
+                </div>
+            </div>
+            <div class="carousel-dots" id="carousel-dots">
+                <button class="carousel-dot active" type="button" aria-label="Review 1"></button>
+                <button class="carousel-dot" type="button" aria-label="Review 2"></button>
+                <button class="carousel-dot" type="button" aria-label="Review 3"></button>
+            </div>
+
+            <iframe
+                title="Premium Eco Rentals Google Maps"
+                class="google-map-embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCDUDTY58N7GOsr8H4SbBJRIb1wf2MmSQY&q=place_id:ChIJUw78QNchOIwRNqNEBOkYRZ0">
+            </iframe>
+            <p class="google-listing-link"><a href="https://maps.google.com/?cid=11332491426425774902" target="_blank" rel="noopener">Open full Google listing</a></p>
+        </div>
     </div>
+    <script>
+        (function initReviewCarousel() {
+            const track = document.getElementById("review-track");
+            const slides = track ? Array.from(track.children) : [];
+            const dotsWrap = document.getElementById("carousel-dots");
+            const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+            const prevBtn = document.getElementById("carousel-prev");
+            const nextBtn = document.getElementById("carousel-next");
+
+            if (!track || slides.length === 0 || !prevBtn || !nextBtn) {
+                return;
+            }
+
+            let index = 0;
+            let timerId = null;
+
+            function render() {
+                track.style.transform = "translateX(-" + (index * 100) + "%)";
+                dots.forEach(function(dot, i) {
+                    dot.classList.toggle("active", i === index);
+                });
+            }
+
+            function startAuto() {
+                stopAuto();
+                timerId = window.setInterval(function() {
+                    index = (index + 1) % slides.length;
+                    render();
+                }, 5000);
+            }
+
+            function stopAuto() {
+                if (timerId) {
+                    window.clearInterval(timerId);
+                    timerId = null;
+                }
+            }
+
+            prevBtn.addEventListener("click", function() {
+                index = (index - 1 + slides.length) % slides.length;
+                render();
+                startAuto();
+            });
+
+            nextBtn.addEventListener("click", function() {
+                index = (index + 1) % slides.length;
+                render();
+                startAuto();
+            });
+
+            dots.forEach(function(dot, i) {
+                dot.addEventListener("click", function() {
+                    index = i;
+                    render();
+                    startAuto();
+                });
+            });
+
+            render();
+            startAuto();
+        })();
+    </script>
 </body>
 
 </html>
